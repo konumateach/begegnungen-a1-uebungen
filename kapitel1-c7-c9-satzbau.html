@@ -1,0 +1,684 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Kapitel 1 Satzbau & Fragewörter</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f7f6;
+    --surface:#ffffff;
+    --surface-2:#eef4f3;
+    --ink:#152524;
+    --muted:#5c716f;
+    --border:#d7e2e0;
+    --accent:#0d7a72;
+    --accent-ink:#075a54;
+    --accent-soft:#e0f2ef;
+    --correct:#1c7a43;
+    --correct-bg:#e5f5ea;
+    --correct-border:#a9d9b8;
+    --incorrect:#b3261e;
+    --incorrect-bg:#fdecea;
+    --incorrect-border:#f0b8b3;
+    --shadow: 0 1px 2px rgba(21,37,36,.04), 0 8px 24px -12px rgba(21,37,36,.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0f1716;
+      --surface:#16201f;
+      --surface-2:#1c2725;
+      --ink:#e8f0ee;
+      --muted:#9db3af;
+      --border:#293735;
+      --accent:#3fc9bb;
+      --accent-ink:#8fe3d8;
+      --accent-soft:#1a3230;
+      --correct:#5fd487;
+      --correct-bg:#173224;
+      --correct-border:#2c5a3c;
+      --incorrect:#ff8a80;
+      --incorrect-bg:#3a1c1a;
+      --incorrect-border:#6b302b;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0f1716;
+    --surface:#16201f;
+    --surface-2:#1c2725;
+    --ink:#e8f0ee;
+    --muted:#9db3af;
+    --border:#293735;
+    --accent:#3fc9bb;
+    --accent-ink:#8fe3d8;
+    --accent-soft:#1a3230;
+    --correct:#5fd487;
+    --correct-bg:#173224;
+    --correct-border:#2c5a3c;
+    --incorrect:#ff8a80;
+    --incorrect-bg:#3a1c1a;
+    --incorrect-border:#6b302b;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Source Sans 3", "Hiragino Sans", "Yu Gothic", sans-serif;
+    line-height:1.55;
+  }
+  .wrap{
+    max-width:760px;
+    margin:0 auto;
+    padding-inline:20px;
+    padding-block:28px 120px;
+  }
+  h1,h2,h3{
+    font-family:"Fraunces", serif;
+    text-wrap:balance;
+    margin:0;
+  }
+  .masthead{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    margin-bottom:28px;
+  }
+  .kicker{
+    font-size:12.5px;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    color:var(--accent-ink);
+    font-weight:600;
+  }
+  h1{
+    font-size:clamp(26px,5vw,34px);
+    font-weight:700;
+    color:var(--ink);
+  }
+  .sub{
+    color:var(--muted);
+    font-size:15px;
+    max-width:60ch;
+  }
+
+  .scorebar{
+    position:sticky;
+    top:env(safe-area-inset-top,0px);
+    z-index:20;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:14px;
+    box-shadow:var(--shadow);
+    padding:12px 16px;
+    margin-bottom:26px;
+    flex-wrap:wrap;
+  }
+  .scorebar .totals{
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+  }
+  .scorebar .totals .num{
+    font-family:"Fraunces", serif;
+    font-size:26px;
+    font-weight:700;
+    font-variant-numeric:tabular-nums;
+    color:var(--accent-ink);
+  }
+  .scorebar .totals .num.hidden-result{ color:var(--muted); }
+  .scorebar .label{ font-size:13px; color:var(--muted); }
+  .btnrow{ display:flex; gap:8px; }
+  button{
+    font-family:inherit;
+    font-size:14.5px;
+    font-weight:600;
+    border-radius:10px;
+    padding:10px 18px;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:transform .08s ease, background .15s ease, box-shadow .15s ease;
+  }
+  button:focus-visible, input:focus-visible, label:has(input:focus-visible){
+    outline:2px solid var(--accent);
+    outline-offset:2px;
+  }
+  button.primary{
+    background:var(--accent);
+    color:#fdfffe;
+    box-shadow:0 4px 14px -6px var(--accent);
+  }
+  button.primary:hover{ transform:translateY(-1px); }
+  button.ghost{
+    background:transparent;
+    color:var(--muted);
+    border-color:var(--border);
+  }
+  button.ghost:hover{ background:var(--surface-2); }
+
+  .chips{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+  }
+  .chip{
+    font-size:12px;
+    font-weight:600;
+    padding:4px 9px;
+    border-radius:999px;
+    background:var(--surface-2);
+    color:var(--muted);
+    font-variant-numeric:tabular-nums;
+    border:1px solid var(--border);
+  }
+  .chip.done{ background:var(--accent-soft); color:var(--accent-ink); border-color:transparent; }
+
+  section.exercise{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:22px 22px 24px;
+    margin-bottom:22px;
+    box-shadow:var(--shadow);
+  }
+  .exercise > header{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    margin-bottom:4px;
+    flex-wrap:wrap;
+  }
+  .exercise > header .tag{
+    font-family:"Fraunces", serif;
+    font-weight:700;
+    font-size:20px;
+    color:var(--accent-ink);
+    background:var(--accent-soft);
+    border-radius:8px;
+    padding:1px 10px;
+  }
+  .exercise > header h2{
+    font-size:18px;
+    font-weight:600;
+    color:var(--ink);
+  }
+  .instr{
+    font-style:italic;
+    color:var(--muted);
+    font-size:14px;
+    margin:2px 0 16px;
+  }
+  .wordbank{
+    font-size:13.5px;
+    color:var(--accent-ink);
+    background:var(--accent-soft);
+    border-radius:10px;
+    padding:8px 12px;
+    margin-bottom:16px;
+    line-height:1.6;
+  }
+  .wordbank b{ font-weight:600; }
+
+  .example{
+    font-size:14.5px;
+    color:var(--muted);
+    margin-bottom:12px;
+    padding-left:2px;
+  }
+  .example .ex-mark{
+    display:inline-block;
+    width:9px; height:9px;
+    background:var(--accent);
+    margin-right:8px;
+    border-radius:2px;
+  }
+
+  ol.items{
+    list-style:none;
+    margin:0; padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  ol.items > li{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+  }
+  ol.items > li .idx{
+    font-variant-numeric:tabular-nums;
+    color:var(--muted);
+    font-size:14px;
+    min-width:1.4em;
+    padding-top:6px;
+  }
+  .line{
+    flex:1;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:6px;
+    font-size:16px;
+  }
+
+  input[type="text"]{
+    font:inherit;
+    font-size:16px;
+    color:var(--ink);
+    background:var(--surface-2);
+    border:1.5px solid var(--border);
+    border-radius:8px;
+    padding:4px 8px;
+    width:10.5ch;
+    text-align:center;
+  }
+  input[type="text"]:focus{
+    border-color:var(--accent);
+    background:var(--surface);
+  }
+  input[type="text"].correct{
+    background:var(--correct-bg);
+    border-color:var(--correct-border);
+    color:var(--correct);
+    font-weight:600;
+  }
+  input[type="text"].incorrect{
+    background:var(--incorrect-bg);
+    border-color:var(--incorrect-border);
+    color:var(--incorrect);
+    font-weight:600;
+  }
+  .answer-hint{
+    font-size:13px;
+    color:var(--incorrect);
+    white-space:nowrap;
+  }
+  .answer-hint b{ font-weight:700; }
+
+  .sentence-line{
+    flex-direction:column;
+    align-items:stretch;
+    gap:8px;
+  }
+  .cue-chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+  }
+  .cue-chip{
+    font-size:12.5px;
+    padding:3px 10px;
+    border-radius:8px;
+    background:var(--surface-2);
+    color:var(--muted);
+    border:1px solid var(--border);
+    white-space:nowrap;
+  }
+  input.sentence-input{
+    width:100%;
+    text-align:left;
+  }
+
+  .writing-item{
+    padding:14px 0;
+  }
+  .writing-item + .writing-item{
+    border-top:1px dashed var(--border);
+  }
+  .writing-item textarea{
+    width:100%;
+    min-height:88px;
+    font:inherit;
+    font-size:15px;
+    color:var(--ink);
+    background:var(--surface-2);
+    border:1.5px solid var(--border);
+    border-radius:10px;
+    padding:10px 12px;
+    resize:vertical;
+    margin-top:8px;
+  }
+  .writing-item textarea:focus{
+    border-color:var(--accent);
+    background:var(--surface);
+  }
+  .model-answer{
+    margin-top:10px;
+    background:var(--accent-soft);
+    color:var(--accent-ink);
+    border-radius:10px;
+    padding:10px 12px;
+    font-size:14.5px;
+    line-height:1.6;
+  }
+
+  @media (max-width:620px){
+    .scorebar{ flex-direction:column; align-items:stretch; }
+    .btnrow{ justify-content:flex-end; }
+  }
+
+  footer.note{
+    color:var(--muted);
+    font-size:12.5px;
+    text-align:center;
+    margin-top:8px;
+  }
+
+  .back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    font-size:13.5px;
+    font-weight:600;
+    color:var(--muted);
+    text-decoration:none;
+    margin-bottom:16px;
+  }
+  .back-link:hover{ color:var(--accent-ink); }
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <a class="back-link" href="index.html">← Zurück zum Portal</a>
+  <div class="masthead">
+    <span class="kicker">Begegnungen A1+ · Kapitel 1 · Teil C</span>
+    <h1>Satzbau & Fragewörter</h1>
+    <p class="sub">C7–C9 の練習問題です。C7は語群から正しい語順の文を作る問題、C9は空欄に適切な疑問詞を入れる問題です。C8は自由作文なので採点対象外です(モデル解答で確認)。下の「採点する」ボタンを押してください。</p>
+  </div>
+
+  <div class="scorebar" id="scorebar">
+    <div class="totals">
+      <span class="num hidden-result" id="scoreNum">–</span>
+      <span class="label">正解数 / 全27問</span>
+    </div>
+    <div class="chips" id="chips">
+      <span class="chip" data-chip="C7">C7 0/15</span>
+      <span class="chip" style="background:transparent;">C8 自己添削</span>
+      <span class="chip" data-chip="C9">C9 0/12</span>
+    </div>
+    <div class="btnrow">
+      <button class="ghost" id="resetBtn" type="button">リセット</button>
+      <button class="primary" id="gradeBtn" type="button">採点する</button>
+    </div>
+  </div>
+
+  <!-- C7 -->
+  <section class="exercise" id="sec-c7">
+    <header><span class="tag">C7</span><h2>Bilden Sie Sätze.</h2></header>
+    <p class="instr">語群を使って正しい語順の文を作ってください。</p>
+    <div class="example">
+      <span class="ex-mark"></span>
+      <span class="cue-chips" style="display:inline-flex; vertical-align:middle;"><span class="cue-chip">in Berlin</span><span class="cue-chip">wohnen</span><span class="cue-chip">ich</span></span>
+      → <u>Ich wohne in Berlin.</u>
+    </div>
+    <ol class="items" id="c7-list" style="gap:18px;"></ol>
+    <p class="instr" style="margin-top:14px;">※ ドイツ語は語順が比較的自由なため、文法的に正しければ採点結果と語順が多少異なっていても問題ありません。</p>
+  </section>
+
+  <!-- C8 -->
+  <section class="exercise" id="sec-c8">
+    <header><span class="tag">C8</span><h2>Schreiben Sie kurze Texte.</h2></header>
+    <p class="instr">語群を使って短い文章を書いてください。これは自由作文のため自動採点はありません。「モデル解答を見る」で確認してください。</p>
+    <div id="c8-list"></div>
+  </section>
+
+  <!-- C9 -->
+  <section class="exercise" id="sec-c9">
+    <header><span class="tag">C9</span><h2>Wie heißen die Fragewörter?</h2></header>
+    <div class="wordbank"><b>単語リスト:</b> wie · was · wo · woher · welche</div>
+    <div class="example"><span class="ex-mark"></span><u>Wie</u> heißen Sie?</div>
+    <ol class="items" id="c9-list"></ol>
+  </section>
+
+  <div class="btnrow" style="justify-content:center; margin-top:8px;">
+    <button class="ghost" id="resetBtn2" type="button">リセット</button>
+    <button class="primary" id="gradeBtn2" type="button">採点する</button>
+  </div>
+  <footer class="note">Begegnungen A1+（Schubert Verlag）Kapitel 1, S.28–29 の練習問題を基に作成</footer>
+</div>
+
+<script>
+(function(){
+
+  // ---------- helpers to build a "text-blank" line ----------
+  function el(tag, props, children){
+    const e = document.createElement(tag);
+    if (props) for (const k in props){
+      if (k === "class") e.className = props[k];
+      else if (k === "html") e.innerHTML = props[k];
+      else e.setAttribute(k, props[k]);
+    }
+    (children||[]).forEach(c => e.appendChild(typeof c === "string" ? document.createTextNode(c) : c));
+    return e;
+  }
+
+  function blankInput(id, answers, width){
+    const inp = el("input", { type:"text", id:id, autocomplete:"off", spellcheck:"false" });
+    if (width) inp.style.width = width;
+    inp.dataset.answers = answers.join("|");
+    return inp;
+  }
+
+  // segments: array of strings and {blank:{id,answers,width}}
+  function buildLine(segments){
+    const wrap = el("span", { class:"line" });
+    segments.forEach(seg => {
+      if (typeof seg === "string"){
+        wrap.appendChild(document.createTextNode(seg));
+      } else if (seg.blank){
+        wrap.appendChild(blankInput(seg.blank.id, seg.blank.answers, seg.blank.width));
+      }
+    });
+    return wrap;
+  }
+
+  function textItem(idx, segments){
+    const li = el("li");
+    if (idx !== null) li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    li.appendChild(buildLine(segments));
+    return li;
+  }
+
+  // a cue-word item where the student builds a whole sentence (used for C7)
+  function sentenceItem(idx, cues, id, answers){
+    const li = el("li");
+    li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    const col = el("div", { class:"line sentence-line" });
+    const chips = el("div", { class:"cue-chips" });
+    cues.forEach(c => chips.appendChild(el("span", { class:"cue-chip" }, [c])));
+    col.appendChild(chips);
+    const inp = el("input", { type:"text", id:id, autocomplete:"off", spellcheck:"false", class:"sentence-input", placeholder:"文を書いてください …" });
+    inp.dataset.answers = answers.join("|");
+    inp.dataset.sentence = "true";
+    col.appendChild(inp);
+    li.appendChild(col);
+    return li;
+  }
+
+  // a free-writing item with a model-answer reveal (used for C8, not scored)
+  let modelToggleCount = 0;
+  function writingItem(cues, model){
+    modelToggleCount++;
+    const targetId = "c8-model-" + modelToggleCount;
+    const wrap = el("div", { class:"writing-item" });
+    const chips = el("div", { class:"cue-chips" });
+    cues.forEach(c => chips.appendChild(el("span", { class:"cue-chip" }, [c])));
+    wrap.appendChild(chips);
+    wrap.appendChild(el("textarea", { id:"c8-text-" + modelToggleCount, placeholder:"ここに短い文章を書いてください …" }));
+    const btnrow = el("div", { class:"btnrow", style:"margin-top:8px;" });
+    const btn = el("button", { class:"ghost model-toggle-btn", type:"button", "data-target":targetId }, ["モデル解答を見る"]);
+    btnrow.appendChild(btn);
+    wrap.appendChild(btnrow);
+    const modelBox = el("div", { class:"model-answer", id:targetId, hidden:"hidden" }, [model]);
+    wrap.appendChild(modelBox);
+    return wrap;
+  }
+
+  // ---------- C7 (sentence building) ----------
+  const c7list = document.getElementById("c7-list");
+  const c7items = [
+    { cues:["aus Spanien", "Miguel", "kommen?"], id:"c7-1", answers:["Kommt Miguel aus Spanien?"] },
+    { cues:["Kerstin", "Französisch und Englisch", "sprechen"], id:"c7-2", answers:["Kerstin spricht Französisch und Englisch."] },
+    { cues:["Deutsch", "ich", "lernen", "jetzt"], id:"c7-3", answers:["Ich lerne jetzt Deutsch.", "Jetzt lerne ich Deutsch."] },
+    { cues:["du", "kommen", "woher?"], id:"c7-4", answers:["Woher kommst du?"] },
+    { cues:["von Beruf", "was", "Sie", "sein?"], id:"c7-5", answers:["Was sind Sie von Beruf?"] },
+    { cues:["wohnen", "wir", "in Berlin."], id:"c7-6", answers:["Wir wohnen in Berlin."] },
+    { cues:["arbeiten", "Paola", "als Journalistin"], id:"c7-7", answers:["Paola arbeitet als Journalistin."] },
+    { cues:["Fußball", "spielen", "du", "gern?"], id:"c7-8", answers:["Spielst du gern Fußball?"] },
+    { cues:["hören", "Marie", "gern", "Musik"], id:"c7-9", answers:["Marie hört gern Musik."] },
+    { cues:["ihr", "hören", "auch gern", "Musik?"], id:"c7-10", answers:["Hört ihr auch gern Musik?"] },
+    { cues:["Peter", "Spanisch", "lernen"], id:"c7-11", answers:["Peter lernt Spanisch."] },
+    { cues:["er", "nicht gern", "lesen", "Liebesromane"], id:"c7-12", answers:["Er liest nicht gern Liebesromane."] },
+    { cues:["Liebesromane", "du", "gern", "lesen?"], id:"c7-13", answers:["Liest du gern Liebesromane?"] },
+    { cues:["Tischtennis", "spielen", "ihr", "gern?"], id:"c7-14", answers:["Spielt ihr gern Tischtennis?"] },
+    { cues:["studieren", "in München", "wir", "Medizin"], id:"c7-15", answers:["Wir studieren Medizin in München.", "Wir studieren in München Medizin."] },
+  ];
+  c7items.forEach((q,i) => c7list.appendChild(sentenceItem(i+1, q.cues, q.id, q.answers)));
+
+  // ---------- C8 (free writing, not scored) ----------
+  const c8list = document.getElementById("c8-list");
+  const c8items = [
+    { cues:["Anna Tatzikowa","Moskau","München","Medizin","Russisch","Englisch","ledig","Tennis spielen","Musik hören"],
+      model:"Das ist Anna Tatzikowa. Sie kommt aus Moskau. Sie wohnt jetzt in München und studiert dort Medizin. Ihre Muttersprache ist Russisch. Sie spricht auch Englisch. Anna ist ledig. Sie spielt gern Tennis und hört gern Musik." },
+    { cues:["Paul Ehrlicher","Leipzig","Kriminalkommissar","geschieden","zwei Kinder","Englisch","Gitarre spielen","singen"],
+      model:"Das ist Paul Ehrlicher. Er wohnt in Leipzig und arbeitet als Kriminalkommissar. Er ist geschieden und hat zwei Kinder. Paul spricht Englisch. Er spielt gern Gitarre und singt gern." },
+    { cues:["Petra Sommer","Frankfurt","Lehrerin","verheiratet","Deutsch","Englisch","Spanisch","Italienisch lernen","Gedichte schreiben"],
+      model:"Das ist Petra Sommer. Sie wohnt in Frankfurt und arbeitet als Lehrerin. Sie ist verheiratet. Ihre Muttersprache ist Deutsch. Sie spricht auch Englisch und Spanisch. Jetzt lernt sie Italienisch. Petra schreibt gern Gedichte." },
+  ];
+  c8items.forEach(q => c8list.appendChild(writingItem(q.cues, q.model)));
+  document.querySelectorAll(".model-toggle-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const box = document.getElementById(btn.dataset.target);
+      box.hidden = !box.hidden;
+      btn.textContent = box.hidden ? "モデル解答を見る" : "モデル解答を隠す";
+    });
+  });
+
+  // ---------- C9 ----------
+  const c9list = document.getElementById("c9-list");
+  const c9lines = [
+    [{blank:{id:"c9-1", answers:["Woher"], width:"9ch"}}, " kommen Sie?"],
+    [{blank:{id:"c9-2", answers:["Wo"], width:"7ch"}}, " wohnst du?"],
+    [{blank:{id:"c9-3", answers:["Was"], width:"7ch"}}, " sind Sie von Beruf?"],
+    [{blank:{id:"c9-4", answers:["Wie"], width:"7ch"}}, " alt ist Ihre Tochter?"],
+    [{blank:{id:"c9-5", answers:["Was"], width:"7ch"}}, " ist deine Muttersprache?"],
+    [{blank:{id:"c9-6", answers:["Welche"], width:"9ch"}}, " Sprachen sprechen Ihre Kinder?"],
+    [{blank:{id:"c9-7", answers:["Was"], width:"7ch"}}, " ist dein Hobby?"],
+    [{blank:{id:"c9-8", answers:["Wie"], width:"7ch"}}, " ist deine Telefonnummer?"],
+    [{blank:{id:"c9-9", answers:["Was"], width:"7ch"}}, " studieren Sie?"],
+    [{blank:{id:"c9-10", answers:["Woher"], width:"9ch"}}, " kommt Pedro?"],
+    [{blank:{id:"c9-11", answers:["Wie"], width:"7ch"}}, " heißt du?"],
+    [{blank:{id:"c9-12", answers:["Wo"], width:"7ch"}}, " arbeitet Hans Behrens?"],
+  ];
+  c9lines.forEach((segs,i) => c9list.appendChild(textItem(i+1, segs)));
+
+  // ---------- grading ----------
+  const SECTIONS = {
+    C7: ["c7-1","c7-2","c7-3","c7-4","c7-5","c7-6","c7-7","c7-8","c7-9","c7-10","c7-11","c7-12","c7-13","c7-14","c7-15"],
+    C9: ["c9-1","c9-2","c9-3","c9-4","c9-5","c9-6","c9-7","c9-8","c9-9","c9-10","c9-11","c9-12"]
+  };
+
+  function clearHints(){
+    document.querySelectorAll(".answer-hint").forEach(n => n.remove());
+  }
+
+  function normalizeSentence(s){
+    return s.trim().toLowerCase().replace(/[.!?]+$/,"").replace(/\s+/g," ").trim();
+  }
+
+  function grade(){
+    clearHints();
+    let total = 0, correctCount = 0;
+    const sectionScore = { C7:0, C9:0 };
+
+    document.querySelectorAll('input[type="text"][data-answers]').forEach(inp => {
+      total++;
+      const isSentence = inp.dataset.sentence === "true";
+      const accepted = inp.dataset.answers.split("|").map(a => isSentence ? normalizeSentence(a) : a.trim().toLowerCase());
+      const val = isSentence ? normalizeSentence(inp.value) : inp.value.trim().toLowerCase();
+      const ok = val.length > 0 && accepted.includes(val);
+      inp.classList.remove("correct","incorrect");
+      inp.classList.add(ok ? "correct" : "incorrect");
+      if (!ok){
+        const hint = el("span", { class:"answer-hint" }, ["→ ", el("b", {}, [inp.dataset.answers.split("|")[0]])]);
+        inp.insertAdjacentElement("afterend", hint);
+      } else {
+        correctCount++;
+      }
+      for (const s in SECTIONS){
+        if (SECTIONS[s].includes(inp.id) && ok) sectionScore[s]++;
+      }
+    });
+
+    document.getElementById("scoreNum").textContent = correctCount + " / " + total;
+    document.getElementById("scoreNum").classList.remove("hidden-result");
+    const totals = { C7:15, C9:12 };
+    document.querySelectorAll(".chip").forEach(chip => {
+      const s = chip.dataset.chip;
+      if (!s) return;
+      chip.textContent = s + " " + sectionScore[s] + "/" + totals[s];
+      chip.classList.toggle("done", sectionScore[s] === totals[s]);
+    });
+    document.getElementById("scorebar").scrollIntoView({ behavior:"smooth", block:"start" });
+  }
+
+  function resetAll(){
+    document.querySelectorAll('input[type="text"]').forEach(inp => {
+      inp.value = "";
+      inp.classList.remove("correct","incorrect");
+    });
+    clearHints();
+    document.querySelectorAll(".writing-item textarea").forEach(t => { t.value = ""; });
+    document.querySelectorAll(".model-answer").forEach(box => { box.hidden = true; });
+    document.querySelectorAll(".model-toggle-btn").forEach(btn => { btn.textContent = "モデル解答を見る"; });
+    document.getElementById("scoreNum").textContent = "–";
+    document.getElementById("scoreNum").classList.add("hidden-result");
+    const totals = { C7:15, C9:12 };
+    document.querySelectorAll(".chip").forEach(chip => {
+      const s = chip.dataset.chip;
+      if (!s) return;
+      chip.textContent = s + " 0/" + totals[s];
+      chip.classList.remove("done");
+    });
+    window.scrollTo({ top:0, behavior:"smooth" });
+  }
+
+  document.getElementById("gradeBtn").addEventListener("click", grade);
+  document.getElementById("gradeBtn2").addEventListener("click", grade);
+  document.getElementById("resetBtn").addEventListener("click", resetAll);
+  document.getElementById("resetBtn2").addEventListener("click", resetAll);
+
+  // ---------- hot state (best-effort, for open viewers on republish) ----------
+  function collectState(){
+    const state = {};
+    document.querySelectorAll('input[type="text"]').forEach(i => state[i.id] = i.value);
+    document.querySelectorAll('.writing-item textarea').forEach(t => state[t.id] = t.value);
+    return state;
+  }
+  function applyState(state){
+    if (!state) return;
+    document.querySelectorAll('input[type="text"]').forEach(i => { if (state[i.id] !== undefined) i.value = state[i.id]; });
+    document.querySelectorAll('.writing-item textarea').forEach(t => { if (state[t.id] !== undefined) t.value = state[t.id]; });
+  }
+  try {
+    if (window.claude && window.claude.hot){
+      window.claude.hot.snapshot(collectState);
+      const boot = (data) => applyState(data);
+      window.claude.hot.ready ? window.claude.hot.ready(boot) : boot(window.claude.hot.data || {});
+    }
+  } catch(e) {}
+})();
+</script>
+</body>
+</html>

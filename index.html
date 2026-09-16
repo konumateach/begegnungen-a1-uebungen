@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>C-Teil Übungen (Grammatik)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f7f6;
+    --surface:#ffffff;
+    --surface-2:#eef4f3;
+    --ink:#152524;
+    --muted:#5c716f;
+    --border:#d7e2e0;
+    --accent:#0d7a72;
+    --accent-ink:#075a54;
+    --accent-soft:#e0f2ef;
+    --shadow: 0 1px 2px rgba(21,37,36,.04), 0 8px 24px -12px rgba(21,37,36,.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0f1716;
+      --surface:#16201f;
+      --surface-2:#1c2725;
+      --ink:#e8f0ee;
+      --muted:#9db3af;
+      --border:#293735;
+      --accent:#3fc9bb;
+      --accent-ink:#8fe3d8;
+      --accent-soft:#1a3230;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0f1716;
+    --surface:#16201f;
+    --surface-2:#1c2725;
+    --ink:#e8f0ee;
+    --muted:#9db3af;
+    --border:#293735;
+    --accent:#3fc9bb;
+    --accent-ink:#8fe3d8;
+    --accent-soft:#1a3230;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Source Sans 3", "Hiragino Sans", "Yu Gothic", sans-serif;
+    line-height:1.6;
+  }
+  .wrap{
+    max-width:880px;
+    margin:0 auto;
+    padding-inline:20px;
+    padding-block:44px 80px;
+  }
+  h1,h2,h3{
+    font-family:"Fraunces", serif;
+    text-wrap:balance;
+    margin:0;
+  }
+  .hero{
+    margin-bottom:40px;
+  }
+  .kicker{
+    display:inline-block;
+    font-size:12.5px;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    color:var(--accent-ink);
+    font-weight:600;
+    background:var(--accent-soft);
+    border-radius:999px;
+    padding:4px 12px;
+    margin-bottom:14px;
+  }
+  h1{
+    font-size:clamp(28px,5.5vw,40px);
+    font-weight:700;
+    color:var(--ink);
+    margin-bottom:10px;
+  }
+  .hero p{
+    color:var(--muted);
+    font-size:16px;
+    max-width:62ch;
+  }
+
+  .chapter{
+    margin-bottom:36px;
+  }
+  .chapter h2{
+    font-size:21px;
+    font-weight:600;
+    color:var(--ink);
+    padding-bottom:10px;
+    border-bottom:1px solid var(--border);
+    margin-bottom:18px;
+  }
+  .chapter .chapter-sub{
+    color:var(--muted);
+    font-size:14px;
+    margin:-12px 0 18px;
+  }
+
+  .cards{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:16px;
+  }
+  @media (max-width:640px){
+    .cards{ grid-template-columns:1fr; }
+  }
+
+  a.card{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:18px 20px;
+    box-shadow:var(--shadow);
+    text-decoration:none;
+    color:inherit;
+    transition:transform .12s ease, border-color .12s ease;
+  }
+  a.card:hover{
+    transform:translateY(-2px);
+    border-color:var(--accent);
+  }
+  .card-tag{
+    align-self:flex-start;
+    font-size:12px;
+    font-weight:700;
+    font-family:"Fraunces", serif;
+    color:var(--accent-ink);
+    background:var(--accent-soft);
+    border-radius:8px;
+    padding:2px 10px;
+  }
+  a.card h3{
+    font-size:17px;
+    font-weight:600;
+    color:var(--ink);
+  }
+  a.card p{
+    margin:0;
+    font-size:14px;
+    color:var(--muted);
+  }
+  .card-arrow{
+    margin-top:auto;
+    padding-top:8px;
+    font-size:13px;
+    font-weight:600;
+    color:var(--accent-ink);
+  }
+
+  .note{
+    font-size:13px;
+    color:var(--muted);
+    margin-top:14px;
+    padding:10px 14px;
+    background:var(--surface-2);
+    border-radius:10px;
+  }
+
+  footer.site-footer{
+    color:var(--muted);
+    font-size:12.5px;
+    text-align:center;
+    margin-top:24px;
+    padding-top:24px;
+    border-top:1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <span class="kicker">Begegnungen A1+</span>
+    <h1>C-Teil Übungen (Grammatik)</h1>
+  </div>
+
+  <div class="chapter">
+    <h2>Kapitel 1 — Guten Tag!</h2>
+    <div class="cards">
+
+      <a class="card" href="kapitel1-c1-c6-verbtraining.html">
+        <span class="card-tag">C1–C6</span>
+        <h3>Verbtraining</h3>
+        <p>S.25–27 動詞の現在人称変化を中心とした練習問題(全75問・自動採点)。</p>
+        <span class="card-arrow">Öffnen →</span>
+      </a>
+
+      <a class="card" href="kapitel1-c7-c9-satzbau.html">
+        <span class="card-tag">C7–C9</span>
+        <h3>Satzbau & Fragewörter</h3>
+        <p>S.28–29 語順の作文と疑問詞の練習問題(全27問・自動採点＋自由作文)。</p>
+        <span class="card-arrow">Öffnen →</span>
+      </a>
+
+      <a class="card" href="kapitel1-c10-c14-possessivartikel.html">
+        <span class="card-tag">C10–C14</span>
+        <h3>Possessivartikel & Zahlen</h3>
+        <p>S.30–31 所有冠詞と数字の練習問題(全80問・自動採点)。</p>
+        <span class="card-arrow">Öffnen →</span>
+      </a>
+
+    </div>
+  </div>
+
+  <footer class="site-footer">Begegnungen A1+（Schubert Verlag）の教材を基に作成 — 今後の章もこのページに追加予定です。</footer>
+
+</div>
+</body>
+</html>

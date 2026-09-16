@@ -1,0 +1,702 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Kapitel 1 Possessivartikel & Zahlen</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f7f6;
+    --surface:#ffffff;
+    --surface-2:#eef4f3;
+    --ink:#152524;
+    --muted:#5c716f;
+    --border:#d7e2e0;
+    --accent:#0d7a72;
+    --accent-ink:#075a54;
+    --accent-soft:#e0f2ef;
+    --correct:#1c7a43;
+    --correct-bg:#e5f5ea;
+    --correct-border:#a9d9b8;
+    --incorrect:#b3261e;
+    --incorrect-bg:#fdecea;
+    --incorrect-border:#f0b8b3;
+    --shadow: 0 1px 2px rgba(21,37,36,.04), 0 8px 24px -12px rgba(21,37,36,.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0f1716;
+      --surface:#16201f;
+      --surface-2:#1c2725;
+      --ink:#e8f0ee;
+      --muted:#9db3af;
+      --border:#293735;
+      --accent:#3fc9bb;
+      --accent-ink:#8fe3d8;
+      --accent-soft:#1a3230;
+      --correct:#5fd487;
+      --correct-bg:#173224;
+      --correct-border:#2c5a3c;
+      --incorrect:#ff8a80;
+      --incorrect-bg:#3a1c1a;
+      --incorrect-border:#6b302b;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0f1716;
+    --surface:#16201f;
+    --surface-2:#1c2725;
+    --ink:#e8f0ee;
+    --muted:#9db3af;
+    --border:#293735;
+    --accent:#3fc9bb;
+    --accent-ink:#8fe3d8;
+    --accent-soft:#1a3230;
+    --correct:#5fd487;
+    --correct-bg:#173224;
+    --correct-border:#2c5a3c;
+    --incorrect:#ff8a80;
+    --incorrect-bg:#3a1c1a;
+    --incorrect-border:#6b302b;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Source Sans 3", "Hiragino Sans", "Yu Gothic", sans-serif;
+    line-height:1.55;
+  }
+  .wrap{
+    max-width:760px;
+    margin:0 auto;
+    padding-inline:20px;
+    padding-block:28px 120px;
+  }
+  h1,h2,h3{
+    font-family:"Fraunces", serif;
+    text-wrap:balance;
+    margin:0;
+  }
+  .masthead{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    margin-bottom:28px;
+  }
+  .kicker{
+    font-size:12.5px;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    color:var(--accent-ink);
+    font-weight:600;
+  }
+  h1{
+    font-size:clamp(26px,5vw,34px);
+    font-weight:700;
+    color:var(--ink);
+  }
+  .sub{
+    color:var(--muted);
+    font-size:15px;
+    max-width:60ch;
+  }
+
+  .scorebar{
+    position:sticky;
+    top:env(safe-area-inset-top,0px);
+    z-index:20;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:14px;
+    box-shadow:var(--shadow);
+    padding:12px 16px;
+    margin-bottom:26px;
+    flex-wrap:wrap;
+  }
+  .scorebar .totals{
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+  }
+  .scorebar .totals .num{
+    font-family:"Fraunces", serif;
+    font-size:26px;
+    font-weight:700;
+    font-variant-numeric:tabular-nums;
+    color:var(--accent-ink);
+  }
+  .scorebar .totals .num.hidden-result{ color:var(--muted); }
+  .scorebar .label{ font-size:13px; color:var(--muted); }
+  .btnrow{ display:flex; gap:8px; }
+  button{
+    font-family:inherit;
+    font-size:14.5px;
+    font-weight:600;
+    border-radius:10px;
+    padding:10px 18px;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:transform .08s ease, background .15s ease, box-shadow .15s ease;
+  }
+  button:focus-visible, input:focus-visible, label:has(input:focus-visible){
+    outline:2px solid var(--accent);
+    outline-offset:2px;
+  }
+  button.primary{
+    background:var(--accent);
+    color:#fdfffe;
+    box-shadow:0 4px 14px -6px var(--accent);
+  }
+  button.primary:hover{ transform:translateY(-1px); }
+  button.ghost{
+    background:transparent;
+    color:var(--muted);
+    border-color:var(--border);
+  }
+  button.ghost:hover{ background:var(--surface-2); }
+
+  .chips{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+  }
+  .chip{
+    font-size:12px;
+    font-weight:600;
+    padding:4px 9px;
+    border-radius:999px;
+    background:var(--surface-2);
+    color:var(--muted);
+    font-variant-numeric:tabular-nums;
+    border:1px solid var(--border);
+  }
+  .chip.done{ background:var(--accent-soft); color:var(--accent-ink); border-color:transparent; }
+
+  section.exercise{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:22px 22px 24px;
+    margin-bottom:22px;
+    box-shadow:var(--shadow);
+  }
+  .exercise > header{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    margin-bottom:4px;
+    flex-wrap:wrap;
+  }
+  .exercise > header .tag{
+    font-family:"Fraunces", serif;
+    font-weight:700;
+    font-size:20px;
+    color:var(--accent-ink);
+    background:var(--accent-soft);
+    border-radius:8px;
+    padding:1px 10px;
+  }
+  .exercise > header h2{
+    font-size:18px;
+    font-weight:600;
+    color:var(--ink);
+  }
+  .instr{
+    font-style:italic;
+    color:var(--muted);
+    font-size:14px;
+    margin:2px 0 16px;
+  }
+  .wordbank{
+    font-size:13.5px;
+    color:var(--accent-ink);
+    background:var(--accent-soft);
+    border-radius:10px;
+    padding:8px 12px;
+    margin-bottom:16px;
+    line-height:1.6;
+  }
+  .wordbank b{ font-weight:600; }
+
+  .example{
+    font-size:14.5px;
+    color:var(--muted);
+    margin-bottom:12px;
+    padding-left:2px;
+  }
+  .example .ex-mark{
+    display:inline-block;
+    width:9px; height:9px;
+    background:var(--accent);
+    margin-right:8px;
+    border-radius:2px;
+  }
+
+  ol.items{
+    list-style:none;
+    margin:0; padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  ol.items > li{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+  }
+  ol.items > li .idx{
+    font-variant-numeric:tabular-nums;
+    color:var(--muted);
+    font-size:14px;
+    min-width:1.4em;
+    padding-top:6px;
+  }
+  .line{
+    flex:1;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:6px;
+    font-size:16px;
+  }
+  .hint-inf{
+    font-style:italic;
+    color:var(--muted);
+    font-size:13.5px;
+    margin-left:2px;
+  }
+
+  input[type="text"]{
+    font:inherit;
+    font-size:16px;
+    color:var(--ink);
+    background:var(--surface-2);
+    border:1.5px solid var(--border);
+    border-radius:8px;
+    padding:4px 8px;
+    width:10.5ch;
+    text-align:center;
+  }
+  input[type="text"]:focus{
+    border-color:var(--accent);
+    background:var(--surface);
+  }
+  input[type="text"].correct{
+    background:var(--correct-bg);
+    border-color:var(--correct-border);
+    color:var(--correct);
+    font-weight:600;
+  }
+  input[type="text"].incorrect{
+    background:var(--incorrect-bg);
+    border-color:var(--incorrect-border);
+    color:var(--incorrect);
+    font-weight:600;
+  }
+  .answer-hint{
+    font-size:13px;
+    color:var(--incorrect);
+    white-space:nowrap;
+  }
+  .answer-hint b{ font-weight:700; }
+
+  .subgroup + .subgroup{ margin-top:20px; }
+  .subgroup h3{
+    font-size:14px;
+    font-weight:600;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    color:var(--accent-ink);
+    margin-bottom:8px;
+  }
+  .grid2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px 28px;
+  }
+  @media (max-width:620px){
+    .grid2{ grid-template-columns:1fr; }
+    .scorebar{ flex-direction:column; align-items:stretch; }
+    .btnrow{ justify-content:flex-end; }
+  }
+
+  footer.note{
+    color:var(--muted);
+    font-size:12.5px;
+    text-align:center;
+    margin-top:8px;
+  }
+
+  .back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    font-size:13.5px;
+    font-weight:600;
+    color:var(--muted);
+    text-decoration:none;
+    margin-bottom:16px;
+  }
+  .back-link:hover{ color:var(--accent-ink); }
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <a class="back-link" href="index.html">← Zurück zum Portal</a>
+  <div class="masthead">
+    <span class="kicker">Begegnungen A1+ · Kapitel 1 · Teil C</span>
+    <h1>Possessivartikel & Zahlen</h1>
+    <p class="sub">C10–C14 の練習問題です。空欄に正しい所有冠詞または数字を入力して、下の「採点する」ボタンを押してください。</p>
+  </div>
+
+  <div class="scorebar" id="scorebar">
+    <div class="totals">
+      <span class="num hidden-result" id="scoreNum">–</span>
+      <span class="label">正解数 / 全80問</span>
+    </div>
+    <div class="chips" id="chips">
+      <span class="chip" data-chip="C10">C10 0/30</span>
+      <span class="chip" data-chip="C11">C11 0/14</span>
+      <span class="chip" data-chip="C12">C12 0/8</span>
+      <span class="chip" data-chip="C13">C13 0/13</span>
+      <span class="chip" data-chip="C14">C14 0/15</span>
+    </div>
+    <div class="btnrow">
+      <button class="ghost" id="resetBtn" type="button">リセット</button>
+      <button class="primary" id="gradeBtn" type="button">採点する</button>
+    </div>
+  </div>
+
+  <!-- C10 -->
+  <section class="exercise" id="sec-c10">
+    <header><span class="tag">C10</span><h2>Ergänzen Sie den Possessivartikel.</h2></header>
+    <div class="grid2">
+      <div class="subgroup">
+        <h3>du</h3>
+        <div class="example"><span class="ex-mark"></span>Ist das <u>deine</u> Schwester?</div>
+        <ol class="items" id="c10-du-list"></ol>
+      </div>
+      <div class="subgroup">
+        <h3>Sie</h3>
+        <div class="example"><span class="ex-mark"></span>Ist das <u>Ihre</u> Schwester?</div>
+        <ol class="items" id="c10-sie-list"></ol>
+      </div>
+      <div class="subgroup">
+        <h3>ich</h3>
+        <ol class="items" id="c10-ich-list"></ol>
+      </div>
+      <div class="subgroup">
+        <h3>er</h3>
+        <ol class="items" id="c10-er-list"></ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- C11 -->
+  <section class="exercise" id="sec-c11">
+    <header><span class="tag">C11</span><h2>Ergänzen Sie den Possessivartikel.</h2></header>
+    <div class="example"><span class="ex-mark"></span>(ich) Mein Name ist Anne. <span class="hint-inf">(Name: maskulin)</span></div>
+    <ol class="items" id="c11-list"></ol>
+  </section>
+
+  <!-- C12 -->
+  <section class="exercise" id="sec-c12">
+    <header><span class="tag">C12</span><h2>Schreiben Sie die Zahlen.</h2></header>
+    <p class="instr">語で書かれた数字を算用数字にしてください。</p>
+    <div class="example"><span class="ex-mark"></span>siebenundvierzig = <u>47</u></div>
+    <ol class="items" id="c12-list"></ol>
+  </section>
+
+  <!-- C13 -->
+  <section class="exercise" id="sec-c13">
+    <header><span class="tag">C13</span><h2>Schreiben Sie die Zahlen in Worten.</h2></header>
+    <p class="instr">算用数字をドイツ語の語で書いてください。</p>
+    <div class="example"><span class="ex-mark"></span>1 = <u>eins</u></div>
+    <ol class="items" id="c13-list"></ol>
+  </section>
+
+  <!-- C14 -->
+  <section class="exercise" id="sec-c14">
+    <header><span class="tag">C14</span><h2>Ergänzen Sie die fehlende Zahl.</h2></header>
+    <p class="instr">前後の数字から、間に入る数字を語で書いてください。</p>
+    <div class="example"><span class="ex-mark"></span>zwei → <u>drei</u> → vier</div>
+    <ol class="items" id="c14-list"></ol>
+  </section>
+
+  <div class="btnrow" style="justify-content:center; margin-top:8px;">
+    <button class="ghost" id="resetBtn2" type="button">リセット</button>
+    <button class="primary" id="gradeBtn2" type="button">採点する</button>
+  </div>
+  <footer class="note">Begegnungen A1+（Schubert Verlag）Kapitel 1, S.30–31 の練習問題を基に作成</footer>
+</div>
+
+<script>
+(function(){
+
+  // ---------- helpers to build a "text-blank" line ----------
+  function el(tag, props, children){
+    const e = document.createElement(tag);
+    if (props) for (const k in props){
+      if (k === "class") e.className = props[k];
+      else if (k === "html") e.innerHTML = props[k];
+      else e.setAttribute(k, props[k]);
+    }
+    (children||[]).forEach(c => e.appendChild(typeof c === "string" ? document.createTextNode(c) : c));
+    return e;
+  }
+
+  function blankInput(id, answers, width){
+    const inp = el("input", { type:"text", id:id, autocomplete:"off", spellcheck:"false" });
+    if (width) inp.style.width = width;
+    inp.dataset.answers = answers.join("|");
+    return inp;
+  }
+
+  // segments: array of strings and {blank:{id,answers,width}} and {inf:"..."}
+  function buildLine(segments){
+    const wrap = el("span", { class:"line" });
+    segments.forEach(seg => {
+      if (typeof seg === "string"){
+        wrap.appendChild(document.createTextNode(seg));
+      } else if (seg.blank){
+        wrap.appendChild(blankInput(seg.blank.id, seg.blank.answers, seg.blank.width));
+      } else if (seg.inf){
+        wrap.appendChild(el("span", { class:"hint-inf", html:"(" + seg.inf + ")" }));
+      }
+    });
+    return wrap;
+  }
+
+  function textItem(idx, segments){
+    const li = el("li");
+    if (idx !== null) li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    li.appendChild(buildLine(segments));
+    return li;
+  }
+
+  // ---------- C10 ----------
+  function fillC10(listId, rows){
+    const list = document.getElementById(listId);
+    rows.forEach((segs,i) => list.appendChild(textItem(i+1, segs)));
+  }
+  fillC10("c10-du-list", [
+    ["Ist das ", {blank:{id:"c10-du-1", answers:["dein"], width:"7ch"}}, " Bruder?"],
+    ["Ist das ", {blank:{id:"c10-du-2", answers:["dein"], width:"7ch"}}, " Vater?"],
+    ["Ist das ", {blank:{id:"c10-du-3", answers:["deine"], width:"7ch"}}, " Mutter?"],
+    ["Ist das ", {blank:{id:"c10-du-4", answers:["deine"], width:"7ch"}}, " Tochter?"],
+    ["Ist das ", {blank:{id:"c10-du-5", answers:["dein"], width:"7ch"}}, " Sohn?"],
+    ["Ist das ", {blank:{id:"c10-du-6", answers:["dein"], width:"7ch"}}, " Mann?"],
+    ["Ist das ", {blank:{id:"c10-du-7", answers:["dein"], width:"7ch"}}, " Kind?"],
+  ]);
+  fillC10("c10-sie-list", [
+    ["Ist das ", {blank:{id:"c10-sie-1", answers:["Ihr"], width:"7ch"}}, " Bruder?"],
+    ["Ist das ", {blank:{id:"c10-sie-2", answers:["Ihr"], width:"7ch"}}, " Vater?"],
+    ["Ist das ", {blank:{id:"c10-sie-3", answers:["Ihre"], width:"7ch"}}, " Mutter?"],
+    ["Ist das ", {blank:{id:"c10-sie-4", answers:["Ihre"], width:"7ch"}}, " Tochter?"],
+    ["Ist das ", {blank:{id:"c10-sie-5", answers:["Ihr"], width:"7ch"}}, " Sohn?"],
+    ["Ist das ", {blank:{id:"c10-sie-6", answers:["Ihr"], width:"7ch"}}, " Mann?"],
+    ["Ist das ", {blank:{id:"c10-sie-7", answers:["Ihr"], width:"7ch"}}, " Kind?"],
+  ]);
+  fillC10("c10-ich-list", [
+    ["Ja, das ist ", {blank:{id:"c10-ich-1", answers:["meine"], width:"7ch"}}, " Schwester."],
+    ["Ja, das ist ", {blank:{id:"c10-ich-2", answers:["mein"], width:"7ch"}}, " Bruder."],
+    ["Ja, das ist ", {blank:{id:"c10-ich-3", answers:["mein"], width:"7ch"}}, " Vater."],
+    ["Ja, das ist ", {blank:{id:"c10-ich-4", answers:["meine"], width:"7ch"}}, " Mutter."],
+    ["Ja, das ist ", {blank:{id:"c10-ich-5", answers:["meine"], width:"7ch"}}, " Tochter."],
+    ["Ja, das ist ", {blank:{id:"c10-ich-6", answers:["mein"], width:"7ch"}}, " Sohn."],
+    ["Ja, das ist ", {blank:{id:"c10-ich-7", answers:["mein"], width:"7ch"}}, " Mann."],
+    ["Ja, das ist ", {blank:{id:"c10-ich-8", answers:["mein"], width:"7ch"}}, " Kind."],
+  ]);
+  fillC10("c10-er-list", [
+    ["Ja, das ist ", {blank:{id:"c10-er-1", answers:["seine"], width:"7ch"}}, " Schwester."],
+    ["Ja, das ist ", {blank:{id:"c10-er-2", answers:["sein"], width:"7ch"}}, " Bruder."],
+    ["Ja, das ist ", {blank:{id:"c10-er-3", answers:["sein"], width:"7ch"}}, " Vater."],
+    ["Ja, das ist ", {blank:{id:"c10-er-4", answers:["seine"], width:"7ch"}}, " Mutter."],
+    ["Ja, das ist ", {blank:{id:"c10-er-5", answers:["seine"], width:"7ch"}}, " Tochter."],
+    ["Ja, das ist ", {blank:{id:"c10-er-6", answers:["sein"], width:"7ch"}}, " Sohn."],
+    ["Ja, das ist ", {blank:{id:"c10-er-7", answers:["sein"], width:"7ch"}}, " Mann."],
+    ["Ja, das ist ", {blank:{id:"c10-er-8", answers:["sein"], width:"7ch"}}, " Kind."],
+  ]);
+
+  // ---------- C11 ----------
+  const c11list = document.getElementById("c11-list");
+  const c11lines = [
+    ["(Sie) Wie ist ", {blank:{id:"c11-1", answers:["Ihr"], width:"7ch"}}, " Name?", {inf:"Name: maskulin"}],
+    ["(du) Wie ist ", {blank:{id:"c11-2", answers:["deine"], width:"7ch"}}, " E-Mail-Adresse?", {inf:"Adresse: feminin"}],
+    ["(du) Sind das ", {blank:{id:"c11-3", answers:["deine"], width:"7ch"}}, " Kinder?", {inf:"Kinder: Plural"}],
+    [{blank:{id:"c11-4", answers:["Meine"], width:"7ch"}}, " Nachbarin spricht Ungarisch.", {inf:"(ich) — Nachbarin: feminin"}],
+    ["(du) Welche Sprachen spricht ", {blank:{id:"c11-5", answers:["dein"], width:"7ch"}}, " Nachbar?", {inf:"Nachbar: maskulin"}],
+    ["(er) Was ist ", {blank:{id:"c11-6", answers:["seine"], width:"7ch"}}, " Heimatstadt?", {inf:"Heimatstadt: feminin"}],
+    ["(sie, Sg.) Was ist ", {blank:{id:"c11-7", answers:["ihr"], width:"7ch"}}, " Hobby?", {inf:"Hobby: neutral"}],
+    [{blank:{id:"c11-8", answers:["Mein"], width:"7ch"}}, " Bruder ist Arzt.", {inf:"(ich) — Bruder: maskulin"}],
+    ["(Sie) Sind das ", {blank:{id:"c11-9", answers:["Ihre"], width:"7ch"}}, " Fotos?", {inf:"Fotos: Plural"}],
+    ["(er) Was ist ", {blank:{id:"c11-10", answers:["seine"], width:"7ch"}}, " Muttersprache?", {inf:"Muttersprache: feminin"}],
+    ["(Sie) Wohnt ", {blank:{id:"c11-11", answers:["Ihr"], width:"7ch"}}, " Sohn in Paris?", {inf:"Sohn: maskulin"}],
+    ["(sie, Sg.) Sind das ", {blank:{id:"c11-12", answers:["ihre"], width:"7ch"}}, " Freunde?", {inf:"Freunde: Plural"}],
+    ["(ich) Nein, das sind ", {blank:{id:"c11-13", answers:["meine"], width:"7ch"}}, " Freunde.", {inf:"Freunde: Plural"}],
+    ["(du) Wie ist ", {blank:{id:"c11-14", answers:["deine"], width:"7ch"}}, " Telefonnummer?", {inf:"Telefonnummer: feminin"}],
+  ];
+  c11lines.forEach((segs,i) => c11list.appendChild(textItem(i+1, segs)));
+
+  // ---------- C12 (words -> digits) ----------
+  const c12list = document.getElementById("c12-list");
+  const c12lines = [
+    ["dreiundzwanzig = ", {blank:{id:"c12-1", answers:["23"], width:"6ch"}}],
+    ["fünfundvierzig = ", {blank:{id:"c12-2", answers:["45"], width:"6ch"}}],
+    ["neunundneunzig = ", {blank:{id:"c12-3", answers:["99"], width:"6ch"}}],
+    ["zweiundfünfzig = ", {blank:{id:"c12-4", answers:["52"], width:"6ch"}}],
+    ["sechsunddreißig = ", {blank:{id:"c12-5", answers:["36"], width:"6ch"}}],
+    ["einundachtzig = ", {blank:{id:"c12-6", answers:["81"], width:"6ch"}}],
+    ["achtundsiebzig = ", {blank:{id:"c12-7", answers:["78"], width:"6ch"}}],
+    ["dreiunddreißig = ", {blank:{id:"c12-8", answers:["33"], width:"6ch"}}],
+  ];
+  c12lines.forEach((segs,i) => c12list.appendChild(textItem(i+1, segs)));
+
+  // ---------- C13 (digits -> words) ----------
+  const c13list = document.getElementById("c13-list");
+  const c13lines = [
+    ["4 = ", {blank:{id:"c13-1", answers:["vier"], width:"12ch"}}],
+    ["7 = ", {blank:{id:"c13-2", answers:["sieben"], width:"12ch"}}],
+    ["8 = ", {blank:{id:"c13-3", answers:["acht"], width:"12ch"}}],
+    ["11 = ", {blank:{id:"c13-4", answers:["elf"], width:"12ch"}}],
+    ["10 = ", {blank:{id:"c13-5", answers:["zehn"], width:"12ch"}}],
+    ["15 = ", {blank:{id:"c13-6", answers:["fünfzehn"], width:"12ch"}}],
+    ["5 = ", {blank:{id:"c13-7", answers:["fünf"], width:"12ch"}}],
+    ["3 = ", {blank:{id:"c13-8", answers:["drei"], width:"12ch"}}],
+    ["6 = ", {blank:{id:"c13-9", answers:["sechs"], width:"12ch"}}],
+    ["13 = ", {blank:{id:"c13-10", answers:["dreizehn"], width:"14ch"}}],
+    ["16 = ", {blank:{id:"c13-11", answers:["sechzehn"], width:"14ch"}}],
+    ["27 = ", {blank:{id:"c13-12", answers:["siebenundzwanzig"], width:"20ch"}}],
+    ["14 = ", {blank:{id:"c13-13", answers:["vierzehn"], width:"14ch"}}],
+  ];
+  c13lines.forEach((segs,i) => c13list.appendChild(textItem(i+1, segs)));
+
+  // ---------- C14 (missing middle number) ----------
+  const c14list = document.getElementById("c14-list");
+  const c14lines = [
+    ["vier → ", {blank:{id:"c14-1", answers:["fünf"], width:"12ch"}}, " → sechs"],
+    ["achtzig → ", {blank:{id:"c14-2", answers:["einundachtzig"], width:"18ch"}}, " → zweiundachtzig"],
+    ["zweiundvierzig → ", {blank:{id:"c14-3", answers:["dreiundvierzig"], width:"18ch"}}, " → vierundvierzig"],
+    ["elf → ", {blank:{id:"c14-4", answers:["zwölf"], width:"12ch"}}, " → dreizehn"],
+    ["dreihundert → ", {blank:{id:"c14-5", answers:["vierhundert"], width:"16ch"}}, " → fünfhundert"],
+    ["siebenunddreißig → ", {blank:{id:"c14-6", answers:["achtunddreißig"], width:"18ch"}}, " → neununddreißig"],
+    ["einhunderteins → ", {blank:{id:"c14-7", answers:["einhundertzwei"], width:"18ch"}}, " → einhundertdrei"],
+    ["fünfundsiebzig → ", {blank:{id:"c14-8", answers:["sechsundsiebzig"], width:"18ch"}}, " → siebenundsiebzig"],
+    ["zehn → ", {blank:{id:"c14-9", answers:["elf"], width:"12ch"}}, " → zwölf"],
+    ["eintausend → ", {blank:{id:"c14-10", answers:["zweitausend"], width:"16ch"}}, " → dreitausend"],
+    ["achtzig → ", {blank:{id:"c14-11", answers:["neunzig"], width:"14ch"}}, " → hundert"],
+    ["neunzehn → ", {blank:{id:"c14-12", answers:["zwanzig"], width:"14ch"}}, " → einundzwanzig"],
+    ["fünfundsechzig → ", {blank:{id:"c14-13", answers:["sechsundsechzig"], width:"18ch"}}, " → siebenundsechzig"],
+    ["einundfünfzig → ", {blank:{id:"c14-14", answers:["zweiundfünfzig"], width:"18ch"}}, " → dreiundfünfzig"],
+    ["sechzig → ", {blank:{id:"c14-15", answers:["siebzig"], width:"14ch"}}, " → achtzig"],
+  ];
+  c14lines.forEach((segs,i) => c14list.appendChild(textItem(i+1, segs)));
+
+  // ---------- grading ----------
+  const SECTIONS = {
+    C10: [
+      "c10-du-1","c10-du-2","c10-du-3","c10-du-4","c10-du-5","c10-du-6","c10-du-7",
+      "c10-sie-1","c10-sie-2","c10-sie-3","c10-sie-4","c10-sie-5","c10-sie-6","c10-sie-7",
+      "c10-ich-1","c10-ich-2","c10-ich-3","c10-ich-4","c10-ich-5","c10-ich-6","c10-ich-7","c10-ich-8",
+      "c10-er-1","c10-er-2","c10-er-3","c10-er-4","c10-er-5","c10-er-6","c10-er-7","c10-er-8"
+    ],
+    C11: ["c11-1","c11-2","c11-3","c11-4","c11-5","c11-6","c11-7","c11-8","c11-9","c11-10","c11-11","c11-12","c11-13","c11-14"],
+    C12: ["c12-1","c12-2","c12-3","c12-4","c12-5","c12-6","c12-7","c12-8"],
+    C13: ["c13-1","c13-2","c13-3","c13-4","c13-5","c13-6","c13-7","c13-8","c13-9","c13-10","c13-11","c13-12","c13-13"],
+    C14: ["c14-1","c14-2","c14-3","c14-4","c14-5","c14-6","c14-7","c14-8","c14-9","c14-10","c14-11","c14-12","c14-13","c14-14","c14-15"]
+  };
+  const totals = { C10:30, C11:14, C12:8, C13:13, C14:15 };
+
+  function clearHints(){
+    document.querySelectorAll(".answer-hint").forEach(n => n.remove());
+  }
+
+  function grade(){
+    clearHints();
+    let total = 0, correctCount = 0;
+    const sectionScore = { C10:0, C11:0, C12:0, C13:0, C14:0 };
+
+    document.querySelectorAll('input[type="text"][data-answers]').forEach(inp => {
+      total++;
+      const accepted = inp.dataset.answers.split("|").map(a => a.trim().toLowerCase());
+      const val = inp.value.trim().toLowerCase();
+      const ok = val.length > 0 && accepted.includes(val);
+      inp.classList.remove("correct","incorrect");
+      inp.classList.add(ok ? "correct" : "incorrect");
+      if (!ok){
+        const hint = el("span", { class:"answer-hint" }, ["→ ", el("b", {}, [inp.dataset.answers.split("|")[0]])]);
+        inp.insertAdjacentElement("afterend", hint);
+      } else {
+        correctCount++;
+      }
+      for (const s in SECTIONS){
+        if (SECTIONS[s].includes(inp.id) && ok) sectionScore[s]++;
+      }
+    });
+
+    document.getElementById("scoreNum").textContent = correctCount + " / " + total;
+    document.getElementById("scoreNum").classList.remove("hidden-result");
+    document.querySelectorAll(".chip").forEach(chip => {
+      const s = chip.dataset.chip;
+      if (!s) return;
+      chip.textContent = s + " " + sectionScore[s] + "/" + totals[s];
+      chip.classList.toggle("done", sectionScore[s] === totals[s]);
+    });
+    document.getElementById("scorebar").scrollIntoView({ behavior:"smooth", block:"start" });
+  }
+
+  function resetAll(){
+    document.querySelectorAll('input[type="text"]').forEach(inp => {
+      inp.value = "";
+      inp.classList.remove("correct","incorrect");
+    });
+    clearHints();
+    document.getElementById("scoreNum").textContent = "–";
+    document.getElementById("scoreNum").classList.add("hidden-result");
+    document.querySelectorAll(".chip").forEach(chip => {
+      const s = chip.dataset.chip;
+      if (!s) return;
+      chip.textContent = s + " 0/" + totals[s];
+      chip.classList.remove("done");
+    });
+    window.scrollTo({ top:0, behavior:"smooth" });
+  }
+
+  document.getElementById("gradeBtn").addEventListener("click", grade);
+  document.getElementById("gradeBtn2").addEventListener("click", grade);
+  document.getElementById("resetBtn").addEventListener("click", resetAll);
+  document.getElementById("resetBtn2").addEventListener("click", resetAll);
+
+  // ---------- hot state (best-effort, for open viewers on republish) ----------
+  function collectState(){
+    const state = {};
+    document.querySelectorAll('input[type="text"]').forEach(i => state[i.id] = i.value);
+    return state;
+  }
+  function applyState(state){
+    if (!state) return;
+    document.querySelectorAll('input[type="text"]').forEach(i => { if (state[i.id] !== undefined) i.value = state[i.id]; });
+  }
+  try {
+    if (window.claude && window.claude.hot){
+      window.claude.hot.snapshot(collectState);
+      const boot = (data) => applyState(data);
+      window.claude.hot.ready ? window.claude.hot.ready(boot) : boot(window.claude.hot.data || {});
+    }
+  } catch(e) {}
+})();
+</script>
+</body>
+</html>
