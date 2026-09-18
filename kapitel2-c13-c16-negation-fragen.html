@@ -1,0 +1,638 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><title>Kapitel 2 Negation, Präpositionen & Fragen</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f7f6;
+    --surface:#ffffff;
+    --surface-2:#eef4f3;
+    --ink:#152524;
+    --muted:#5c716f;
+    --border:#d7e2e0;
+    --accent:#0d7a72;
+    --accent-ink:#075a54;
+    --accent-soft:#e0f2ef;
+    --correct:#1c7a43;
+    --correct-bg:#e5f5ea;
+    --correct-border:#a9d9b8;
+    --incorrect:#b3261e;
+    --incorrect-bg:#fdecea;
+    --incorrect-border:#f0b8b3;
+    --shadow: 0 1px 2px rgba(21,37,36,.04), 0 8px 24px -12px rgba(21,37,36,.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0f1716;
+      --surface:#16201f;
+      --surface-2:#1c2725;
+      --ink:#e8f0ee;
+      --muted:#9db3af;
+      --border:#293735;
+      --accent:#3fc9bb;
+      --accent-ink:#8fe3d8;
+      --accent-soft:#1a3230;
+      --correct:#5fd487;
+      --correct-bg:#173224;
+      --correct-border:#2c5a3c;
+      --incorrect:#ff8a80;
+      --incorrect-bg:#3a1c1a;
+      --incorrect-border:#6b302b;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0f1716;
+    --surface:#16201f;
+    --surface-2:#1c2725;
+    --ink:#e8f0ee;
+    --muted:#9db3af;
+    --border:#293735;
+    --accent:#3fc9bb;
+    --accent-ink:#8fe3d8;
+    --accent-soft:#1a3230;
+    --correct:#5fd487;
+    --correct-bg:#173224;
+    --correct-border:#2c5a3c;
+    --incorrect:#ff8a80;
+    --incorrect-bg:#3a1c1a;
+    --incorrect-border:#6b302b;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Source Sans 3", "Hiragino Sans", "Yu Gothic", sans-serif;
+    line-height:1.55;
+  }
+  .wrap{
+    max-width:760px;
+    margin:0 auto;
+    padding-inline:20px;
+    padding-block:28px 120px;
+  }
+  h1,h2,h3{
+    font-family:"Fraunces", serif;
+    text-wrap:balance;
+    margin:0;
+  }
+  .masthead{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    margin-bottom:28px;
+  }
+  .kicker{
+    font-size:12.5px;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    color:var(--accent-ink);
+    font-weight:600;
+  }
+  h1{
+    font-size:clamp(26px,5vw,34px);
+    font-weight:700;
+    color:var(--ink);
+  }
+  .sub{
+    color:var(--muted);
+    font-size:15px;
+    max-width:60ch;
+  }
+
+  .scorebar{
+    position:sticky;
+    top:env(safe-area-inset-top,0px);
+    z-index:20;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:14px;
+    box-shadow:var(--shadow);
+    padding:12px 16px;
+    margin-bottom:26px;
+    flex-wrap:wrap;
+  }
+  .scorebar .totals{
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+  }
+  .scorebar .totals .num{
+    font-family:"Fraunces", serif;
+    font-size:26px;
+    font-weight:700;
+    font-variant-numeric:tabular-nums;
+    color:var(--accent-ink);
+  }
+  .scorebar .totals .num.hidden-result{ color:var(--muted); }
+  .scorebar .label{ font-size:13px; color:var(--muted); }
+  .btnrow{ display:flex; gap:8px; }
+  .section-check-row{ display:flex; justify-content:flex-end; margin-top:14px; }
+  button.small{ font-size:13px; padding:7px 14px; }
+  button{
+    font-family:inherit;
+    font-size:14.5px;
+    font-weight:600;
+    border-radius:10px;
+    padding:10px 18px;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:transform .08s ease, background .15s ease, box-shadow .15s ease;
+  }
+  button:focus-visible, input:focus-visible, label:has(input:focus-visible){
+    outline:2px solid var(--accent);
+    outline-offset:2px;
+  }
+  button.primary{
+    background:var(--accent);
+    color:#fdfffe;
+    box-shadow:0 4px 14px -6px var(--accent);
+  }
+  button.primary:hover{ transform:translateY(-1px); }
+  button.ghost{
+    background:transparent;
+    color:var(--muted);
+    border-color:var(--border);
+  }
+  button.ghost:hover{ background:var(--surface-2); }
+
+  .chips{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+  }
+  .chip{
+    font-size:12px;
+    font-weight:600;
+    padding:4px 9px;
+    border-radius:999px;
+    background:var(--surface-2);
+    color:var(--muted);
+    font-variant-numeric:tabular-nums;
+    border:1px solid var(--border);
+  }
+  .chip.done{ background:var(--accent-soft); color:var(--accent-ink); border-color:transparent; }
+
+  section.exercise{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:22px 22px 24px;
+    margin-bottom:22px;
+    box-shadow:var(--shadow);
+  }
+  .exercise > header{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    margin-bottom:4px;
+    flex-wrap:wrap;
+  }
+  .exercise > header .tag{
+    font-family:"Fraunces", serif;
+    font-weight:700;
+    font-size:20px;
+    color:var(--accent-ink);
+    background:var(--accent-soft);
+    border-radius:8px;
+    padding:1px 10px;
+  }
+  .exercise > header h2{
+    font-size:18px;
+    font-weight:600;
+    color:var(--ink);
+  }
+  .instr{
+    font-style:italic;
+    color:var(--muted);
+    font-size:14px;
+    margin:2px 0 16px;
+  }
+  .wordbank{
+    font-size:13.5px;
+    color:var(--accent-ink);
+    background:var(--accent-soft);
+    border-radius:10px;
+    padding:8px 12px;
+    margin-bottom:16px;
+    line-height:1.6;
+  }
+  .wordbank b{ font-weight:600; }
+
+  .example{
+    font-size:14.5px;
+    color:var(--muted);
+    margin-bottom:12px;
+    padding-left:2px;
+  }
+  .example .ex-mark{
+    display:inline-block;
+    width:9px; height:9px;
+    background:var(--accent);
+    margin-right:8px;
+    border-radius:2px;
+  }
+
+  ol.items{
+    list-style:none;
+    margin:0; padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  ol.items > li{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+  }
+  ol.items > li .idx{
+    font-variant-numeric:tabular-nums;
+    color:var(--muted);
+    font-size:14px;
+    min-width:1.4em;
+    padding-top:6px;
+  }
+  .line{
+    flex:1;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:6px;
+    font-size:16px;
+  }
+
+  input[type="text"]{
+    font:inherit;
+    font-size:16px;
+    color:var(--ink);
+    background:var(--surface-2);
+    border:1.5px solid var(--border);
+    border-radius:8px;
+    padding:4px 8px;
+    width:10.5ch;
+    text-align:center;
+  }
+  input[type="text"]:focus{
+    border-color:var(--accent);
+    background:var(--surface);
+  }
+  input[type="text"].correct{
+    background:var(--correct-bg);
+    border-color:var(--correct-border);
+    color:var(--correct);
+    font-weight:600;
+  }
+  input[type="text"].incorrect{
+    background:var(--incorrect-bg);
+    border-color:var(--incorrect-border);
+    color:var(--incorrect);
+    font-weight:600;
+  }
+  .answer-hint{
+    font-size:13px;
+    color:var(--incorrect);
+    white-space:nowrap;
+  }
+  .answer-hint b{ font-weight:700; }
+
+  input.open-input{
+    width:100%;
+    text-align:left;
+    background:var(--surface-2);
+  }
+  .open-line{
+    flex-direction:column;
+    align-items:stretch;
+    gap:6px;
+  }
+
+  @media (max-width:620px){
+    .scorebar{ flex-direction:column; align-items:stretch; }
+    .btnrow{ justify-content:flex-end; }
+  }
+
+  footer.note{
+    color:var(--muted);
+    font-size:12.5px;
+    text-align:center;
+    margin-top:8px;
+  }
+
+  .back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    font-size:13.5px;
+    font-weight:600;
+    color:var(--muted);
+    text-decoration:none;
+    margin-bottom:16px;
+  }
+  .back-link:hover{ color:var(--accent-ink); }
+</style></head><body>
+
+<div class="wrap">
+  <a class="back-link" href="index.html">← Zurück zum Portal</a>
+  <div class="masthead">
+    <span class="kicker">Begegnungen A1+ · Kapitel 2 · Teil C</span>
+    <h1>Negation, Präpositionen & Fragen</h1>
+    <p class="sub">C13–C16 の練習問題です(S.52–53)。否定(nicht/kein)・前置詞・疑問詞の練習です。C16は自分について答える自由記述なので採点対象外です。下の「採点する」ボタンを押してください。</p>
+  </div>
+
+  <div class="scorebar" id="scorebar">
+    <div class="totals">
+      <span class="num hidden-result" id="scoreNum">–</span>
+      <span class="label">正解数 / 全24問</span>
+    </div>
+    <div class="chips" id="chips">
+      <span class="chip" data-chip="C13">C13 0/8</span>
+      <span class="chip" data-chip="C14">C14 0/10</span>
+      <span class="chip" data-chip="C15">C15 0/6</span>
+      <span class="chip" style="background:transparent;">C16 自己記述</span>
+    </div>
+    <div class="btnrow">
+      <button class="ghost" id="resetBtn" type="button">リセット</button>
+      <button class="primary" id="gradeBtn" type="button">採点する</button>
+    </div>
+  </div>
+
+  <!-- C13 -->
+  <section class="exercise" id="sec-c13">
+    <header><span class="tag">C13</span><h2>Ergänzen Sie nicht oder kein/keine.</h2></header>
+    <div class="example"><span class="ex-mark"></span>Hier sind <u>keine</u> Bücher.</div>
+    <ol class="items" id="c13-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C13" data-target="sec-c13">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C14 -->
+  <section class="exercise" id="sec-c14">
+    <header><span class="tag">C14</span><h2>Ergänzen Sie die Präpositionen.</h2></header>
+    <div class="example"><span class="ex-mark"></span>Peter wohnt <u>in</u> Marburg.</div>
+    <ol class="items" id="c14-list" style="gap:16px;"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C14" data-target="sec-c14">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C15 -->
+  <section class="exercise" id="sec-c15">
+    <header><span class="tag">C15</span><h2>Ergänzen Sie die Fragewörter.</h2></header>
+    <div class="wordbank"><b>単語リスト:</b> wie · was · wo · woher · welche</div>
+    <div class="example"><span class="ex-mark"></span><u>Wie</u> heißen Sie?</div>
+    <ol class="items" id="c15-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C15" data-target="sec-c15">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C16 -->
+  <section class="exercise" id="sec-c16">
+    <header><span class="tag">C16</span><h2>Reagieren Sie.</h2></header>
+    <p class="instr">自分について自由に答えてください(採点なし)。</p>
+    <ol class="items" id="c16-list"></ol>
+  </section>
+
+  <div class="btnrow" style="justify-content:center; margin-top:8px;">
+    <button class="ghost" id="resetBtn2" type="button">リセット</button>
+    <button class="primary" id="gradeBtn2" type="button">採点する</button>
+  </div>
+  <footer class="note">Begegnungen A1+（Schubert Verlag）Kapitel 2, S.52–53 の練習問題を基に作成</footer>
+</div>
+
+<script>
+(function(){
+
+  function el(tag, props, children){
+    const e = document.createElement(tag);
+    if (props) for (const k in props){
+      if (k === "class") e.className = props[k];
+      else if (k === "html") e.innerHTML = props[k];
+      else e.setAttribute(k, props[k]);
+    }
+    (children||[]).forEach(c => e.appendChild(typeof c === "string" ? document.createTextNode(c) : c));
+    return e;
+  }
+
+  function blankInput(id, answers, width){
+    const inp = el("input", { type:"text", id:id, autocomplete:"off", spellcheck:"false" });
+    if (width) inp.style.width = width;
+    inp.dataset.answers = answers.join("|");
+    return inp;
+  }
+
+  function buildLine(segments){
+    const wrap = el("span", { class:"line" });
+    segments.forEach(seg => {
+      if (typeof seg === "string"){
+        wrap.appendChild(document.createTextNode(seg));
+      } else if (seg.blank){
+        wrap.appendChild(blankInput(seg.blank.id, seg.blank.answers, seg.blank.width));
+      }
+    });
+    return wrap;
+  }
+
+  function textItem(idx, segments){
+    const li = el("li");
+    if (idx !== null) li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    li.appendChild(buildLine(segments));
+    return li;
+  }
+
+  // ungraded personal-response item (no data-answers, so excluded from scoring)
+  function openItem(idx, question, id){
+    const li = el("li");
+    li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    const col = el("div", { class:"line open-line" });
+    col.appendChild(document.createTextNode(question));
+    const inp = el("input", { type:"text", id:id, autocomplete:"off", spellcheck:"false", class:"open-input", placeholder:"自由に答えてください …" });
+    col.appendChild(inp);
+    li.appendChild(col);
+    return li;
+  }
+
+  // ---------- C13 ----------
+  const c13list = document.getElementById("c13-list");
+  const c13lines = [
+    ["Hier kann man ", {blank:{id:"c13-1", answers:["nicht"], width:"7ch"}}, " lesen."],
+    ["Paul kann ", {blank:{id:"c13-2", answers:["nicht"], width:"7ch"}}, " tanzen."],
+    ["Hier ist ", {blank:{id:"c13-3", answers:["kein"], width:"7ch"}}, " Computer."],
+    ["Ich kann ", {blank:{id:"c13-4", answers:["nicht"], width:"7ch"}}, " arbeiten."],
+    ["Wir wandern am Sonntag ", {blank:{id:"c13-5", answers:["nicht"], width:"7ch"}}, "."],
+    ["Susanne kann ", {blank:{id:"c13-6", answers:["nicht"], width:"7ch"}}, " gut Ski fahren."],
+    ["Hier ist ", {blank:{id:"c13-7", answers:["keine"], width:"8ch"}}, " Kaffeemaschine."],
+    ["Der Kaffee ist ", {blank:{id:"c13-8", answers:["nicht"], width:"7ch"}}, " warm, er ist kalt."],
+  ];
+  c13lines.forEach((segs,i) => c13list.appendChild(textItem(i+1, segs)));
+
+  // ---------- C14 ----------
+  const c14list = document.getElementById("c14-list");
+  const c14lines = [
+    ["Er arbeitet als Informatiker ", {blank:{id:"c14-1", answers:["an"], width:"6ch"}}, " der Universität."],
+    ["Am Wochenende fährt er ", {blank:{id:"c14-2", answers:["nach"], width:"7ch"}}, " München."],
+    ["Sarah kommt ", {blank:{id:"c14-3", answers:["aus"], width:"6ch"}}, " Frankreich."],
+    ["Sie studiert ", {blank:{id:"c14-4", answers:["an"], width:"6ch"}}, " der Universität ", {blank:{id:"c14-5", answers:["in"], width:"6ch"}}, " Paris Medizin."],
+    ["Hans Behrens arbeitet ", {blank:{id:"c14-6", answers:["bei"], width:"6ch"}}, " BASF ", {blank:{id:"c14-7", answers:["in"], width:"6ch"}}, " Ludwigshafen."],
+    ["Susanne kommt auch ", {blank:{id:"c14-8", answers:["aus"], width:"6ch"}}, " Ludwigshafen."],
+    [{blank:{id:"c14-9", answers:["In"], width:"6ch"}}, " Österreich wohnen 8,8 Millionen Menschen."],
+    ["Wir fahren am Montag ", {blank:{id:"c14-10", answers:["nach"], width:"7ch"}}, " Österreich."],
+  ];
+  c14lines.forEach((segs,i) => c14list.appendChild(textItem(i+1, segs)));
+
+  // ---------- C15 ----------
+  const c15list = document.getElementById("c15-list");
+  const c15lines = [
+    [{blank:{id:"c15-1", answers:["Welche"], width:"9ch"}}, " Sprachen sprichst du?"],
+    [{blank:{id:"c15-2", answers:["Woher"], width:"9ch"}}, " kommt ihr?"],
+    [{blank:{id:"c15-3", answers:["Was"], width:"7ch"}}, " sind Sie von Beruf?"],
+    [{blank:{id:"c15-4", answers:["Wie"], width:"7ch"}}, " ist Ihre E-Mail-Adresse?"],
+    [{blank:{id:"c15-5", answers:["Wo"], width:"7ch"}}, " wohnt er?"],
+    [{blank:{id:"c15-6", answers:["Wo"], width:"7ch"}}, " kann ich hier Tennis spielen?"],
+  ];
+  c15lines.forEach((segs,i) => c15list.appendChild(textItem(i+1, segs)));
+
+  // ---------- C16 (personal, ungraded) ----------
+  const c16list = document.getElementById("c16-list");
+  const c16qs = [
+    "Wie heißen Sie?",
+    "Wo wohnen Sie?",
+    "Wie ist Ihre Telefonnummer?",
+    "Was sind Sie von Beruf?",
+    "Haben Sie Hobbys?",
+    "Können Sie singen?",
+    "Lernen Sie eine Sprache?",
+    "Fahren Sie gern Fahrrad?",
+    "Arbeiten Sie gern?",
+  ];
+  c16qs.forEach((q,i) => c16list.appendChild(openItem(i+1, q, "c16-"+(i+1))));
+
+  // ---------- grading ----------
+  const SECTIONS = {
+    C13: ["c13-1","c13-2","c13-3","c13-4","c13-5","c13-6","c13-7","c13-8"],
+    C14: ["c14-1","c14-2","c14-3","c14-4","c14-5","c14-6","c14-7","c14-8","c14-9","c14-10"],
+    C15: ["c15-1","c15-2","c15-3","c15-4","c15-5","c15-6"]
+  };
+
+  function clearHints(){
+    document.querySelectorAll(".answer-hint").forEach(n => n.remove());
+  }
+
+  function grade(){
+    clearHints();
+    let total = 0, correctCount = 0;
+    const sectionScore = { C13:0, C14:0, C15:0 };
+
+    document.querySelectorAll('input[type="text"][data-answers]').forEach(inp => {
+      total++;
+      const accepted = inp.dataset.answers.split("|").map(a => a.trim().toLowerCase());
+      const val = inp.value.trim().toLowerCase();
+      const ok = val.length > 0 && accepted.includes(val);
+      inp.classList.remove("correct","incorrect");
+      inp.classList.add(ok ? "correct" : "incorrect");
+      if (!ok){
+        const hint = el("span", { class:"answer-hint" }, ["→ ", el("b", {}, [inp.dataset.answers.split("|")[0]])]);
+        inp.insertAdjacentElement("afterend", hint);
+      } else {
+        correctCount++;
+      }
+      for (const s in SECTIONS){
+        if (SECTIONS[s].includes(inp.id) && ok) sectionScore[s]++;
+      }
+    });
+
+    document.getElementById("scoreNum").textContent = correctCount + " / " + total;
+    document.getElementById("scoreNum").classList.remove("hidden-result");
+    const totals = { C13:8, C14:10, C15:6 };
+    document.querySelectorAll(".chip").forEach(chip => {
+      const s = chip.dataset.chip;
+      if (!s) return;
+      chip.textContent = s + " " + sectionScore[s] + "/" + totals[s];
+      chip.classList.toggle("done", sectionScore[s] === totals[s]);
+    });
+    document.getElementById("scorebar").scrollIntoView({ behavior:"smooth", block:"start" });
+  }
+
+  function resetAll(){
+    document.querySelectorAll('input[type="text"]').forEach(inp => {
+      inp.value = "";
+      inp.classList.remove("correct","incorrect");
+    });
+    clearHints();
+    document.getElementById("scoreNum").textContent = "–";
+    document.getElementById("scoreNum").classList.add("hidden-result");
+    const totals = { C13:8, C14:10, C15:6 };
+    document.querySelectorAll(".chip").forEach(chip => {
+      const s = chip.dataset.chip;
+      if (!s) return;
+      chip.textContent = s + " 0/" + totals[s];
+      chip.classList.remove("done");
+    });
+    window.scrollTo({ top:0, behavior:"smooth" });
+  }
+
+  document.getElementById("gradeBtn").addEventListener("click", grade);
+  document.getElementById("gradeBtn2").addEventListener("click", grade);
+  document.getElementById("resetBtn").addEventListener("click", resetAll);
+  document.getElementById("resetBtn2").addEventListener("click", resetAll);
+
+  // ---------- per-section grading ----------
+  function clearHintsIn(root){
+    root.querySelectorAll(".answer-hint").forEach(n => n.remove());
+  }
+
+  function gradeSection(sectionKey, root){
+    if (!root) return;
+    clearHintsIn(root);
+    let total = 0, correct = 0;
+
+    root.querySelectorAll('input[type="text"][data-answers]').forEach(inp => {
+      total++;
+      const accepted = inp.dataset.answers.split("|").map(a => a.trim().toLowerCase());
+      const val = inp.value.trim().toLowerCase();
+      const ok = val.length > 0 && accepted.includes(val);
+      inp.classList.remove("correct","incorrect");
+      inp.classList.add(ok ? "correct" : "incorrect");
+      if (!ok){
+        const hint = el("span", { class:"answer-hint" }, ["→ ", el("b", {}, [inp.dataset.answers.split("|")[0]])]);
+        inp.insertAdjacentElement("afterend", hint);
+      } else {
+        correct++;
+      }
+    });
+
+    const chip = document.querySelector('.chip[data-chip="'+sectionKey+'"]');
+    if (chip){
+      chip.textContent = sectionKey + " " + correct + "/" + total;
+      chip.classList.toggle("done", correct === total);
+    }
+  }
+
+  document.querySelectorAll(".section-check").forEach(btn => {
+    btn.addEventListener("click", () => {
+      gradeSection(btn.dataset.section, document.getElementById(btn.dataset.target));
+    });
+  });
+
+  // ---------- hot state ----------
+  function collectState(){
+    const state = {};
+    document.querySelectorAll('input[type="text"]').forEach(i => state[i.id] = i.value);
+    return state;
+  }
+  function applyState(state){
+    if (!state) return;
+    document.querySelectorAll('input[type="text"]').forEach(i => { if (state[i.id] !== undefined) i.value = state[i.id]; });
+  }
+  try {
+    if (window.claude && window.claude.hot){
+      window.claude.hot.snapshot(collectState);
+      const boot = (data) => applyState(data);
+      window.claude.hot.ready ? window.claude.hot.ready(boot) : boot(window.claude.hot.data || {});
+    }
+  } catch(e) {}
+})();
+</script>
+</body></html>

@@ -1,0 +1,663 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><title>Kapitel 2 Possessivartikel & Pronomen</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f7f6;
+    --surface:#ffffff;
+    --surface-2:#eef4f3;
+    --ink:#152524;
+    --muted:#5c716f;
+    --border:#d7e2e0;
+    --accent:#0d7a72;
+    --accent-ink:#075a54;
+    --accent-soft:#e0f2ef;
+    --correct:#1c7a43;
+    --correct-bg:#e5f5ea;
+    --correct-border:#a9d9b8;
+    --incorrect:#b3261e;
+    --incorrect-bg:#fdecea;
+    --incorrect-border:#f0b8b3;
+    --shadow: 0 1px 2px rgba(21,37,36,.04), 0 8px 24px -12px rgba(21,37,36,.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0f1716;
+      --surface:#16201f;
+      --surface-2:#1c2725;
+      --ink:#e8f0ee;
+      --muted:#9db3af;
+      --border:#293735;
+      --accent:#3fc9bb;
+      --accent-ink:#8fe3d8;
+      --accent-soft:#1a3230;
+      --correct:#5fd487;
+      --correct-bg:#173224;
+      --correct-border:#2c5a3c;
+      --incorrect:#ff8a80;
+      --incorrect-bg:#3a1c1a;
+      --incorrect-border:#6b302b;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0f1716;
+    --surface:#16201f;
+    --surface-2:#1c2725;
+    --ink:#e8f0ee;
+    --muted:#9db3af;
+    --border:#293735;
+    --accent:#3fc9bb;
+    --accent-ink:#8fe3d8;
+    --accent-soft:#1a3230;
+    --correct:#5fd487;
+    --correct-bg:#173224;
+    --correct-border:#2c5a3c;
+    --incorrect:#ff8a80;
+    --incorrect-bg:#3a1c1a;
+    --incorrect-border:#6b302b;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Source Sans 3", "Hiragino Sans", "Yu Gothic", sans-serif;
+    line-height:1.55;
+  }
+  .wrap{
+    max-width:760px;
+    margin:0 auto;
+    padding-inline:20px;
+    padding-block:28px 120px;
+  }
+  h1,h2,h3{
+    font-family:"Fraunces", serif;
+    text-wrap:balance;
+    margin:0;
+  }
+  .masthead{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    margin-bottom:28px;
+  }
+  .kicker{
+    font-size:12.5px;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    color:var(--accent-ink);
+    font-weight:600;
+  }
+  h1{
+    font-size:clamp(26px,5vw,34px);
+    font-weight:700;
+    color:var(--ink);
+  }
+  .sub{
+    color:var(--muted);
+    font-size:15px;
+    max-width:60ch;
+  }
+
+  .scorebar{
+    position:sticky;
+    top:env(safe-area-inset-top,0px);
+    z-index:20;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:14px;
+    box-shadow:var(--shadow);
+    padding:12px 16px;
+    margin-bottom:26px;
+    flex-wrap:wrap;
+  }
+  .scorebar .totals{
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+  }
+  .scorebar .totals .num{
+    font-family:"Fraunces", serif;
+    font-size:26px;
+    font-weight:700;
+    font-variant-numeric:tabular-nums;
+    color:var(--accent-ink);
+  }
+  .scorebar .totals .num.hidden-result{ color:var(--muted); }
+  .scorebar .label{ font-size:13px; color:var(--muted); }
+  .btnrow{ display:flex; gap:8px; }
+  .section-check-row{ display:flex; justify-content:flex-end; margin-top:14px; }
+  button.small{ font-size:13px; padding:7px 14px; }
+  button{
+    font-family:inherit;
+    font-size:14.5px;
+    font-weight:600;
+    border-radius:10px;
+    padding:10px 18px;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:transform .08s ease, background .15s ease, box-shadow .15s ease;
+  }
+  button:focus-visible, input:focus-visible, label:has(input:focus-visible){
+    outline:2px solid var(--accent);
+    outline-offset:2px;
+  }
+  button.primary{
+    background:var(--accent);
+    color:#fdfffe;
+    box-shadow:0 4px 14px -6px var(--accent);
+  }
+  button.primary:hover{ transform:translateY(-1px); }
+  button.ghost{
+    background:transparent;
+    color:var(--muted);
+    border-color:var(--border);
+  }
+  button.ghost:hover{ background:var(--surface-2); }
+
+  .chips{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+  }
+  .chip{
+    font-size:12px;
+    font-weight:600;
+    padding:4px 9px;
+    border-radius:999px;
+    background:var(--surface-2);
+    color:var(--muted);
+    font-variant-numeric:tabular-nums;
+    border:1px solid var(--border);
+  }
+  .chip.done{ background:var(--accent-soft); color:var(--accent-ink); border-color:transparent; }
+
+  section.exercise{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:22px 22px 24px;
+    margin-bottom:22px;
+    box-shadow:var(--shadow);
+  }
+  .exercise > header{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    margin-bottom:4px;
+    flex-wrap:wrap;
+  }
+  .exercise > header .tag{
+    font-family:"Fraunces", serif;
+    font-weight:700;
+    font-size:20px;
+    color:var(--accent-ink);
+    background:var(--accent-soft);
+    border-radius:8px;
+    padding:1px 10px;
+  }
+  .exercise > header h2{
+    font-size:18px;
+    font-weight:600;
+    color:var(--ink);
+  }
+  .instr{
+    font-style:italic;
+    color:var(--muted);
+    font-size:14px;
+    margin:2px 0 16px;
+  }
+  .wordbank{
+    font-size:13.5px;
+    color:var(--accent-ink);
+    background:var(--accent-soft);
+    border-radius:10px;
+    padding:8px 12px;
+    margin-bottom:16px;
+    line-height:1.6;
+  }
+  .wordbank b{ font-weight:600; }
+
+  .example{
+    font-size:14.5px;
+    color:var(--muted);
+    margin-bottom:12px;
+    padding-left:2px;
+  }
+  .example .ex-mark{
+    display:inline-block;
+    width:9px; height:9px;
+    background:var(--accent);
+    margin-right:8px;
+    border-radius:2px;
+  }
+
+  ol.items{
+    list-style:none;
+    margin:0; padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  ol.items > li{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+  }
+  ol.items > li .idx{
+    font-variant-numeric:tabular-nums;
+    color:var(--muted);
+    font-size:14px;
+    min-width:1.4em;
+    padding-top:6px;
+  }
+  .line{
+    flex:1;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:6px;
+    font-size:16px;
+  }
+  .hint-inf{
+    font-style:italic;
+    color:var(--muted);
+    font-size:13.5px;
+    margin-left:2px;
+  }
+
+  input[type="text"]{
+    font:inherit;
+    font-size:16px;
+    color:var(--ink);
+    background:var(--surface-2);
+    border:1.5px solid var(--border);
+    border-radius:8px;
+    padding:4px 8px;
+    width:10.5ch;
+    text-align:center;
+  }
+  input[type="text"]:focus{
+    border-color:var(--accent);
+    background:var(--surface);
+  }
+  input[type="text"].correct{
+    background:var(--correct-bg);
+    border-color:var(--correct-border);
+    color:var(--correct);
+    font-weight:600;
+  }
+  input[type="text"].incorrect{
+    background:var(--incorrect-bg);
+    border-color:var(--incorrect-border);
+    color:var(--incorrect);
+    font-weight:600;
+  }
+  .answer-hint{
+    font-size:13px;
+    color:var(--incorrect);
+    white-space:nowrap;
+  }
+  .answer-hint b{ font-weight:700; }
+
+  .subgroup + .subgroup{ margin-top:20px; }
+  .subgroup h3{
+    font-size:14px;
+    font-weight:600;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    color:var(--accent-ink);
+    margin-bottom:8px;
+  }
+  .grid2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px 28px;
+  }
+  @media (max-width:620px){
+    .grid2{ grid-template-columns:1fr; }
+    .scorebar{ flex-direction:column; align-items:stretch; }
+    .btnrow{ justify-content:flex-end; }
+  }
+
+  footer.note{
+    color:var(--muted);
+    font-size:12.5px;
+    text-align:center;
+    margin-top:8px;
+  }
+
+  .back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    font-size:13.5px;
+    font-weight:600;
+    color:var(--muted);
+    text-decoration:none;
+    margin-bottom:16px;
+  }
+  .back-link:hover{ color:var(--accent-ink); }
+</style></head><body>
+
+<div class="wrap">
+  <a class="back-link" href="index.html">← Zurück zum Portal</a>
+  <div class="masthead">
+    <span class="kicker">Begegnungen A1+ · Kapitel 2 · Teil C</span>
+    <h1>Possessivartikel & Pronomen</h1>
+    <p class="sub">C4–C6 の練習問題です(S.49–50)。所有冠詞・du/ihr⇔Sieの言い換え・人称代名詞(er/sie/es)の練習です。空欄に正しい形を入力して、下の「採点する」ボタンを押してください。</p>
+  </div>
+
+  <div class="scorebar" id="scorebar">
+    <div class="totals">
+      <span class="num hidden-result" id="scoreNum">–</span>
+      <span class="label">正解数 / 全34問</span>
+    </div>
+    <div class="chips" id="chips">
+      <span class="chip" data-chip="C4">C4 0/20</span>
+      <span class="chip" data-chip="C5">C5 0/6</span>
+      <span class="chip" data-chip="C6">C6 0/8</span>
+    </div>
+    <div class="btnrow">
+      <button class="ghost" id="resetBtn" type="button">リセット</button>
+      <button class="primary" id="gradeBtn" type="button">採点する</button>
+    </div>
+  </div>
+
+  <!-- C4 -->
+  <section class="exercise" id="sec-c4">
+    <header><span class="tag">C4</span><h2>Ergänzen Sie die Possessivartikel.</h2></header>
+    <p class="instr">それぞれの人称代名詞に合う所有冠詞を入れてください。</p>
+    <div class="example"><span class="ex-mark"></span>ich: Ist das <u>mein</u> Buch?</div>
+    <div class="grid2">
+      <div class="subgroup">
+        <h3>1. Buch</h3>
+        <ol class="items" id="c4-1-list"></ol>
+      </div>
+      <div class="subgroup">
+        <h3>2. Drucker geht nicht.</h3>
+        <ol class="items" id="c4-2-list"></ol>
+      </div>
+      <div class="subgroup">
+        <h3>3. Freundin Maria</h3>
+        <ol class="items" id="c4-3-list"></ol>
+      </div>
+      <div class="subgroup">
+        <h3>4. Bruder ist Arzt.</h3>
+        <ol class="items" id="c4-4-list"></ol>
+      </div>
+      <div class="subgroup">
+        <h3>5. Kinder spielen Violine.</h3>
+        <ol class="items" id="c4-5-list"></ol>
+      </div>
+    </div>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C4" data-target="sec-c4">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C5 -->
+  <section class="exercise" id="sec-c5">
+    <header><span class="tag">C5</span><h2>Sagen Sie es informell bzw. formell.</h2></header>
+    <div class="wordbank"><b>informell:</b> dein(deine)/euer(eure) ⇔ <b>formell:</b> Ihr(Ihre)</div>
+    <div class="example"><span class="ex-mark"></span>Ist das dein Stift? → <u>Ist das Ihr Stift?</u></div>
+    <ol class="items" id="c5-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C5" data-target="sec-c5">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C6 -->
+  <section class="exercise" id="sec-c6">
+    <header><span class="tag">C6</span><h2>Ergänzen Sie er, sie oder es.</h2></header>
+    <div class="example"><span class="ex-mark"></span>Ist dein Büro groß? – Nein, <u>es</u> ist klein.</div>
+    <ol class="items" id="c6-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C6" data-target="sec-c6">このセクションを採点する</button></div>
+  </section>
+
+  <div class="btnrow" style="justify-content:center; margin-top:8px;">
+    <button class="ghost" id="resetBtn2" type="button">リセット</button>
+    <button class="primary" id="gradeBtn2" type="button">採点する</button>
+  </div>
+  <footer class="note">Begegnungen A1+（Schubert Verlag）Kapitel 2, S.49–50 の練習問題を基に作成</footer>
+</div>
+
+<script>
+(function(){
+
+  function el(tag, props, children){
+    const e = document.createElement(tag);
+    if (props) for (const k in props){
+      if (k === "class") e.className = props[k];
+      else if (k === "html") e.innerHTML = props[k];
+      else e.setAttribute(k, props[k]);
+    }
+    (children||[]).forEach(c => e.appendChild(typeof c === "string" ? document.createTextNode(c) : c));
+    return e;
+  }
+
+  function blankInput(id, answers, width){
+    const inp = el("input", { type:"text", id:id, autocomplete:"off", spellcheck:"false" });
+    if (width) inp.style.width = width;
+    inp.dataset.answers = answers.join("|");
+    return inp;
+  }
+
+  function buildLine(segments){
+    const wrap = el("span", { class:"line" });
+    segments.forEach(seg => {
+      if (typeof seg === "string"){
+        wrap.appendChild(document.createTextNode(seg));
+      } else if (seg.blank){
+        wrap.appendChild(blankInput(seg.blank.id, seg.blank.answers, seg.blank.width));
+      } else if (seg.inf){
+        wrap.appendChild(el("span", { class:"hint-inf" }, ["(" + seg.inf + ")"]));
+      }
+    });
+    return wrap;
+  }
+
+  function textItem(idx, segments){
+    const li = el("li");
+    if (idx !== null) li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    li.appendChild(buildLine(segments));
+    return li;
+  }
+
+  // ---------- C4 ----------
+  function fillC4(listId, rows){
+    const list = document.getElementById(listId);
+    rows.forEach(segs => list.appendChild(textItem(null, segs)));
+  }
+  fillC4("c4-1-list", [
+    ["du: Ist das ", {blank:{id:"c4-1-1", answers:["dein"], width:"7ch"}}, " Buch?"],
+    ["er: Ist das ", {blank:{id:"c4-1-2", answers:["sein"], width:"7ch"}}, " Buch?"],
+    ["sie: Ist das ", {blank:{id:"c4-1-3", answers:["ihr"], width:"6ch"}}, " Buch?"],
+    ["wir: Ist das ", {blank:{id:"c4-1-4", answers:["unser"], width:"8ch"}}, " Buch?"],
+    ["Sie: Ist das ", {blank:{id:"c4-1-5", answers:["Ihr"], width:"6ch"}}, " Buch?"],
+  ]);
+  fillC4("c4-2-list", [
+    ["ich: ", {blank:{id:"c4-2-1", answers:["Mein"], width:"7ch"}}, " Drucker geht nicht."],
+    ["du: ", {blank:{id:"c4-2-2", answers:["Dein"], width:"7ch"}}, " Drucker geht nicht."],
+    ["Sie: ", {blank:{id:"c4-2-3", answers:["Ihr"], width:"6ch"}}, " Drucker geht nicht."],
+    ["wir: ", {blank:{id:"c4-2-4", answers:["Unser"], width:"8ch"}}, " Drucker geht nicht."],
+    ["ihr: ", {blank:{id:"c4-2-5", answers:["Euer"], width:"7ch"}}, " Drucker geht nicht."],
+  ]);
+  fillC4("c4-3-list", [
+    ["ich: Das ist ", {blank:{id:"c4-3-1", answers:["meine"], width:"8ch"}}, " Freundin Maria."],
+    ["er: Das ist ", {blank:{id:"c4-3-2", answers:["seine"], width:"8ch"}}, " Freundin Maria."],
+    ["sie: Das ist ", {blank:{id:"c4-3-3", answers:["ihre"], width:"7ch"}}, " Freundin Maria."],
+    ["wir: Das ist ", {blank:{id:"c4-3-4", answers:["unsere"], width:"9ch"}}, " Freundin Maria."],
+  ]);
+  fillC4("c4-4-list", [
+    ["ich: ", {blank:{id:"c4-4-1", answers:["Mein"], width:"7ch"}}, " Bruder ist Arzt."],
+    ["er: ", {blank:{id:"c4-4-2", answers:["Sein"], width:"7ch"}}, " Bruder ist Arzt."],
+    ["sie: ", {blank:{id:"c4-4-3", answers:["Ihr"], width:"6ch"}}, " Bruder ist Arzt."],
+    ["wir: ", {blank:{id:"c4-4-4", answers:["Unser"], width:"8ch"}}, " Bruder ist Arzt."],
+  ]);
+  fillC4("c4-5-list", [
+    ["wir: ", {blank:{id:"c4-5-1", answers:["Unsere"], width:"9ch"}}, " Kinder spielen sehr gut Violine."],
+    ["er: ", {blank:{id:"c4-5-2", answers:["Seine"], width:"8ch"}}, " Kinder spielen sehr gut Violine."],
+  ]);
+
+  // ---------- C5 ----------
+  const c5list = document.getElementById("c5-list");
+  const c5lines = [
+    ["Ist das ", {blank:{id:"c5-1", answers:["dein"], width:"7ch"}}, " Büro? ← Ist das Ihr Büro?"],
+    ["Ist das ", {blank:{id:"c5-2", answers:["deine"], width:"8ch"}}, " Brille? ← Ist das Ihre Brille?"],
+    ["Ist das dein Auto? → Ist das ", {blank:{id:"c5-3", answers:["Ihr"], width:"6ch"}}, " Auto?"],
+    ["Ist das ", {blank:{id:"c5-4", answers:["dein"], width:"7ch"}}, " Drucker? ← Ist das Ihr Drucker?"],
+    ["Ist das dein Laptop? → Ist das ", {blank:{id:"c5-5", answers:["Ihr"], width:"6ch"}}, " Laptop?"],
+    ["Ist das ", {blank:{id:"c5-6", answers:["dein"], width:"7ch"}}, " Schreibtisch? ← Ist das Ihr Schreibtisch?"],
+  ];
+  c5lines.forEach((segs,i) => c5list.appendChild(textItem(i+1, segs)));
+
+  // ---------- C6 ----------
+  const c6list = document.getElementById("c6-list");
+  const c6lines = [
+    ["Ist das dein neuer Computer? – Ja, aber ", {blank:{id:"c6-1", answers:["er"], width:"6ch"}}, " funktioniert nicht."],
+    ["Ist das dein Stift? – Ja, aber ", {blank:{id:"c6-2", answers:["er"], width:"6ch"}}, " schreibt nicht."],
+    ["Funktioniert dein Telefon? – Nein, ", {blank:{id:"c6-3", answers:["es"], width:"6ch"}}, " ist kaputt."],
+    ["Sind die Lampen kaputt? – Nein, ", {blank:{id:"c6-4", answers:["sie"], width:"6ch"}}, " gehen."],
+    ["Geht deine Uhr? – Ja, ", {blank:{id:"c6-5", answers:["sie"], width:"6ch"}}, " funktioniert gut."],
+    ["Ist das dein Auto? – Ja, aber ", {blank:{id:"c6-6", answers:["es"], width:"6ch"}}, " fährt nicht."],
+    ["Ist dein Schreibtisch neu? – Ja, ", {blank:{id:"c6-7", answers:["er"], width:"6ch"}}, " ist neu."],
+    ["Ist das Buch spannend? – Nein, ", {blank:{id:"c6-8", answers:["es"], width:"6ch"}}, " ist langweilig."],
+  ];
+  c6lines.forEach((segs,i) => c6list.appendChild(textItem(i+1, segs)));
+
+  // ---------- grading ----------
+  const SECTIONS = {
+    C4: ["c4-1-1","c4-1-2","c4-1-3","c4-1-4","c4-1-5",
+         "c4-2-1","c4-2-2","c4-2-3","c4-2-4","c4-2-5",
+         "c4-3-1","c4-3-2","c4-3-3","c4-3-4",
+         "c4-4-1","c4-4-2","c4-4-3","c4-4-4",
+         "c4-5-1","c4-5-2"],
+    C5: ["c5-1","c5-2","c5-3","c5-4","c5-5","c5-6"],
+    C6: ["c6-1","c6-2","c6-3","c6-4","c6-5","c6-6","c6-7","c6-8"]
+  };
+
+  function clearHints(){
+    document.querySelectorAll(".answer-hint").forEach(n => n.remove());
+  }
+
+  function grade(){
+    clearHints();
+    let total = 0, correctCount = 0;
+    const sectionScore = { C4:0, C5:0, C6:0 };
+
+    document.querySelectorAll('input[type="text"][data-answers]').forEach(inp => {
+      total++;
+      const accepted = inp.dataset.answers.split("|").map(a => a.trim().toLowerCase());
+      const val = inp.value.trim().toLowerCase();
+      const ok = val.length > 0 && accepted.includes(val);
+      inp.classList.remove("correct","incorrect");
+      inp.classList.add(ok ? "correct" : "incorrect");
+      if (!ok){
+        const hint = el("span", { class:"answer-hint" }, ["→ ", el("b", {}, [inp.dataset.answers.split("|")[0]])]);
+        inp.insertAdjacentElement("afterend", hint);
+      } else {
+        correctCount++;
+      }
+      for (const s in SECTIONS){
+        if (SECTIONS[s].includes(inp.id) && ok) sectionScore[s]++;
+      }
+    });
+
+    document.getElementById("scoreNum").textContent = correctCount + " / " + total;
+    document.getElementById("scoreNum").classList.remove("hidden-result");
+    const totals = { C4:20, C5:6, C6:8 };
+    document.querySelectorAll(".chip").forEach(chip => {
+      const s = chip.dataset.chip;
+      if (!s) return;
+      chip.textContent = s + " " + sectionScore[s] + "/" + totals[s];
+      chip.classList.toggle("done", sectionScore[s] === totals[s]);
+    });
+    document.getElementById("scorebar").scrollIntoView({ behavior:"smooth", block:"start" });
+  }
+
+  function resetAll(){
+    document.querySelectorAll('input[type="text"]').forEach(inp => {
+      inp.value = "";
+      inp.classList.remove("correct","incorrect");
+    });
+    clearHints();
+    document.getElementById("scoreNum").textContent = "–";
+    document.getElementById("scoreNum").classList.add("hidden-result");
+    const totals = { C4:20, C5:6, C6:8 };
+    document.querySelectorAll(".chip").forEach(chip => {
+      const s = chip.dataset.chip;
+      if (!s) return;
+      chip.textContent = s + " 0/" + totals[s];
+      chip.classList.remove("done");
+    });
+    window.scrollTo({ top:0, behavior:"smooth" });
+  }
+
+  document.getElementById("gradeBtn").addEventListener("click", grade);
+  document.getElementById("gradeBtn2").addEventListener("click", grade);
+  document.getElementById("resetBtn").addEventListener("click", resetAll);
+  document.getElementById("resetBtn2").addEventListener("click", resetAll);
+
+  // ---------- per-section grading ----------
+  function clearHintsIn(root){
+    root.querySelectorAll(".answer-hint").forEach(n => n.remove());
+  }
+
+  function gradeSection(sectionKey, root){
+    if (!root) return;
+    clearHintsIn(root);
+    let total = 0, correct = 0;
+
+    root.querySelectorAll('input[type="text"][data-answers]').forEach(inp => {
+      total++;
+      const accepted = inp.dataset.answers.split("|").map(a => a.trim().toLowerCase());
+      const val = inp.value.trim().toLowerCase();
+      const ok = val.length > 0 && accepted.includes(val);
+      inp.classList.remove("correct","incorrect");
+      inp.classList.add(ok ? "correct" : "incorrect");
+      if (!ok){
+        const hint = el("span", { class:"answer-hint" }, ["→ ", el("b", {}, [inp.dataset.answers.split("|")[0]])]);
+        inp.insertAdjacentElement("afterend", hint);
+      } else {
+        correct++;
+      }
+    });
+
+    const chip = document.querySelector('.chip[data-chip="'+sectionKey+'"]');
+    if (chip){
+      chip.textContent = sectionKey + " " + correct + "/" + total;
+      chip.classList.toggle("done", correct === total);
+    }
+  }
+
+  document.querySelectorAll(".section-check").forEach(btn => {
+    btn.addEventListener("click", () => {
+      gradeSection(btn.dataset.section, document.getElementById(btn.dataset.target));
+    });
+  });
+
+  // ---------- hot state ----------
+  function collectState(){
+    const state = {};
+    document.querySelectorAll('input[type="text"]').forEach(i => state[i.id] = i.value);
+    return state;
+  }
+  function applyState(state){
+    if (!state) return;
+    document.querySelectorAll('input[type="text"]').forEach(i => { if (state[i.id] !== undefined) i.value = state[i.id]; });
+  }
+  try {
+    if (window.claude && window.claude.hot){
+      window.claude.hot.snapshot(collectState);
+      const boot = (data) => applyState(data);
+      window.claude.hot.ready ? window.claude.hot.ready(boot) : boot(window.claude.hot.data || {});
+    }
+  } catch(e) {}
+})();
+</script>
+</body></html>
