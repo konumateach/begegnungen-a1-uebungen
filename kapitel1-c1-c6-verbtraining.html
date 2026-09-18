@@ -138,6 +138,8 @@
   .scorebar .totals .num.hidden-result{ color:var(--muted); }
   .scorebar .label{ font-size:13px; color:var(--muted); }
   .btnrow{ display:flex; gap:8px; }
+  .section-check-row{ display:flex; justify-content:flex-end; margin-top:14px; }
+  button.small{ font-size:13px; padding:7px 14px; }
   button{
     font-family:inherit;
     font-size:14.5px;
@@ -429,6 +431,7 @@
     <p class="instr">正しい動詞の形を選んでください。</p>
     <div class="example"><span class="ex-mark"></span>Wie <u>heißen</u> Sie?</div>
     <ol class="items" id="c1-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C1" data-target="sec-c1">このセクションを採点する</button></div>
   </section>
 
   <!-- C2 -->
@@ -436,6 +439,7 @@
     <header><span class="tag">C2</span><h2>Was passt hier?</h2></header>
     <p class="instr">正しい語を選んでください。</p>
     <ol class="items" id="c2-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C2" data-target="sec-c2">このセクションを採点する</button></div>
   </section>
 
   <!-- C3 -->
@@ -443,6 +447,7 @@
     <header><span class="tag">C3</span><h2>Ergänzen Sie die Verben.</h2></header>
     <p class="instr">Conrad Kremer と Serena Rosso の会話です。かっこ内の動詞を正しい形にして入れてください。</p>
     <ol class="items" id="c3-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C3" data-target="sec-c3">このセクションを採点する</button></div>
   </section>
 
   <!-- C4 -->
@@ -451,6 +456,7 @@
     <div class="wordbank"><b>単語リスト:</b> sprechen · schreiben · arbeiten · lesen · spielen (2×) · hören · singen · lernen · sein</div>
     <div class="example"><span class="ex-mark"></span>Susanne <u>arbeitet</u> als Managerin bei BASF.</div>
     <ol class="items" id="c4-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C4" data-target="sec-c4">このセクションを採点する</button></div>
   </section>
 
   <!-- C5 -->
@@ -476,6 +482,7 @@
         <ol class="items" id="c5d-list"></ol>
       </div>
     </div>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C5" data-target="sec-c5">このセクションを採点する</button></div>
   </section>
 
   <!-- C6 -->
@@ -483,6 +490,7 @@
     <header><span class="tag">C6</span><h2>Hören Sie und ergänzen Sie die Sätze.</h2></header>
     <p class="instr">🎧 Track 1.19 を聞きながら空欄を埋めてください。</p>
     <ol class="items" id="c6-list" style="gap:22px;"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C6" data-target="sec-c6">このセクションを採点する</button></div>
   </section>
 
   <div class="btnrow" style="justify-content:center; margin-top:8px;">
@@ -800,6 +808,70 @@
   document.getElementById("gradeBtn2").addEventListener("click", grade);
   document.getElementById("resetBtn").addEventListener("click", resetAll);
   document.getElementById("resetBtn2").addEventListener("click", resetAll);
+
+  // ---------- per-section grading ----------
+  function clearHintsIn(root){
+    root.querySelectorAll(".answer-hint").forEach(n => n.remove());
+  }
+
+  function gradeSection(sectionKey, root){
+    if (!root) return;
+    clearHintsIn(root);
+    let total = 0, correct = 0;
+
+    root.querySelectorAll('input[type="text"][data-answers]').forEach(inp => {
+      total++;
+      const accepted = inp.dataset.answers.split("|").map(a => a.trim().toLowerCase());
+      const val = inp.value.trim().toLowerCase();
+      const ok = val.length > 0 && accepted.includes(val);
+      inp.classList.remove("correct","incorrect");
+      inp.classList.add(ok ? "correct" : "incorrect");
+      if (!ok){
+        const hint = el("span", { class:"answer-hint" }, ["→ ", el("b", {}, [inp.dataset.answers.split("|")[0]])]);
+        inp.insertAdjacentElement("afterend", hint);
+      } else {
+        correct++;
+      }
+    });
+
+    const radioNames = new Set();
+    root.querySelectorAll('input[type="radio"]').forEach(r => radioNames.add(r.name));
+    radioNames.forEach(name => {
+      total++;
+      const radios = root.querySelectorAll('input[name="'+name+'"]');
+      let ok = false;
+      radios.forEach(r => {
+        const label = root.querySelector('label[for="'+r.id+'"]');
+        label.classList.remove("pick-correct","pick-incorrect");
+        if (r.dataset.correct === "true"){
+          if (r.checked) { ok = true; label.classList.add("pick-correct"); }
+        } else if (r.checked){
+          label.classList.add("pick-incorrect");
+        }
+      });
+      if (!ok){
+        radios.forEach(r => {
+          if (r.dataset.correct === "true"){
+            root.querySelector('label[for="'+r.id+'"]').classList.add("pick-correct");
+          }
+        });
+      } else {
+        correct++;
+      }
+    });
+
+    const chip = document.querySelector('.chip[data-chip="'+sectionKey+'"]');
+    if (chip){
+      chip.textContent = sectionKey + " " + correct + "/" + total;
+      chip.classList.toggle("done", correct === total);
+    }
+  }
+
+  document.querySelectorAll(".section-check").forEach(btn => {
+    btn.addEventListener("click", () => {
+      gradeSection(btn.dataset.section, document.getElementById(btn.dataset.target));
+    });
+  });
 
   // ---------- hot state (best-effort, for open viewers on republish) ----------
   function collectState(){

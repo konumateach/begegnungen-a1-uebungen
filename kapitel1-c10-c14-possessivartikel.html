@@ -138,6 +138,8 @@
   .scorebar .totals .num.hidden-result{ color:var(--muted); }
   .scorebar .label{ font-size:13px; color:var(--muted); }
   .btnrow{ display:flex; gap:8px; }
+  .section-check-row{ display:flex; justify-content:flex-end; margin-top:14px; }
+  button.small{ font-size:13px; padding:7px 14px; }
   button{
     font-family:inherit;
     font-size:14.5px;
@@ -402,6 +404,7 @@
         <ol class="items" id="c10-er-list"></ol>
       </div>
     </div>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C10" data-target="sec-c10">このセクションを採点する</button></div>
   </section>
 
   <!-- C11 -->
@@ -409,6 +412,7 @@
     <header><span class="tag">C11</span><h2>Ergänzen Sie den Possessivartikel.</h2></header>
     <div class="example"><span class="ex-mark"></span>(ich) Mein Name ist Anne. <span class="hint-inf">(Name: maskulin)</span></div>
     <ol class="items" id="c11-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C11" data-target="sec-c11">このセクションを採点する</button></div>
   </section>
 
   <!-- C12 -->
@@ -417,6 +421,7 @@
     <p class="instr">語で書かれた数字を算用数字にしてください。</p>
     <div class="example"><span class="ex-mark"></span>siebenundvierzig = <u>47</u></div>
     <ol class="items" id="c12-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C12" data-target="sec-c12">このセクションを採点する</button></div>
   </section>
 
   <!-- C13 -->
@@ -425,6 +430,7 @@
     <p class="instr">算用数字をドイツ語の語で書いてください。</p>
     <div class="example"><span class="ex-mark"></span>1 = <u>eins</u></div>
     <ol class="items" id="c13-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C13" data-target="sec-c13">このセクションを採点する</button></div>
   </section>
 
   <!-- C14 -->
@@ -433,6 +439,7 @@
     <p class="instr">前後の数字から、間に入る数字を語で書いてください。</p>
     <div class="example"><span class="ex-mark"></span>zwei → <u>drei</u> → vier</div>
     <ol class="items" id="c14-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C14" data-target="sec-c14">このセクションを採点する</button></div>
   </section>
 
   <div class="btnrow" style="justify-content:center; margin-top:8px;">
@@ -678,6 +685,44 @@
   document.getElementById("gradeBtn2").addEventListener("click", grade);
   document.getElementById("resetBtn").addEventListener("click", resetAll);
   document.getElementById("resetBtn2").addEventListener("click", resetAll);
+
+  // ---------- per-section grading ----------
+  function clearHintsIn(root){
+    root.querySelectorAll(".answer-hint").forEach(n => n.remove());
+  }
+
+  function gradeSection(sectionKey, root){
+    if (!root) return;
+    clearHintsIn(root);
+    let total = 0, correct = 0;
+
+    root.querySelectorAll('input[type="text"][data-answers]').forEach(inp => {
+      total++;
+      const accepted = inp.dataset.answers.split("|").map(a => a.trim().toLowerCase());
+      const val = inp.value.trim().toLowerCase();
+      const ok = val.length > 0 && accepted.includes(val);
+      inp.classList.remove("correct","incorrect");
+      inp.classList.add(ok ? "correct" : "incorrect");
+      if (!ok){
+        const hint = el("span", { class:"answer-hint" }, ["→ ", el("b", {}, [inp.dataset.answers.split("|")[0]])]);
+        inp.insertAdjacentElement("afterend", hint);
+      } else {
+        correct++;
+      }
+    });
+
+    const chip = document.querySelector('.chip[data-chip="'+sectionKey+'"]');
+    if (chip){
+      chip.textContent = sectionKey + " " + correct + "/" + total;
+      chip.classList.toggle("done", correct === total);
+    }
+  }
+
+  document.querySelectorAll(".section-check").forEach(btn => {
+    btn.addEventListener("click", () => {
+      gradeSection(btn.dataset.section, document.getElementById(btn.dataset.target));
+    });
+  });
 
   // ---------- hot state (best-effort, for open viewers on republish) ----------
   function collectState(){

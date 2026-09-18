@@ -138,6 +138,8 @@
   .scorebar .totals .num.hidden-result{ color:var(--muted); }
   .scorebar .label{ font-size:13px; color:var(--muted); }
   .btnrow{ display:flex; gap:8px; }
+  .section-check-row{ display:flex; justify-content:flex-end; margin-top:14px; }
+  button.small{ font-size:13px; padding:7px 14px; }
   button{
     font-family:inherit;
     font-size:14.5px;
@@ -424,6 +426,7 @@
     </div>
     <ol class="items" id="c7-list" style="gap:18px;"></ol>
     <p class="instr" style="margin-top:14px;">※ ドイツ語は語順が比較的自由なため、文法的に正しければ採点結果と語順が多少異なっていても問題ありません。</p>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C7" data-target="sec-c7">このセクションを採点する</button></div>
   </section>
 
   <!-- C8 -->
@@ -439,6 +442,7 @@
     <div class="wordbank"><b>単語リスト:</b> wie · was · wo · woher · welche</div>
     <div class="example"><span class="ex-mark"></span><u>Wie</u> heißen Sie?</div>
     <ol class="items" id="c9-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C9" data-target="sec-c9">このセクションを採点する</button></div>
   </section>
 
   <div class="btnrow" style="justify-content:center; margin-top:8px;">
@@ -658,6 +662,45 @@
   document.getElementById("gradeBtn2").addEventListener("click", grade);
   document.getElementById("resetBtn").addEventListener("click", resetAll);
   document.getElementById("resetBtn2").addEventListener("click", resetAll);
+
+  // ---------- per-section grading ----------
+  function clearHintsIn(root){
+    root.querySelectorAll(".answer-hint").forEach(n => n.remove());
+  }
+
+  function gradeSection(sectionKey, root){
+    if (!root) return;
+    clearHintsIn(root);
+    let total = 0, correct = 0;
+
+    root.querySelectorAll('input[type="text"][data-answers]').forEach(inp => {
+      total++;
+      const isSentence = inp.dataset.sentence === "true";
+      const accepted = inp.dataset.answers.split("|").map(a => isSentence ? normalizeSentence(a) : a.trim().toLowerCase());
+      const val = isSentence ? normalizeSentence(inp.value) : inp.value.trim().toLowerCase();
+      const ok = val.length > 0 && accepted.includes(val);
+      inp.classList.remove("correct","incorrect");
+      inp.classList.add(ok ? "correct" : "incorrect");
+      if (!ok){
+        const hint = el("span", { class:"answer-hint" }, ["→ ", el("b", {}, [inp.dataset.answers.split("|")[0]])]);
+        inp.insertAdjacentElement("afterend", hint);
+      } else {
+        correct++;
+      }
+    });
+
+    const chip = document.querySelector('.chip[data-chip="'+sectionKey+'"]');
+    if (chip){
+      chip.textContent = sectionKey + " " + correct + "/" + total;
+      chip.classList.toggle("done", correct === total);
+    }
+  }
+
+  document.querySelectorAll(".section-check").forEach(btn => {
+    btn.addEventListener("click", () => {
+      gradeSection(btn.dataset.section, document.getElementById(btn.dataset.target));
+    });
+  });
 
   // ---------- hot state (best-effort, for open viewers on republish) ----------
   function collectState(){
