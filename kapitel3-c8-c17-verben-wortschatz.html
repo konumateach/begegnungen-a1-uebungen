@@ -1,0 +1,1153 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><title>Kapitel 3 Verben & Wortschatz</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f7f6;
+    --surface:#ffffff;
+    --surface-2:#eef4f3;
+    --ink:#152524;
+    --muted:#5c716f;
+    --border:#d7e2e0;
+    --accent:#0d7a72;
+    --accent-ink:#075a54;
+    --accent-soft:#e0f2ef;
+    --correct:#1c7a43;
+    --correct-bg:#e5f5ea;
+    --correct-border:#a9d9b8;
+    --incorrect:#b3261e;
+    --incorrect-bg:#fdecea;
+    --incorrect-border:#f0b8b3;
+    --shadow: 0 1px 2px rgba(21,37,36,.04), 0 8px 24px -12px rgba(21,37,36,.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0f1716;
+      --surface:#16201f;
+      --surface-2:#1c2725;
+      --ink:#e8f0ee;
+      --muted:#9db3af;
+      --border:#293735;
+      --accent:#3fc9bb;
+      --accent-ink:#8fe3d8;
+      --accent-soft:#1a3230;
+      --correct:#5fd487;
+      --correct-bg:#173224;
+      --correct-border:#2c5a3c;
+      --incorrect:#ff8a80;
+      --incorrect-bg:#3a1c1a;
+      --incorrect-border:#6b302b;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0f1716;
+    --surface:#16201f;
+    --surface-2:#1c2725;
+    --ink:#e8f0ee;
+    --muted:#9db3af;
+    --border:#293735;
+    --accent:#3fc9bb;
+    --accent-ink:#8fe3d8;
+    --accent-soft:#1a3230;
+    --correct:#5fd487;
+    --correct-bg:#173224;
+    --correct-border:#2c5a3c;
+    --incorrect:#ff8a80;
+    --incorrect-bg:#3a1c1a;
+    --incorrect-border:#6b302b;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Source Sans 3", "Hiragino Sans", "Yu Gothic", sans-serif;
+    line-height:1.55;
+  }
+  .wrap{
+    max-width:760px;
+    margin:0 auto;
+    padding-inline:20px;
+    padding-block:28px 120px;
+  }
+  h1,h2,h3{
+    font-family:"Fraunces", serif;
+    text-wrap:balance;
+    margin:0;
+  }
+  .masthead{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    margin-bottom:28px;
+  }
+  .kicker{
+    font-size:12.5px;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    color:var(--accent-ink);
+    font-weight:600;
+  }
+  h1{
+    font-size:clamp(26px,5vw,34px);
+    font-weight:700;
+    color:var(--ink);
+  }
+  .sub{
+    color:var(--muted);
+    font-size:15px;
+    max-width:60ch;
+  }
+
+  .scorebar{
+    position:sticky;
+    top:env(safe-area-inset-top,0px);
+    z-index:20;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:14px;
+    box-shadow:var(--shadow);
+    padding:12px 16px;
+    margin-bottom:26px;
+    flex-wrap:wrap;
+  }
+  .scorebar .totals{
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+  }
+  .scorebar .totals .num{
+    font-family:"Fraunces", serif;
+    font-size:26px;
+    font-weight:700;
+    font-variant-numeric:tabular-nums;
+    color:var(--accent-ink);
+  }
+  .scorebar .totals .num.hidden-result{ color:var(--muted); }
+  .scorebar .label{ font-size:13px; color:var(--muted); }
+  .btnrow{ display:flex; gap:8px; }
+  .section-check-row{ display:flex; justify-content:flex-end; margin-top:14px; }
+  button.small{ font-size:13px; padding:7px 14px; }
+  button{
+    font-family:inherit;
+    font-size:14.5px;
+    font-weight:600;
+    border-radius:10px;
+    padding:10px 18px;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:transform .08s ease, background .15s ease, box-shadow .15s ease;
+  }
+  button:focus-visible, input:focus-visible, select:focus-visible, label:has(input:focus-visible){
+    outline:2px solid var(--accent);
+    outline-offset:2px;
+  }
+  button.primary{
+    background:var(--accent);
+    color:#fdfffe;
+    box-shadow:0 4px 14px -6px var(--accent);
+  }
+  button.primary:hover{ transform:translateY(-1px); }
+  button.ghost{
+    background:transparent;
+    color:var(--muted);
+    border-color:var(--border);
+  }
+  button.ghost:hover{ background:var(--surface-2); }
+
+  .chips{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+  }
+  .chip{
+    font-size:12px;
+    font-weight:600;
+    padding:4px 9px;
+    border-radius:999px;
+    background:var(--surface-2);
+    color:var(--muted);
+    font-variant-numeric:tabular-nums;
+    border:1px solid var(--border);
+  }
+  .chip.done{ background:var(--accent-soft); color:var(--accent-ink); border-color:transparent; }
+
+  section.exercise{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:22px 22px 24px;
+    margin-bottom:22px;
+    box-shadow:var(--shadow);
+  }
+  .exercise > header{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    margin-bottom:4px;
+    flex-wrap:wrap;
+  }
+  .exercise > header .tag{
+    font-family:"Fraunces", serif;
+    font-weight:700;
+    font-size:20px;
+    color:var(--accent-ink);
+    background:var(--accent-soft);
+    border-radius:8px;
+    padding:1px 10px;
+  }
+  .exercise > header h2{
+    font-size:18px;
+    font-weight:600;
+    color:var(--ink);
+  }
+  .instr{
+    font-style:italic;
+    color:var(--muted);
+    font-size:14px;
+    margin:2px 0 16px;
+  }
+  .wordbank{
+    font-size:13.5px;
+    color:var(--accent-ink);
+    background:var(--accent-soft);
+    border-radius:10px;
+    padding:8px 12px;
+    margin-bottom:16px;
+    line-height:1.6;
+  }
+  .wordbank b{ font-weight:600; }
+
+  .example{
+    font-size:14.5px;
+    color:var(--muted);
+    margin-bottom:12px;
+    padding-left:2px;
+  }
+  .example .ex-mark{
+    display:inline-block;
+    width:9px; height:9px;
+    background:var(--accent);
+    margin-right:8px;
+    border-radius:2px;
+  }
+
+  ol.items{
+    list-style:none;
+    margin:0; padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  ol.items > li{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+  }
+  ol.items > li .idx{
+    font-variant-numeric:tabular-nums;
+    color:var(--muted);
+    font-size:14px;
+    min-width:1.4em;
+    padding-top:6px;
+  }
+  .line{
+    flex:1;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:6px;
+    font-size:16px;
+  }
+
+  input[type="text"]{
+    font:inherit;
+    font-size:16px;
+    color:var(--ink);
+    background:var(--surface-2);
+    border:1.5px solid var(--border);
+    border-radius:8px;
+    padding:4px 8px;
+    width:10.5ch;
+    text-align:center;
+  }
+  input[type="text"]:focus{
+    border-color:var(--accent);
+    background:var(--surface);
+  }
+  input[type="text"].correct{
+    background:var(--correct-bg);
+    border-color:var(--correct-border);
+    color:var(--correct);
+    font-weight:600;
+  }
+  input[type="text"].incorrect{
+    background:var(--incorrect-bg);
+    border-color:var(--incorrect-border);
+    color:var(--incorrect);
+    font-weight:600;
+  }
+  .answer-hint{
+    font-size:13px;
+    color:var(--incorrect);
+    white-space:nowrap;
+  }
+  .answer-hint b{ font-weight:700; }
+
+  .choice-line{ gap:12px 18px; }
+  .options{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+  }
+  .opt{
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:14.5px;
+    padding:6px 12px;
+    border-radius:999px;
+    border:1.5px solid var(--border);
+    background:var(--surface-2);
+    cursor:pointer;
+    user-select:none;
+    transition:background .12s ease, border-color .12s ease;
+  }
+  .opt input{ accent-color:var(--accent); margin:0; }
+  .opt:hover{ border-color:var(--accent); }
+  .opt.pick-correct{
+    background:var(--correct-bg);
+    border-color:var(--correct-border);
+    color:var(--correct);
+    font-weight:600;
+  }
+  .opt.pick-incorrect{
+    background:var(--incorrect-bg);
+    border-color:var(--incorrect-border);
+    color:var(--incorrect);
+    font-weight:600;
+  }
+
+  .sentence-line{
+    flex-direction:column;
+    align-items:stretch;
+    gap:8px;
+  }
+  .cue-chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+  }
+  .cue-chip{
+    font-size:12.5px;
+    padding:3px 10px;
+    border-radius:8px;
+    background:var(--surface-2);
+    color:var(--muted);
+    border:1px solid var(--border);
+    white-space:nowrap;
+  }
+  input.sentence-input{
+    width:100%;
+    text-align:left;
+  }
+  .model-answer{
+    margin-top:2px;
+    background:var(--accent-soft);
+    color:var(--accent-ink);
+    border-radius:10px;
+    padding:10px 12px;
+    font-size:14.5px;
+    line-height:1.6;
+  }
+
+  select.match-select{
+    font:inherit;
+    font-size:14.5px;
+    color:var(--ink);
+    background:var(--surface-2);
+    border:1.5px solid var(--border);
+    border-radius:8px;
+    padding:5px 8px;
+  }
+  select.match-select.correct{
+    background:var(--correct-bg);
+    border-color:var(--correct-border);
+    color:var(--correct);
+    font-weight:600;
+  }
+  select.match-select.incorrect{
+    background:var(--incorrect-bg);
+    border-color:var(--incorrect-border);
+    color:var(--incorrect);
+    font-weight:600;
+  }
+
+  table.conj{
+    width:100%;
+    border-collapse:collapse;
+    font-size:14.5px;
+  }
+  table.conj th, table.conj td{
+    border:1px solid var(--border);
+    padding:6px 8px;
+    text-align:left;
+  }
+  table.conj th{
+    background:var(--surface-2);
+    color:var(--muted);
+    font-weight:600;
+    font-size:13px;
+  }
+  table.conj td input[type="text"]{
+    width:100%;
+    min-width:8ch;
+  }
+  table.conj td span.given{
+    font-style:italic;
+    color:var(--muted);
+  }
+  .tablewrap{ overflow-x:auto; margin-bottom:8px; }
+
+  .conj-group{
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:12px 14px;
+    background:var(--surface-2);
+  }
+  .conj-group + .conj-group{ margin-top:14px; }
+  .conj-group .verb-label{
+    font-weight:700;
+    color:var(--accent-ink);
+    font-size:14.5px;
+    margin-bottom:8px;
+  }
+  .conj-group .conj-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:15px;
+    margin-bottom:6px;
+  }
+  .conj-group .conj-row .subj{
+    min-width:11ch;
+  }
+  .conj-group .conj-tail{
+    font-size:14.5px;
+    color:var(--muted);
+    margin-top:6px;
+    padding-top:6px;
+    border-top:1px dashed var(--border);
+  }
+
+  @media (max-width:620px){
+    .scorebar{ flex-direction:column; align-items:stretch; }
+    .btnrow{ justify-content:flex-end; }
+  }
+
+  footer.note{
+    color:var(--muted);
+    font-size:12.5px;
+    text-align:center;
+    margin-top:8px;
+  }
+
+  .back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    font-size:13.5px;
+    font-weight:600;
+    color:var(--muted);
+    text-decoration:none;
+    margin-bottom:16px;
+  }
+  .back-link:hover{ color:var(--accent-ink); }
+</style></head><body>
+
+<div class="wrap">
+  <a class="back-link" href="index.html">← Zurück zum Portal</a>
+  <div class="masthead">
+    <span class="kicker">Begegnungen A1+ · Kapitel 3 · Teil C</span>
+    <h1>Verben & Wortschatz</h1>
+    <p class="sub">C8–C17 の練習問題です(S.77–80)。動詞 haben の現在人称変化、Nominativ/Akkusativ の識別、動詞と名詞の組み合わせ、möchte(n) を使った文作りなどが中心です。C11・C14・C16 は文を作る問題(語順が多少異なっていても文法的に正しければOK)、C17 は自由記述のため採点対象外です。下の「採点する」ボタンを押してください。</p>
+  </div>
+
+  <div class="scorebar" id="scorebar">
+    <div class="totals">
+      <span class="num hidden-result" id="scoreNum">–</span>
+      <span class="label">正解数 / 全107問</span>
+    </div>
+    <div class="chips" id="chips">
+      <span class="chip" data-chip="C8">C8 0/8</span>
+      <span class="chip" data-chip="C9">C9 0/27</span>
+      <span class="chip" data-chip="C10">C10 0/10</span>
+      <span class="chip" data-chip="C11">C11 0/6</span>
+      <span class="chip" data-chip="C12">C12 0/10</span>
+      <span class="chip" data-chip="C13">C13 0/17</span>
+      <span class="chip" data-chip="C14">C14 0/6</span>
+      <span class="chip" data-chip="C15">C15 0/18</span>
+      <span class="chip" data-chip="C16">C16 0/5</span>
+      <span class="chip" style="background:transparent;">C17 自己添削</span>
+    </div>
+    <div class="btnrow">
+      <button class="ghost" id="resetBtn" type="button">リセット</button>
+      <button class="primary" id="gradeBtn" type="button">採点する</button>
+    </div>
+  </div>
+
+  <!-- C8 -->
+  <section class="exercise" id="sec-c8">
+    <header><span class="tag">C8</span><h2>Ergänzen Sie das Verb haben.</h2></header>
+    <div class="example"><span class="ex-mark"></span>Ich <u>habe</u> zwei Brüder.</div>
+    <ol class="items" id="c8-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C8" data-target="sec-c8">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C9 -->
+  <section class="exercise" id="sec-c9">
+    <header><span class="tag">C9</span><h2>Ergänzen Sie die Tabelle.</h2></header>
+    <p class="instr">動詞の現在人称変化を完成させてください(斜体はすでに入っています)。</p>
+    <div class="tablewrap"><table class="conj" id="c9-table"></table></div>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C9" data-target="sec-c9">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C10 -->
+  <section class="exercise" id="sec-c10">
+    <header><span class="tag">C10</span><h2>Nominativ oder Akkusativ?</h2></header>
+    <p class="instr">斜体の名詞句が1格(Nominativ)か4格(Akkusativ)かを選んでください。</p>
+    <div class="example"><span class="ex-mark"></span>Ich habe <i>keinen Drucker</i>. → Akkusativ</div>
+    <ol class="items" id="c10-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C10" data-target="sec-c10">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C11 -->
+  <section class="exercise" id="sec-c11">
+    <header><span class="tag">C11</span><h2>Welches Wort passt nicht?</h2></header>
+    <p class="instr">仲間はずれの語を入力し(採点あり)、それに続けて文を作ってください(自由作文、採点なし・モデル解答あり)。</p>
+    <div class="example"><span class="ex-mark"></span>besuchen: alte Kollegen – ein Museum – Frankfurt am Main – einen Sprachkurs – Musik → <u>Musik</u> — <u>Musik kann man nicht besuchen.</u></div>
+    <ol class="items" id="c11-list" style="gap:18px;"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C11" data-target="sec-c11">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C12 -->
+  <section class="exercise" id="sec-c12">
+    <header><span class="tag">C12</span><h2>Was passt zusammen?</h2></header>
+    <p class="instr">動詞に合う語をプルダウンから選んでください。</p>
+    <div class="example"><span class="ex-mark"></span>öffnen → eine Tür</div>
+    <ol class="items" id="c12-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C12" data-target="sec-c12">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C13 -->
+  <section class="exercise" id="sec-c13">
+    <header><span class="tag">C13</span><h2>Ergänzen Sie die Verben.</h2></header>
+    <p class="instr">動詞を正しい人称変化にして入れてください。</p>
+    <div id="c13-groups"></div>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C13" data-target="sec-c13">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C14 -->
+  <section class="exercise" id="sec-c14">
+    <header><span class="tag">C14</span><h2>Bilden Sie Sätze.</h2></header>
+    <div class="example"><span class="ex-mark"></span>das Hotelzimmer – bezahlen – ich → <u>Ich bezahle das Hotelzimmer.</u></div>
+    <ol class="items" id="c14-list" style="gap:16px;"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C14" data-target="sec-c14">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C15 -->
+  <section class="exercise" id="sec-c15">
+    <header><span class="tag">C15</span><h2>Finden Sie das passende Verb.</h2></header>
+    <div class="wordbank"><b>a) 単語リスト:</b> sehen · machen · besuchen · studieren · finden · parken · lesen · kosten · möchte(n)</div>
+    <div class="example"><span class="ex-mark"></span>Das Zimmer <u>kostet</u> 200 Euro pro Nacht.</div>
+    <ol class="items" id="c15a-list" style="margin-bottom:18px;"></ol>
+    <div class="wordbank"><b>b) 単語リスト:</b> brauchen · hören · haben(2×) · geben · kennen · öffnen · suchen · bezahlen · trinken</div>
+    <ol class="items" id="c15b-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C15" data-target="sec-c15">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C16 -->
+  <section class="exercise" id="sec-c16">
+    <header><span class="tag">C16</span><h2>Formulieren Sie Fragen mit möchte(n).</h2></header>
+    <p class="instr">語順(Satzbau)に注意してください。</p>
+    <div class="example"><span class="ex-mark"></span>Sie – ein Doppelzimmer → <u>Möchten Sie ein Doppelzimmer?</u></div>
+    <ol class="items" id="c16-list" style="gap:14px;"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C16" data-target="sec-c16">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C17 -->
+  <section class="exercise" id="sec-c17">
+    <header><span class="tag">C17</span><h2>Formulieren Sie sechs Wünsche.</h2></header>
+    <p class="instr">möchte(n) を使って、自分の願望を6つ自由に書いてください(採点なし)。</p>
+    <ol class="items" id="c17-list"></ol>
+  </section>
+
+  <div class="btnrow" style="justify-content:center; margin-top:8px;">
+    <button class="ghost" id="resetBtn2" type="button">リセット</button>
+    <button class="primary" id="gradeBtn2" type="button">採点する</button>
+  </div>
+  <footer class="note">Begegnungen A1+（Schubert Verlag）Kapitel 3, S.77–80 の練習問題を基に作成</footer>
+</div>
+
+<script>
+(function(){
+
+  function el(tag, props, children){
+    const e = document.createElement(tag);
+    if (props) for (const k in props){
+      if (k === "class") e.className = props[k];
+      else if (k === "html") e.innerHTML = props[k];
+      else e.setAttribute(k, props[k]);
+    }
+    (children||[]).forEach(c => e.appendChild(typeof c === "string" ? document.createTextNode(c) : c));
+    return e;
+  }
+
+  function blankInput(id, answers, width, sentence){
+    const inp = el("input", { type:"text", id:id, autocomplete:"off", spellcheck:"false" });
+    if (width) inp.style.width = width;
+    inp.dataset.answers = answers.join("|");
+    if (sentence) inp.dataset.sentence = "true";
+    return inp;
+  }
+
+  function buildLine(segments){
+    const wrap = el("span", { class:"line" });
+    segments.forEach(seg => {
+      if (typeof seg === "string"){
+        wrap.appendChild(document.createTextNode(seg));
+      } else if (seg.blank){
+        const inp = blankInput(seg.blank.id, seg.blank.answers, seg.blank.width, seg.blank.sentence);
+        if (seg.blank.sentence) inp.classList.add("sentence-input");
+        wrap.appendChild(inp);
+      }
+    });
+    return wrap;
+  }
+
+  function textItem(idx, segments){
+    const li = el("li");
+    if (idx !== null) li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    li.appendChild(buildLine(segments));
+    return li;
+  }
+
+  function normalizeSentence(s){
+    return s.trim().toLowerCase().replace(/[.!?]+$/,"").replace(/\s+/g," ").trim();
+  }
+
+  // two-option radio-choice item (Nominativ / Akkusativ)
+  function twoChoiceItem(idx, sentenceText, noun, correct, name){
+    const li = el("li");
+    li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    const line = el("span", { class:"line choice-line" });
+    line.appendChild(document.createTextNode(sentenceText + " "));
+    line.appendChild(el("i", {}, [noun]));
+    line.appendChild(document.createTextNode("."));
+    const opts = el("span", { class:"options" });
+    ["Nominativ","Akkusativ"].forEach((opt,i) => {
+      const optId = name + "-" + i;
+      const label = el("label", { class:"opt", for: optId });
+      const radio = el("input", { type:"radio", name:name, id:optId, value:opt });
+      if (opt === correct) radio.dataset.correct = "true";
+      label.appendChild(radio);
+      label.appendChild(document.createTextNode(opt));
+      opts.appendChild(label);
+    });
+    line.appendChild(opts);
+    li.appendChild(line);
+    return li;
+  }
+
+  // odd-word item: graded text blank for the odd word + ungraded free sentence with model reveal
+  let modelToggleCount = 0;
+  function oddOneOutItem(idx, verbLabel, words, oddId, oddAnswers, sentId, model){
+    modelToggleCount++;
+    const targetId = "c11-model-" + modelToggleCount;
+    const li = el("li");
+    li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    const col = el("div", { class:"line sentence-line" });
+    const chips = el("div", { class:"cue-chips" }, [el("span", { class:"cue-chip" }, [verbLabel])].concat(
+      words.map(w => el("span", { class:"cue-chip" }, [w]))
+    ));
+    col.appendChild(chips);
+    const line1 = el("div", { class:"line" });
+    line1.appendChild(document.createTextNode("仲間はずれ: "));
+    const oddInp = el("input", { type:"text", id:oddId, autocomplete:"off", spellcheck:"false", style:"width:20ch;text-align:left;" });
+    oddInp.dataset.answers = oddAnswers.join("|");
+    line1.appendChild(oddInp);
+    col.appendChild(line1);
+    const sentInp = el("input", { type:"text", id:sentId, autocomplete:"off", spellcheck:"false", class:"sentence-input", placeholder:"文を書いてください … (採点なし)" });
+    col.appendChild(sentInp);
+    const btnrow = el("div", { class:"btnrow", style:"margin-top:2px;" });
+    const btn = el("button", { class:"ghost model-toggle-btn", type:"button", "data-target":targetId }, ["モデル解答を見る"]);
+    btnrow.appendChild(btn);
+    col.appendChild(btnrow);
+    const modelBox = el("div", { class:"model-answer", id:targetId, hidden:"hidden" }, [model]);
+    col.appendChild(modelBox);
+    li.appendChild(col);
+    return li;
+  }
+
+  // dropdown matching item
+  function matchSelectItem(idx, verb, options, correctLetter, id){
+    const li = el("li");
+    li.appendChild(el("span", { class:"idx" }, ["(" + idx + ")"]));
+    const line = el("span", { class:"line" });
+    line.appendChild(el("b", {}, [verb]));
+    const sel = el("select", { class:"match-select", id:id });
+    sel.dataset.answers = correctLetter;
+    const blankOpt = el("option", { value:"" }, ["– 選んでください –"]);
+    sel.appendChild(blankOpt);
+    options.forEach(o => {
+      const opt = el("option", { value:o.letter }, ["(" + o.letter + ") " + o.text]);
+      sel.appendChild(opt);
+    });
+    line.appendChild(sel);
+    li.appendChild(line);
+    return li;
+  }
+
+  // conjugation group (C13)
+  function conjGroup(verb, rows, tail){
+    const wrapDiv = el("div", { class:"conj-group" });
+    wrapDiv.appendChild(el("div", { class:"verb-label" }, [verb + ":"]));
+    rows.forEach(r => {
+      const row = el("div", { class:"conj-row" });
+      row.appendChild(el("span", { class:"subj" }, [r.subj]));
+      if (r.given){
+        row.appendChild(el("span", { class:"given", style:"font-style:italic;color:var(--muted);" }, [r.given]));
+      } else {
+        row.appendChild(blankInput(r.id, r.answers, "11ch"));
+      }
+      wrapDiv.appendChild(row);
+    });
+    wrapDiv.appendChild(el("div", { class:"conj-tail" }, [tail]));
+    return wrapDiv;
+  }
+
+  // sentence-building item, single blank, lenient grading
+  function sentenceItem(idx, cues, id, answers){
+    const li = el("li");
+    li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    const col = el("div", { class:"line sentence-line" });
+    const chips = el("div", { class:"cue-chips" });
+    cues.forEach(c => chips.appendChild(el("span", { class:"cue-chip" }, [c])));
+    col.appendChild(chips);
+    const inp = el("input", { type:"text", id:id, autocomplete:"off", spellcheck:"false", class:"sentence-input", placeholder:"文を書いてください …" });
+    inp.dataset.answers = answers.join("|");
+    inp.dataset.sentence = "true";
+    col.appendChild(inp);
+    li.appendChild(col);
+    return li;
+  }
+
+  // ungraded personal-response item (no data-answers => excluded from grading)
+  function openItem(idx, question, id){
+    const li = el("li");
+    li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    const col = el("div", { class:"line", style:"flex-direction:column;align-items:stretch;gap:6px;" });
+    col.appendChild(document.createTextNode(question));
+    const inp = el("input", { type:"text", id:id, autocomplete:"off", spellcheck:"false", class:"sentence-input", placeholder:"自由に答えてください …" });
+    col.appendChild(inp);
+    li.appendChild(col);
+    return li;
+  }
+
+  // ---------- C8 ----------
+  const c8list = document.getElementById("c8-list");
+  const c8lines = [
+    ["Theresa und ihr Mann ", {blank:{id:"c8-1", answers:["haben"], width:"9ch"}}, " keine Kinder."],
+    ["Das Mozarthaus ", {blank:{id:"c8-2", answers:["hat"], width:"7ch"}}, " bis 17.00 Uhr geöffnet."],
+    ["Viele Hotels ", {blank:{id:"c8-3", answers:["haben"], width:"9ch"}}, " Zimmer mit WLAN."],
+    [{blank:{id:"c8-4", answers:["Habt"], width:"8ch"}}, " ihr einen Terminkalender im Büro?"],
+    ["Wir ", {blank:{id:"c8-5", answers:["haben"], width:"9ch"}}, " keine Probleme."],
+    [{blank:{id:"c8-6", answers:["Haben"], width:"9ch"}}, " Sie einen Euro?"],
+    [{blank:{id:"c8-7", answers:["Hast"], width:"7ch"}}, " du ein neues Auto?"],
+    ["Wo ", {blank:{id:"c8-8", answers:["hast"], width:"7ch"}}, " du deinen Schlüssel?"],
+  ];
+  c8lines.forEach((segs,i) => c8list.appendChild(textItem(i+1, segs)));
+
+  // ---------- C9 (conjugation table) ----------
+  const c9cols = ["haben","brauchen","besuchen","bezahlen","geben","sehen"];
+  const c9rows = ["ich","du","er/sie/es/man","wir","ihr","sie/Sie"];
+  const c9data = {
+    "ich":            [ {given:"habe"}, {id:"c9-ich-brauchen", a:["brauche"]}, {id:"c9-ich-besuchen", a:["besuche"]}, {id:"c9-ich-bezahlen", a:["bezahle"]}, {id:"c9-ich-geben", a:["gebe"]}, {id:"c9-ich-sehen", a:["sehe"]} ],
+    "du":             [ {id:"c9-du-haben", a:["hast"]}, {id:"c9-du-brauchen", a:["brauchst"]}, {id:"c9-du-besuchen", a:["besuchst"]}, {id:"c9-du-bezahlen", a:["bezahlst"]}, {given:"gibst"}, {given:"siehst"} ],
+    "er/sie/es/man":  [ {id:"c9-er-haben", a:["hat"]}, {given:"braucht"}, {id:"c9-er-besuchen", a:["besucht"]}, {id:"c9-er-bezahlen", a:["bezahlt"]}, {id:"c9-er-geben", a:["gibt"]}, {given:"sieht"} ],
+    "wir":            [ {given:"haben"}, {id:"c9-wir-brauchen", a:["brauchen"]}, {id:"c9-wir-besuchen", a:["besuchen"]}, {given:"bezahlen"}, {id:"c9-wir-geben", a:["geben"]}, {id:"c9-wir-sehen", a:["sehen"]} ],
+    "ihr":            [ {id:"c9-ihr-haben", a:["habt"]}, {id:"c9-ihr-brauchen", a:["braucht"]}, {id:"c9-ihr-besuchen", a:["besucht"]}, {id:"c9-ihr-bezahlen", a:["bezahlt"]}, {given:"gebt"}, {id:"c9-ihr-sehen", a:["seht"]} ],
+    "sie/Sie":        [ {id:"c9-sie-haben", a:["haben"]}, {id:"c9-sie-brauchen", a:["brauchen"]}, {given:"besuchen"}, {id:"c9-sie-bezahlen", a:["bezahlen"]}, {id:"c9-sie-geben", a:["geben"]}, {id:"c9-sie-sehen", a:["sehen"]} ],
+  };
+  const c9table = document.getElementById("c9-table");
+  const thead = el("tr");
+  thead.appendChild(el("th", {}, [""]));
+  c9cols.forEach(c => thead.appendChild(el("th", {}, [c])));
+  c9table.appendChild(thead);
+  c9rows.forEach(r => {
+    const tr = el("tr");
+    tr.appendChild(el("td", {}, [el("b", {}, [r])]));
+    c9data[r].forEach(cell => {
+      const td = el("td");
+      if (cell.given){
+        td.appendChild(el("span", { class:"given" }, [cell.given]));
+      } else {
+        const inp = el("input", { type:"text", id:cell.id, autocomplete:"off", spellcheck:"false" });
+        inp.dataset.answers = cell.a.join("|");
+        td.appendChild(inp);
+      }
+      tr.appendChild(td);
+    });
+    c9table.appendChild(tr);
+  });
+
+  // ---------- C10 ----------
+  const c10list = document.getElementById("c10-list");
+  const c10items = [
+    ["Ich finde", "die Bilder", "sehr interessant.", "Akkusativ"],
+    ["Das ist", "ein schöner Schreibtisch", ".", "Nominativ"],
+    ["Wir brauchen", "einen neuen Computer", ".", "Akkusativ"],
+    ["Besuchst du", "einen Deutschkurs", "?", "Akkusativ"],
+    ["Meine Mutter ist", "Ärztin", ".", "Nominativ"],
+    ["Herr Müller liest", "die Zeitung", ".", "Akkusativ"],
+    ["Ich möchte", "ein Bier", ".", "Akkusativ"],
+    ["Wir bezahlen", "das Zimmer", "morgen.", "Akkusativ"],
+    ["Das ist", "mein Radio", "!", "Nominativ"],
+    ["Schreiben Sie", "eine E-Mail", "?", "Akkusativ"],
+  ];
+  c10items.forEach((it,i) => {
+    const idx = i+1;
+    const li = el("li");
+    li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    const line = el("span", { class:"line choice-line" });
+    line.appendChild(document.createTextNode(it[0] + " "));
+    line.appendChild(el("i", {}, [it[1]]));
+    line.appendChild(document.createTextNode(" " + it[2]));
+    const opts = el("span", { class:"options" });
+    const name = "c10-" + idx;
+    ["Nominativ","Akkusativ"].forEach((opt,j) => {
+      const optId = name + "-" + j;
+      const label = el("label", { class:"opt", for: optId });
+      const radio = el("input", { type:"radio", name:name, id:optId, value:opt });
+      if (opt === it[3]) radio.dataset.correct = "true";
+      label.appendChild(radio);
+      label.appendChild(document.createTextNode(opt));
+      opts.appendChild(label);
+    });
+    line.appendChild(opts);
+    li.appendChild(line);
+    c10list.appendChild(li);
+  });
+  const c10RadioNames = c10items.map((it,i) => "c10-"+(i+1));
+
+  // ---------- C11 ----------
+  const c11list = document.getElementById("c11-list");
+  const c11items = [
+    { verb:"trinken:", words:["ein kaltes Bier","einen Cappuccino","einen Kaffee","die Cafeteria","einen Tee","eine Cola"], odd:["die cafeteria","cafeteria"], model:"Die Cafeteria kann man nicht trinken." },
+    { verb:"lesen:", words:["einen Fernseher","die Zeitung","ein interessantes Buch","Liebesgedichte","einen Kriminalroman"], odd:["einen fernseher","ein fernseher","fernseher"], model:"Einen Fernseher kann man nicht lesen." },
+    { verb:"schreiben:", words:["einen Brief","eine lange E-Mail","einen Deutschkurs","einen Text"], odd:["einen deutschkurs","ein deutschkurs","deutschkurs"], model:"Einen Deutschkurs kann man nicht schreiben." },
+    { verb:"machen:", words:["einen Kaffee","eine Homepage","Frühstück","eine Dusche","einen Sprachkurs"], odd:["eine dusche","dusche"], model:"Eine Dusche kann man nicht machen. Man duscht." },
+    { verb:"studieren:", words:["Architektur","Medizin","Informatiker","Physik","Chemie"], odd:["informatiker","ein informatiker"], model:"Informatiker kann man nicht studieren. Man studiert Informatik." },
+    { verb:"bezahlen:", words:["das Hotelzimmer","eine Tasse Tee","die Eintrittskarte","das BMW Museum","das Buch"], odd:["das bmw museum","bmw museum"], model:"Das BMW Museum kann man nicht bezahlen. Man bezahlt den Eintritt." },
+  ];
+  c11items.forEach((it,i) => c11list.appendChild(oddOneOutItem(i+1, it.verb, it.words, "c11-"+(i+1)+"odd", it.odd, "c11-"+(i+1)+"sent", it.model)));
+  document.querySelectorAll(".model-toggle-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const box = document.getElementById(btn.dataset.target);
+      box.hidden = !box.hidden;
+      btn.textContent = box.hidden ? "モデル解答を見る" : "モデル解答を隠す";
+    });
+  });
+
+  // ---------- C12 ----------
+  const c12options = [
+    {letter:"a", text:"einen Kaffee"}, {letter:"b", text:"eine Tür"}, {letter:"c", text:"die Zeitung"},
+    {letter:"d", text:"Informatik"}, {letter:"e", text:"Informationen"}, {letter:"f", text:"einen Sprachkurs"},
+    {letter:"g", text:"Glück"}, {letter:"h", text:"Deutsch"}, {letter:"i", text:"eine Eintrittskarte"},
+    {letter:"j", text:"ein Museum"}, {letter:"k", text:"ein Konzert"},
+  ];
+  const c12list = document.getElementById("c12-list");
+  const c12items = [
+    [2,"bekommen","e"], [3,"studieren","d"], [4,"bezahlen","i"], [5,"trinken","a"],
+    [6,"lesen","c"], [7,"besuchen","j"], [8,"hören","k"], [9,"machen","f"],
+    [10,"haben","g"], [11,"sprechen","h"],
+  ];
+  c12items.forEach(it => c12list.appendChild(matchSelectItem(it[0], it[1], c12options, it[2], "c12-"+it[0])));
+
+  // ---------- C13 ----------
+  const c13groups = document.getElementById("c13-groups");
+  c13groups.appendChild(conjGroup("studieren", [
+    {subj:"Ich", given:"studiere"},
+    {subj:"Ihr", id:"c13-1", answers:["studiert"]},
+    {subj:"Lena und Steffi", id:"c13-2", answers:["studieren"]},
+  ], "Informatik."));
+  c13groups.appendChild(conjGroup("können", [
+    {subj:"Mein Bruder", id:"c13-3", answers:["kann"]},
+    {subj:"Frau Krause", id:"c13-4", answers:["kann"]},
+    {subj:"Wir", id:"c13-5", answers:["können"]},
+  ], "gut Tennis spielen."));
+  c13groups.appendChild(conjGroup("sprechen", [
+    {subj:"Du", id:"c13-6", answers:["sprichst"]},
+    {subj:"Karin", id:"c13-7", answers:["spricht"]},
+    {subj:"Sie (Pl.)", id:"c13-8", answers:["sprechen"]},
+  ], "ein bisschen Deutsch."));
+  c13groups.appendChild(conjGroup("sehen", [
+    {subj:"Ich", id:"c13-9", answers:["sehe"]},
+    {subj:"Wir", id:"c13-10", answers:["sehen"]},
+    {subj:"Sie (Pl.)", id:"c13-11", answers:["sehen"]},
+  ], "die Lehrerin morgen."));
+  c13groups.appendChild(conjGroup("lesen", [
+    {subj:"Peter und Paul", id:"c13-12", answers:["lesen"]},
+    {subj:"Meine Schwester", id:"c13-13", answers:["liest"]},
+    {subj:"Ich", id:"c13-14", answers:["lese"]},
+  ], "einen Krimi."));
+  c13groups.appendChild(conjGroup("trinken", [
+    {subj:"Wir", id:"c13-15", answers:["trinken"]},
+    {subj:"Ihr", id:"c13-16", answers:["trinkt"]},
+    {subj:"Martin", id:"c13-17", answers:["trinkt"]},
+  ], "eine Tasse Kaffee."));
+
+  // ---------- C14 ----------
+  const c14list = document.getElementById("c14-list");
+  const c14items = [
+    { cues:["zeigen","das Museum","viele Kunstwerke"], id:"c14-1", answers:["Das Museum zeigt viele Kunstwerke."] },
+    { cues:["wann","das BMW Museum","öffnen?"], id:"c14-2", answers:["Wann öffnet das BMW Museum?"] },
+    { cues:["einen Spaziergang","machen","wir","heute"], id:"c14-3", answers:["Wir machen heute einen Spaziergang.", "Heute machen wir einen Spaziergang."] },
+    { cues:["das Hotel","im Zentrum","liegen"], id:"c14-4", answers:["Das Hotel liegt im Zentrum."] },
+    { cues:["du","haben","noch etwas Zeit?"], id:"c14-5", answers:["Hast du noch etwas Zeit?"] },
+    { cues:["Otto","die Erfindungen","im Deutschen Museum","bewundern"], id:"c14-6", answers:["Otto bewundert die Erfindungen im Deutschen Museum."] },
+  ];
+  c14items.forEach((q,i) => c14list.appendChild(sentenceItem(i+1, q.cues, q.id, q.answers)));
+
+  // ---------- C15 ----------
+  const c15aList = document.getElementById("c15a-list");
+  const c15aLines = [
+    ["Wann ", {blank:{id:"c15a-1", answers:["besuchst"], width:"10ch"}}, " du das Ägyptische Museum?"],
+    [{blank:{id:"c15a-2", answers:["Studiert"], width:"10ch"}}, " dein Freund in München Medizin?"],
+    ["Ich ", {blank:{id:"c15a-3", answers:["finde"], width:"8ch"}}, " meine Brille nicht."],
+    ["Wo kann ich mein Auto ", {blank:{id:"c15a-4", answers:["parken"], width:"9ch"}}, "?"],
+    [{blank:{id:"c15a-5", answers:["Möchtet"], width:"9ch"}}, " ihr einen Kaffee?"],
+    [{blank:{id:"c15a-6", answers:["Siehst"], width:"8ch"}}, " du die Frau dort? Sie ist meine Englischlehrerin."],
+    ["Ich ", {blank:{id:"c15a-7", answers:["mache"], width:"8ch"}}, " meine Hausaufgaben."],
+    [{blank:{id:"c15a-8", answers:["Liest"], width:"7ch"}}, " du schon wieder ein Kochbuch?"],
+  ];
+  c15aLines.forEach((segs,i) => c15aList.appendChild(textItem(i+1, segs)));
+
+  const c15bList = document.getElementById("c15b-list");
+  const c15bLines = [
+    ["Ich ", {blank:{id:"c15b-1", answers:["brauche"], width:"9ch"}}, " einen neuen Stuhl."],
+    [{blank:{id:"c15b-2", answers:["Hörst"], width:"8ch"}}, " du die Musik?"],
+    ["Wir ", {blank:{id:"c15b-3", answers:["kennen"], width:"9ch"}}, " den Mann nicht."],
+    ["Kannst du bitte die Tür ", {blank:{id:"c15b-4", answers:["öffnen"], width:"9ch"}}, "?"],
+    [{blank:{id:"c15b-5", answers:["Suchst"], width:"8ch"}}, " du deinen Schlüssel? Hier ist er."],
+    ["Marie ", {blank:{id:"c15b-6", answers:["trinkt"], width:"8ch"}}, " einen Tee."],
+    ["Ich ", {blank:{id:"c15b-7", answers:["habe"], width:"7ch"}}, " leider keine Zeit."],
+    ["Guten Morgen! Wo ", {blank:{id:"c15b-8", answers:["gibt"], width:"7ch"}}, " es hier Internetradios?"],
+    [{blank:{id:"c15b-9", answers:["Bezahlst"], width:"10ch"}}, " du die Eintrittskarte für das Museum?"],
+    [{blank:{id:"c15b-10", answers:["Hast"], width:"7ch"}}, " du einen neuen Fernseher?"],
+  ];
+  c15bLines.forEach((segs,i) => c15bList.appendChild(textItem(i+1, segs)));
+
+  // ---------- C16 ----------
+  const c16list = document.getElementById("c16-list");
+  const c16items = [
+    { cues:["noch","eine Tasse Kaffee","du"], id:"c16-1", answers:["Möchtest du noch eine Tasse Kaffee?"] },
+    { cues:["heute","ihr","besuchen","das BMW Museum"], id:"c16-2", answers:["Möchtet ihr heute das BMW Museum besuchen?"] },
+    { cues:["am Wochenende","fahren","Sie","nach München"], id:"c16-3", answers:["Möchten Sie am Wochenende nach München fahren?"] },
+    { cues:["einen neuen Laptop","du"], id:"c16-4", answers:["Möchtest du einen neuen Laptop?"] },
+    { cues:["klassische Musik","du","hören","jetzt"], id:"c16-5", answers:["Möchtest du jetzt klassische Musik hören?"] },
+  ];
+  c16items.forEach((q,i) => c16list.appendChild(sentenceItem(i+1, q.cues, q.id, q.answers)));
+
+  // ---------- C17 (ungraded) ----------
+  const c17list = document.getElementById("c17-list");
+  for (let i=1;i<=6;i++){
+    c17list.appendChild(openItem(i, "Wunsch " + i + ":", "c17-"+i));
+  }
+
+  // ---------- grading ----------
+  const SECTION_PREFIX = [
+    ["C8", (id) => id.startsWith("c8-")],
+    ["C9", (id) => id.startsWith("c9-")],
+    ["C10", (id) => id.startsWith("c10-")],
+    ["C11", (id) => id.startsWith("c11-") && id.includes("odd")],
+    ["C12", (id) => id.startsWith("c12-")],
+    ["C13", (id) => id.startsWith("c13-")],
+    ["C14", (id) => id.startsWith("c14-")],
+    ["C15", (id) => id.startsWith("c15a-") || id.startsWith("c15b-")],
+    ["C16", (id) => id.startsWith("c16-")],
+  ];
+  function sectionOf(id){
+    for (const [key, test] of SECTION_PREFIX){ if (test(id)) return key; }
+    return null;
+  }
+
+  function clearHints(){
+    document.querySelectorAll(".answer-hint").forEach(n => n.remove());
+  }
+
+  function gradeInputsIn(root, sectionScore){
+    let total = 0, correct = 0;
+    root.querySelectorAll('input[type="text"][data-answers]').forEach(inp => {
+      total++;
+      const isSentence = inp.dataset.sentence === "true";
+      const accepted = inp.dataset.answers.split("|").map(a => isSentence ? normalizeSentence(a) : a.trim().toLowerCase());
+      const val = isSentence ? normalizeSentence(inp.value) : inp.value.trim().toLowerCase();
+      const ok = val.length > 0 && accepted.includes(val);
+      inp.classList.remove("correct","incorrect");
+      inp.classList.add(ok ? "correct" : "incorrect");
+      if (!ok){
+        const hint = el("span", { class:"answer-hint" }, ["→ ", el("b", {}, [inp.dataset.answers.split("|")[0]])]);
+        inp.insertAdjacentElement("afterend", hint);
+      } else {
+        correct++;
+      }
+      if (sectionScore){
+        const s = sectionOf(inp.id);
+        if (s && ok) sectionScore[s] = (sectionScore[s]||0) + 1;
+      }
+    });
+
+    // radio groups (C10)
+    const radioNames = new Set();
+    root.querySelectorAll('input[type="radio"]').forEach(r => radioNames.add(r.name));
+    radioNames.forEach(name => {
+      total++;
+      const radios = root.querySelectorAll('input[name="'+name+'"]');
+      let ok = false;
+      radios.forEach(r => {
+        const label = root.querySelector('label[for="'+r.id+'"]');
+        label.classList.remove("pick-correct","pick-incorrect");
+        if (r.dataset.correct === "true"){
+          if (r.checked) { ok = true; label.classList.add("pick-correct"); }
+        } else if (r.checked){
+          label.classList.add("pick-incorrect");
+        }
+      });
+      if (!ok){
+        radios.forEach(r => {
+          if (r.dataset.correct === "true"){
+            root.querySelector('label[for="'+r.id+'"]').classList.add("pick-correct");
+          }
+        });
+      } else {
+        correct++;
+        if (sectionScore && name.startsWith("c10-")) sectionScore.C10 = (sectionScore.C10||0) + 1;
+      }
+    });
+
+    // select dropdowns (C12)
+    root.querySelectorAll('select[data-answers]').forEach(sel => {
+      total++;
+      const ok = sel.value === sel.dataset.answers;
+      sel.classList.remove("correct","incorrect");
+      sel.classList.add(ok ? "correct" : "incorrect");
+      if (ok) {
+        correct++;
+        if (sectionScore) sectionScore.C12 = (sectionScore.C12||0) + 1;
+      }
+    });
+
+    return { total, correct };
+  }
+
+  const TOTALS = { C8:8, C9:27, C10:10, C11:6, C12:10, C13:17, C14:6, C15:18, C16:5 };
+
+  function grade(){
+    clearHints();
+    const sectionScore = { C8:0, C9:0, C10:0, C11:0, C12:0, C13:0, C14:0, C15:0, C16:0 };
+    const { total, correct } = gradeInputsIn(document, sectionScore);
+
+    document.getElementById("scoreNum").textContent = correct + " / " + total;
+    document.getElementById("scoreNum").classList.remove("hidden-result");
+    document.querySelectorAll(".chip").forEach(chip => {
+      const s = chip.dataset.chip;
+      if (!s) return;
+      chip.textContent = s + " " + sectionScore[s] + "/" + TOTALS[s];
+      chip.classList.toggle("done", sectionScore[s] === TOTALS[s]);
+    });
+    document.getElementById("scorebar").scrollIntoView({ behavior:"smooth", block:"start" });
+  }
+
+  function resetAll(){
+    document.querySelectorAll('input[type="text"]').forEach(inp => {
+      inp.value = "";
+      inp.classList.remove("correct","incorrect");
+    });
+    document.querySelectorAll('input[type="radio"]').forEach(r => { r.checked = false; });
+    document.querySelectorAll(".opt").forEach(o => o.classList.remove("pick-correct","pick-incorrect"));
+    document.querySelectorAll('select').forEach(s => { s.value = ""; s.classList.remove("correct","incorrect"); });
+    document.querySelectorAll(".model-answer").forEach(box => { box.hidden = true; });
+    document.querySelectorAll(".model-toggle-btn").forEach(btn => { btn.textContent = "モデル解答を見る"; });
+    clearHints();
+    document.getElementById("scoreNum").textContent = "–";
+    document.getElementById("scoreNum").classList.add("hidden-result");
+    document.querySelectorAll(".chip").forEach(chip => {
+      const s = chip.dataset.chip;
+      if (!s) return;
+      chip.textContent = s + " 0/" + TOTALS[s];
+      chip.classList.remove("done");
+    });
+    window.scrollTo({ top:0, behavior:"smooth" });
+  }
+
+  document.getElementById("gradeBtn").addEventListener("click", grade);
+  document.getElementById("gradeBtn2").addEventListener("click", grade);
+  document.getElementById("resetBtn").addEventListener("click", resetAll);
+  document.getElementById("resetBtn2").addEventListener("click", resetAll);
+
+  // ---------- per-section grading ----------
+  function clearHintsIn(root){
+    root.querySelectorAll(".answer-hint").forEach(n => n.remove());
+  }
+
+  function gradeSection(sectionKey, root){
+    if (!root) return;
+    clearHintsIn(root);
+    const { total, correct } = gradeInputsIn(root, null);
+    const chip = document.querySelector('.chip[data-chip="'+sectionKey+'"]');
+    if (chip){
+      chip.textContent = sectionKey + " " + correct + "/" + total;
+      chip.classList.toggle("done", correct === total);
+    }
+  }
+
+  document.querySelectorAll(".section-check").forEach(btn => {
+    btn.addEventListener("click", () => {
+      gradeSection(btn.dataset.section, document.getElementById(btn.dataset.target));
+    });
+  });
+
+  // ---------- hot state ----------
+  function collectState(){
+    const state = {};
+    document.querySelectorAll('input[type="text"]').forEach(i => state[i.id] = i.value);
+    document.querySelectorAll('input[type="radio"]:checked').forEach(r => state[r.name] = r.value);
+    document.querySelectorAll('select').forEach(s => state[s.id] = s.value);
+    return state;
+  }
+  function applyState(state){
+    if (!state) return;
+    document.querySelectorAll('input[type="text"]').forEach(i => { if (state[i.id] !== undefined) i.value = state[i.id]; });
+    document.querySelectorAll('input[type="radio"]').forEach(r => { if (state[r.name] === r.value) r.checked = true; });
+    document.querySelectorAll('select').forEach(s => { if (state[s.id] !== undefined) s.value = state[s.id]; });
+  }
+  try {
+    if (window.claude && window.claude.hot){
+      window.claude.hot.snapshot(collectState);
+      const boot = (data) => applyState(data);
+      window.claude.hot.ready ? window.claude.hot.ready(boot) : boot(window.claude.hot.data || {});
+    }
+  } catch(e) {}
+})();
+</script>
+</body></html>

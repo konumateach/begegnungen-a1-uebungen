@@ -1,0 +1,763 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><title>Kapitel 3 Die Nomengruppe</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f7f6;
+    --surface:#ffffff;
+    --surface-2:#eef4f3;
+    --ink:#152524;
+    --muted:#5c716f;
+    --border:#d7e2e0;
+    --accent:#0d7a72;
+    --accent-ink:#075a54;
+    --accent-soft:#e0f2ef;
+    --correct:#1c7a43;
+    --correct-bg:#e5f5ea;
+    --correct-border:#a9d9b8;
+    --incorrect:#b3261e;
+    --incorrect-bg:#fdecea;
+    --incorrect-border:#f0b8b3;
+    --shadow: 0 1px 2px rgba(21,37,36,.04), 0 8px 24px -12px rgba(21,37,36,.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0f1716;
+      --surface:#16201f;
+      --surface-2:#1c2725;
+      --ink:#e8f0ee;
+      --muted:#9db3af;
+      --border:#293735;
+      --accent:#3fc9bb;
+      --accent-ink:#8fe3d8;
+      --accent-soft:#1a3230;
+      --correct:#5fd487;
+      --correct-bg:#173224;
+      --correct-border:#2c5a3c;
+      --incorrect:#ff8a80;
+      --incorrect-bg:#3a1c1a;
+      --incorrect-border:#6b302b;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0f1716;
+    --surface:#16201f;
+    --surface-2:#1c2725;
+    --ink:#e8f0ee;
+    --muted:#9db3af;
+    --border:#293735;
+    --accent:#3fc9bb;
+    --accent-ink:#8fe3d8;
+    --accent-soft:#1a3230;
+    --correct:#5fd487;
+    --correct-bg:#173224;
+    --correct-border:#2c5a3c;
+    --incorrect:#ff8a80;
+    --incorrect-bg:#3a1c1a;
+    --incorrect-border:#6b302b;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Source Sans 3", "Hiragino Sans", "Yu Gothic", sans-serif;
+    line-height:1.55;
+  }
+  .wrap{
+    max-width:760px;
+    margin:0 auto;
+    padding-inline:20px;
+    padding-block:28px 120px;
+  }
+  h1,h2,h3{
+    font-family:"Fraunces", serif;
+    text-wrap:balance;
+    margin:0;
+  }
+  .masthead{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    margin-bottom:28px;
+  }
+  .kicker{
+    font-size:12.5px;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    color:var(--accent-ink);
+    font-weight:600;
+  }
+  h1{
+    font-size:clamp(26px,5vw,34px);
+    font-weight:700;
+    color:var(--ink);
+  }
+  .sub{
+    color:var(--muted);
+    font-size:15px;
+    max-width:60ch;
+  }
+
+  .scorebar{
+    position:sticky;
+    top:env(safe-area-inset-top,0px);
+    z-index:20;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:14px;
+    box-shadow:var(--shadow);
+    padding:12px 16px;
+    margin-bottom:26px;
+    flex-wrap:wrap;
+  }
+  .scorebar .totals{
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+  }
+  .scorebar .totals .num{
+    font-family:"Fraunces", serif;
+    font-size:26px;
+    font-weight:700;
+    font-variant-numeric:tabular-nums;
+    color:var(--accent-ink);
+  }
+  .scorebar .totals .num.hidden-result{ color:var(--muted); }
+  .scorebar .label{ font-size:13px; color:var(--muted); }
+  .btnrow{ display:flex; gap:8px; }
+  .section-check-row{ display:flex; justify-content:flex-end; margin-top:14px; }
+  button.small{ font-size:13px; padding:7px 14px; }
+  button{
+    font-family:inherit;
+    font-size:14.5px;
+    font-weight:600;
+    border-radius:10px;
+    padding:10px 18px;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:transform .08s ease, background .15s ease, box-shadow .15s ease;
+  }
+  button:focus-visible, input:focus-visible, label:has(input:focus-visible){
+    outline:2px solid var(--accent);
+    outline-offset:2px;
+  }
+  button.primary{
+    background:var(--accent);
+    color:#fdfffe;
+    box-shadow:0 4px 14px -6px var(--accent);
+  }
+  button.primary:hover{ transform:translateY(-1px); }
+  button.ghost{
+    background:transparent;
+    color:var(--muted);
+    border-color:var(--border);
+  }
+  button.ghost:hover{ background:var(--surface-2); }
+
+  .chips{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+  }
+  .chip{
+    font-size:12px;
+    font-weight:600;
+    padding:4px 9px;
+    border-radius:999px;
+    background:var(--surface-2);
+    color:var(--muted);
+    font-variant-numeric:tabular-nums;
+    border:1px solid var(--border);
+  }
+  .chip.done{ background:var(--accent-soft); color:var(--accent-ink); border-color:transparent; }
+
+  section.exercise{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:22px 22px 24px;
+    margin-bottom:22px;
+    box-shadow:var(--shadow);
+  }
+  .exercise > header{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    margin-bottom:4px;
+    flex-wrap:wrap;
+  }
+  .exercise > header .tag{
+    font-family:"Fraunces", serif;
+    font-weight:700;
+    font-size:20px;
+    color:var(--accent-ink);
+    background:var(--accent-soft);
+    border-radius:8px;
+    padding:1px 10px;
+  }
+  .exercise > header h2{
+    font-size:18px;
+    font-weight:600;
+    color:var(--ink);
+  }
+  .instr{
+    font-style:italic;
+    color:var(--muted);
+    font-size:14px;
+    margin:2px 0 16px;
+  }
+  .wordbank{
+    font-size:13.5px;
+    color:var(--accent-ink);
+    background:var(--accent-soft);
+    border-radius:10px;
+    padding:8px 12px;
+    margin-bottom:16px;
+    line-height:1.6;
+  }
+  .wordbank b{ font-weight:600; }
+
+  .example{
+    font-size:14.5px;
+    color:var(--muted);
+    margin-bottom:12px;
+    padding-left:2px;
+  }
+  .example .ex-mark{
+    display:inline-block;
+    width:9px; height:9px;
+    background:var(--accent);
+    margin-right:8px;
+    border-radius:2px;
+  }
+
+  ol.items{
+    list-style:none;
+    margin:0; padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  ol.items > li{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+  }
+  ol.items > li .idx{
+    font-variant-numeric:tabular-nums;
+    color:var(--muted);
+    font-size:14px;
+    min-width:1.4em;
+    padding-top:6px;
+  }
+  .line{
+    flex:1;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:6px;
+    font-size:16px;
+  }
+
+  input[type="text"]{
+    font:inherit;
+    font-size:16px;
+    color:var(--ink);
+    background:var(--surface-2);
+    border:1.5px solid var(--border);
+    border-radius:8px;
+    padding:4px 8px;
+    width:10.5ch;
+    text-align:center;
+  }
+  input[type="text"]:focus{
+    border-color:var(--accent);
+    background:var(--surface);
+  }
+  input[type="text"].correct{
+    background:var(--correct-bg);
+    border-color:var(--correct-border);
+    color:var(--correct);
+    font-weight:600;
+  }
+  input[type="text"].incorrect{
+    background:var(--incorrect-bg);
+    border-color:var(--incorrect-border);
+    color:var(--incorrect);
+    font-weight:600;
+  }
+  .answer-hint{
+    font-size:13px;
+    color:var(--incorrect);
+    white-space:nowrap;
+  }
+  .answer-hint b{ font-weight:700; }
+
+  .sentence-line{
+    flex-direction:column;
+    align-items:stretch;
+    gap:8px;
+  }
+  input.sentence-input{
+    width:100%;
+    text-align:left;
+  }
+
+  @media (max-width:620px){
+    .scorebar{ flex-direction:column; align-items:stretch; }
+    .btnrow{ justify-content:flex-end; }
+  }
+
+  footer.note{
+    color:var(--muted);
+    font-size:12.5px;
+    text-align:center;
+    margin-top:8px;
+  }
+
+  .back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    font-size:13.5px;
+    font-weight:600;
+    color:var(--muted);
+    text-decoration:none;
+    margin-bottom:16px;
+  }
+  .back-link:hover{ color:var(--accent-ink); }
+</style></head><body>
+
+<div class="wrap">
+  <a class="back-link" href="index.html">← Zurück zum Portal</a>
+  <div class="masthead">
+    <span class="kicker">Begegnungen A1+ · Kapitel 3 · Teil C</span>
+    <h1>Die Nomengruppe</h1>
+    <p class="sub">C1–C7 の練習問題です(S.74–77)。名詞句(冠詞＋形容詞＋名詞)の格変化(1格・4格)と複合名詞が中心です。C5は自由に答える文も含まれるため、語順が多少異なっていても文法的に正しければ問題ありません。下の「採点する」ボタンを押してください。</p>
+  </div>
+
+  <div class="scorebar" id="scorebar">
+    <div class="totals">
+      <span class="num hidden-result" id="scoreNum">–</span>
+      <span class="label">正解数 / 全112問</span>
+    </div>
+    <div class="chips" id="chips">
+      <span class="chip" data-chip="C1">C1 0/6</span>
+      <span class="chip" data-chip="C2">C2 0/26</span>
+      <span class="chip" data-chip="C3">C3 0/8</span>
+      <span class="chip" data-chip="C4">C4 0/24</span>
+      <span class="chip" data-chip="C5">C5 0/12</span>
+      <span class="chip" data-chip="C6">C6 0/25</span>
+      <span class="chip" data-chip="C7">C7 0/11</span>
+    </div>
+    <div class="btnrow">
+      <button class="ghost" id="resetBtn" type="button">リセット</button>
+      <button class="primary" id="gradeBtn" type="button">採点する</button>
+    </div>
+  </div>
+
+  <!-- C1 -->
+  <section class="exercise" id="sec-c1">
+    <header><span class="tag">C1</span><h2>Wer oder was ist das?</h2></header>
+    <div class="wordbank"><b>単語リスト:</b> Auto · Computerfirma · Kunstwerk · Museum · Philosoph · Physiker · Stadt<br>russisch · amerikanisch · griechisch · italienisch · japanisch · dänisch · französisch</div>
+    <p class="instr">上の単語リストを使って、名詞句を1格(Nominativ)で完成させてください。</p>
+    <div class="example"><span class="ex-mark"></span>Kyoto ist <u>eine japanische Stadt</u>.</div>
+    <ol class="items" id="c1-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C1" data-target="sec-c1">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C2 -->
+  <section class="exercise" id="sec-c2">
+    <header><span class="tag">C2</span><h2>Was brauchst du?</h2></header>
+    <p class="instr">名詞句を4格(Akkusativ)で完成させ、否定で答えてください。</p>
+    <div class="example"><span class="ex-mark"></span>Brauchst du <u>eine</u> Eintrittskarte? – Nein, danke, <u>ich brauche keine Eintrittskarte</u>.</div>
+    <ol class="items" id="c2-list" style="gap:16px;"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C2" data-target="sec-c2">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C3 -->
+  <section class="exercise" id="sec-c3">
+    <header><span class="tag">C3</span><h2>Was möchtest du?</h2></header>
+    <p class="instr">名詞句を4格(Akkusativ)で完成させてください。</p>
+    <div class="example"><span class="ex-mark"></span>Auto, neu → Möchtest du <u>ein neues Auto</u>?</div>
+    <ol class="items" id="c3-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C3" data-target="sec-c3">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C4 -->
+  <section class="exercise" id="sec-c4">
+    <header><span class="tag">C4</span><h2>Was hast du?</h2></header>
+    <div class="wordbank"><b>形容詞(対義語):</b> hart · alt · hässlich · unbequem · langweilig · klein · unmodern · langsam · leer</div>
+    <p class="instr">質問を4格で完成させ、否定で答えてから対義語で言い直してください。</p>
+    <div class="example"><span class="ex-mark"></span>Hast du (neu, Fernseher)? → Hast du <u>einen neuen</u> Fernseher? – Nein, ich habe <u>keinen neuen</u> Fernseher. Ich habe <u>einen alten</u>.</div>
+    <ol class="items" id="c4-list" style="gap:18px;"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C4" data-target="sec-c4">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C5 -->
+  <section class="exercise" id="sec-c5">
+    <header><span class="tag">C5</span><h2>Ergänzen Sie den bestimmten Artikel und antworten Sie.</h2></header>
+    <p class="instr">定冠詞を4格で入れ、かっこ内の語を使って文を作ってください。</p>
+    <div class="example"><span class="ex-mark"></span>Wie findest du <u>das</u> Bild? (sehr schön) → <u>Ich finde das Bild sehr schön.</u></div>
+    <ol class="items" id="c5-list" style="gap:16px;"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C5" data-target="sec-c5">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C6 -->
+  <section class="exercise" id="sec-c6">
+    <header><span class="tag">C6</span><h2>Ergänzen Sie die Endungen, wenn nötig.</h2></header>
+    <div class="wordbank"><b>Eigennamen(固有名詞)は大文字で書きます:</b> das Deutsche Museum, der Englische Garten, die Süddeutsche Zeitung — 「普通の」形容詞は小文字のままです。</div>
+    <p class="instr">下線部分には語尾だけを入れてください。語尾が不要な場合は空欄のままで構いません。</p>
+    <div class="example"><span class="ex-mark"></span>Wir besuchen d<u>en</u> japanisch<u>en</u> Garten.</div>
+    <ol class="items" id="c6-list" style="gap:14px;"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C6" data-target="sec-c6">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C7 -->
+  <section class="exercise" id="sec-c7">
+    <header><span class="tag">C7</span><h2>Bilden Sie neue Wörter.</h2></header>
+    <p class="instr">複合名詞を作ってください(冠詞も入れてください。最後の単語が性を決めます)。</p>
+    <div class="example"><span class="ex-mark"></span>der Computer + das Programm = <u>das Computerprogramm</u></div>
+    <ol class="items" id="c7-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C7" data-target="sec-c7">このセクションを採点する</button></div>
+  </section>
+
+  <div class="btnrow" style="justify-content:center; margin-top:8px;">
+    <button class="ghost" id="resetBtn2" type="button">リセット</button>
+    <button class="primary" id="gradeBtn2" type="button">採点する</button>
+  </div>
+  <footer class="note">Begegnungen A1+（Schubert Verlag）Kapitel 3, S.74–77 の練習問題を基に作成</footer>
+</div>
+
+<script>
+(function(){
+
+  function el(tag, props, children){
+    const e = document.createElement(tag);
+    if (props) for (const k in props){
+      if (k === "class") e.className = props[k];
+      else if (k === "html") e.innerHTML = props[k];
+      else e.setAttribute(k, props[k]);
+    }
+    (children||[]).forEach(c => e.appendChild(typeof c === "string" ? document.createTextNode(c) : c));
+    return e;
+  }
+
+  function blankInput(id, answers, width, sentence){
+    const inp = el("input", { type:"text", id:id, autocomplete:"off", spellcheck:"false" });
+    if (width) inp.style.width = width;
+    inp.dataset.answers = answers.join("|");
+    if (sentence) inp.dataset.sentence = "true";
+    return inp;
+  }
+
+  function buildLine(segments, extraClass){
+    const wrap = el("span", { class: extraClass ? "line "+extraClass : "line" });
+    segments.forEach(seg => {
+      if (typeof seg === "string"){
+        wrap.appendChild(document.createTextNode(seg));
+      } else if (seg.blank){
+        const inp = blankInput(seg.blank.id, seg.blank.answers, seg.blank.width, seg.blank.sentence);
+        if (seg.blank.sentence) inp.classList.add("sentence-input");
+        wrap.appendChild(inp);
+      }
+    });
+    return wrap;
+  }
+
+  function textItem(idx, segments){
+    const li = el("li");
+    if (idx !== null) li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    li.appendChild(buildLine(segments));
+    return li;
+  }
+
+  // two-line item: line1 (question), line2 (answer) — both may contain blanks
+  function twoLineItem(idx, segs1, segs2){
+    const li = el("li");
+    li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    const col = el("div", { class:"line sentence-line" });
+    col.appendChild(buildLine(segs1));
+    col.appendChild(buildLine(segs2));
+    return (function(){ li.appendChild(col); return li; })();
+  }
+
+  function normalizeSentence(s){
+    return s.trim().toLowerCase().replace(/[.!?]+$/,"").replace(/\s+/g," ").trim();
+  }
+
+  // ---------- C1 ----------
+  const c1list = document.getElementById("c1-list");
+  const c1items = [
+    ["Niels Bohr ist ", {blank:{id:"c1-1", answers:["ein dänischer Physiker"], width:"24ch"}}, "."],
+    ["IBM ist ", {blank:{id:"c1-2", answers:["eine amerikanische Computerfirma"], width:"30ch"}}, "."],
+    ["Peugeot ist ", {blank:{id:"c1-3", answers:["ein französisches Auto"], width:"24ch"}}, "."],
+    ["Plato ist ", {blank:{id:"c1-4", answers:["ein griechischer Philosoph"], width:"26ch"}}, "."],
+    ["Die Davidstatue von Michelangelo ist ", {blank:{id:"c1-5", answers:["ein italienisches Kunstwerk"], width:"26ch"}}, "."],
+    ["Die Eremitage ist ", {blank:{id:"c1-6", answers:["ein russisches Museum"], width:"24ch"}}, "."],
+  ];
+  c1items.forEach((segs,i) => c1list.appendChild(textItem(i+1, segs)));
+
+  // ---------- C2 ----------
+  const c2list = document.getElementById("c2-list");
+  const c2items = [
+    { noun:"Schreibtisch", q:"einen", a:"wir brauchen keinen Schreibtisch", sub:"ihr", verb:"Braucht" },
+    { noun:"Radio", q:"ein", a:"ich brauche kein Radio", sub:"Sie", verb:"Brauchen" },
+    { noun:"Lampe", q:"eine", a:"ich brauche keine Lampe", sub:"du", verb:"Brauchst" },
+    { noun:"Stift", q:"einen", a:"sie braucht keinen Stift", sub:"sie", verb:"Braucht" },
+    { noun:"Brille", q:"eine", a:"er braucht keine Brille", sub:"er", verb:"Braucht" },
+    { noun:"Drucker", q:"einen", a:"ich brauche keinen Drucker", sub:"du", verb:"Brauchst" },
+    { noun:"Zeitung", q:"eine", a:"ich brauche keine Zeitung", sub:"Sie", verb:"Brauchen" },
+    { noun:"Schlüssel", q:"einen", a:"er braucht keinen Schlüssel", sub:"er", verb:"Braucht" },
+    { noun:"Regal", q:"ein", a:"wir brauchen kein Regal", sub:"ihr", verb:"Braucht" },
+    { noun:"Handy", q:"ein", a:"ich brauche kein Handy", sub:"du", verb:"Brauchst" },
+    { noun:"Kaffeemaschine", q:"eine", a:"ich brauche keine Kaffeemaschine", sub:"du", verb:"Brauchst" },
+    { noun:"Auto", q:"ein", a:"wir brauchen kein Auto", sub:"wir", verb:"Brauchen" },
+    { noun:"Terminkalender", q:"einen", a:"er braucht keinen Terminkalender", sub:"er", verb:"Braucht" },
+  ];
+  c2items.forEach((it,i) => {
+    const idx = i+1;
+    const segs1 = [it.verb + " " + it.sub + " ", {blank:{id:"c2-"+idx+"q", answers:[it.q], width:"7ch"}}, " " + it.noun + "?"];
+    const segs2 = ["– Nein, ", {blank:{id:"c2-"+idx+"a", answers:[it.a], width:"34ch", sentence:true}}, "."];
+    c2list.appendChild(twoLineItem(idx, segs1, segs2));
+  });
+
+  // ---------- C3 ----------
+  const c3list = document.getElementById("c3-list");
+  const c3items = [
+    ["Radio, klein", "ein kleines Radio"],
+    ["Computer, modern", "einen modernen Computer"],
+    ["Zeitung, alt", "eine alte Zeitung"],
+    ["Büro, groß", "ein großes Büro"],
+    ["Computertisch, praktisch", "einen praktischen Computertisch"],
+    ["Laptop, preiswert", "einen preiswerten Laptop"],
+    ["Stift, neu", "einen neuen Stift"],
+    ["Bücherregal, leer", "ein leeres Bücherregal"],
+  ];
+  c3items.forEach((q,i) => {
+    const li = el("li");
+    li.appendChild(el("span", { class:"idx" }, [(i+1) + "."]));
+    const col = el("div", { class:"line sentence-line" });
+    col.appendChild(el("div", { class:"cue-chips", style:"display:flex;gap:6px;" }, [el("span", { class:"cue-chip", style:"font-size:12.5px;padding:3px 10px;border-radius:8px;background:var(--surface-2);color:var(--muted);border:1px solid var(--border);" }, [q[0]])]));
+    col.appendChild(buildLine(["Möchtest du ", {blank:{id:"c3-"+(i+1), answers:[q[1]], width:"26ch"}}, "?"]));
+    li.appendChild(col);
+    c3list.appendChild(li);
+  });
+
+  // ---------- C4 ----------
+  const c4list = document.getElementById("c4-list");
+  const c4items = [
+    { noun:"Bett", cue:"weich, Bett", q:"ein weiches", neg:"kein weiches", pos:"ein hartes" },
+    { noun:"Minibar", cue:"voll, Minibar", q:"eine volle", neg:"keine volle", pos:"eine leere" },
+    { noun:"Bad", cue:"groß, Bad", q:"ein großes", neg:"kein großes", pos:"ein kleines" },
+    { noun:"Buch", cue:"interessant, Buch", q:"ein interessantes", neg:"kein interessantes", pos:"ein langweiliges" },
+    { noun:"Stuhl", cue:"bequem, Stuhl", q:"einen bequemen", neg:"keinen bequemen", pos:"einen unbequemen" },
+    { noun:"Auto", cue:"schnell, Auto", q:"ein schnelles", neg:"kein schnelles", pos:"ein langsames" },
+    { noun:"Lampe", cue:"modern, Lampe", q:"eine moderne", neg:"keine moderne", pos:"eine unmoderne" },
+    { noun:"Zimmer", cue:"schön, Zimmer", q:"ein schönes", neg:"kein schönes", pos:"ein hässliches" },
+  ];
+  c4items.forEach((it,i) => {
+    const idx = i+1;
+    const li = el("li");
+    li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    const col = el("div", { class:"line sentence-line" });
+    col.appendChild(el("div", { class:"cue-chips", style:"display:flex;gap:6px;" }, [el("span", { class:"cue-chip", style:"font-size:12.5px;padding:3px 10px;border-radius:8px;background:var(--surface-2);color:var(--muted);border:1px solid var(--border);" }, ["Haben Sie (" + it.cue + ")?"])]));
+    col.appendChild(buildLine(["Haben Sie ", {blank:{id:"c4-"+idx+"q", answers:[it.q], width:"14ch"}}, " " + it.noun + "?"]));
+    col.appendChild(buildLine(["Nein, ich habe ", {blank:{id:"c4-"+idx+"neg", answers:[it.neg], width:"14ch"}}, " " + it.noun + ". Ich habe ", {blank:{id:"c4-"+idx+"pos", answers:[it.pos], width:"14ch"}}, "."]));
+    li.appendChild(col);
+    c4list.appendChild(li);
+  });
+
+  // ---------- C5 ----------
+  const c5list = document.getElementById("c5-list");
+  const c5items = [
+    { noun:"Sprachkurs", artikel:"den", cue:"interessant", a:"ich finde den sprachkurs interessant" },
+    { noun:"Zimmer", artikel:"das", cue:"zu klein", a:"ich finde das zimmer zu klein" },
+    { noun:"Hotel", artikel:"das", cue:"unmodern", a:"ich finde das hotel unmodern" },
+    { noun:"Restaurant", artikel:"das", cue:"zu dunkel", a:"ich finde das restaurant zu dunkel" },
+    { noun:"Museum", artikel:"das", cue:"sehr modern", a:"ich finde das museum sehr modern" },
+    { noun:"Frühstück", artikel:"das", cue:"sehr gut", a:"ich finde das frühstück sehr gut" },
+  ];
+  c5items.forEach((it,i) => {
+    const idx = i+1;
+    const li = el("li");
+    li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    const col = el("div", { class:"line sentence-line" });
+    col.appendChild(buildLine(["Wie finden Sie ", {blank:{id:"c5-"+idx+"a", answers:[it.artikel], width:"6ch"}}, " " + it.noun + "? (" + it.cue + ")"]));
+    col.appendChild(buildLine([{blank:{id:"c5-"+idx+"s", answers:[it.a], width:"34ch", sentence:true}}, "."]));
+    li.appendChild(col);
+    c5list.appendChild(li);
+  });
+
+  // ---------- C6 ----------
+  const c6list = document.getElementById("c6-list");
+  const NOEND = ["-", ""];
+  const c6lines = [
+    ["Kennt ihr d", {blank:{id:"c6-1a", answers:["en"], width:"4.5ch"}}, " neu", {blank:{id:"c6-1b", answers:["en"], width:"4.5ch"}}, " Roman von Patrick Süskind?"],
+    ["Trinken Sie auch ein", {blank:{id:"c6-2", answers:["en"], width:"4.5ch"}}, " Kaffee?"],
+    ["Gibt es hier ein", {blank:{id:"c6-3a", answers:["en"], width:"4.5ch"}}, " bequem", {blank:{id:"c6-3b", answers:["en"], width:"4.5ch"}}, " Stuhl?"],
+    ["Dagmar möchte schon wieder ein", {blank:{id:"c6-4a", answers:NOEND, width:"4.5ch"}}, " neu", {blank:{id:"c6-4b", answers:["es"], width:"4.5ch"}}, " Handy."],
+    ["Liest du auch d", {blank:{id:"c6-5a", answers:["ie"], width:"4.5ch"}}, " Süddeutsch", {blank:{id:"c6-5b", answers:["e"], width:"4.5ch"}}, " Zeitung?"],
+    ["Das ist ein", {blank:{id:"c6-6a", answers:NOEND, width:"4.5ch"}}, " uninteressant", {blank:{id:"c6-6b", answers:["es"], width:"4.5ch"}}, " Buch. Ich lese es nicht."],
+    ["Habt ihr auch ein", {blank:{id:"c6-7a", answers:["en"], width:"4.5ch"}}, " modern", {blank:{id:"c6-7b", answers:["en"], width:"4.5ch"}}, " Fernseher?"],
+    ["Ich schreibe ein", {blank:{id:"c6-8a", answers:["e"], width:"4.5ch"}}, " sehr wichtig", {blank:{id:"c6-8b", answers:["e"], width:"4.5ch"}}, " E-Mail."],
+    ["Mein Sohn möchte d", {blank:{id:"c6-9a", answers:["as"], width:"4.5ch"}}, " Deutsch", {blank:{id:"c6-9b", answers:["e"], width:"4.5ch"}}, " Museum besuchen. Es ist ein", {blank:{id:"c6-9c", answers:NOEND, width:"4.5ch"}}, " interessant", {blank:{id:"c6-9d", answers:["es"], width:"4.5ch"}}, " Museum."],
+    ["D", {blank:{id:"c6-10a", answers:["ie"], width:"4.5ch"}}, " neu", {blank:{id:"c6-10b", answers:["e"], width:"4.5ch"}}, " Dusche ist schon kaputt!"],
+    ["D", {blank:{id:"c6-11a", answers:["ie"], width:"4.5ch"}}, " Bibliothek braucht neu", {blank:{id:"c6-11b", answers:["e"], width:"4.5ch"}}, " Bücher."],
+    ["Mein", {blank:{id:"c6-12a", answers:["e"], width:"4.5ch"}}, " Freundin hat kein", {blank:{id:"c6-12b", answers:NOEND, width:"4.5ch"}}, " Fahrrad."],
+  ];
+  c6lines.forEach((segs,i) => c6list.appendChild(textItem(i+1, segs)));
+
+  // ---------- C7 ----------
+  const c7list = document.getElementById("c7-list");
+  const c7items = [
+    ["das Zimmer", "die Nummer", "die Zimmernummer"],
+    ["das Zimmer", "der Schlüssel", "der Zimmerschlüssel"],
+    ["das Hotel", "das Restaurant", "das Hotelrestaurant"],
+    ["der Kredit", "die Karte", "die Kreditkarte"],
+    ["das Bier", "der Garten", "der Biergarten"],
+    ["die Musik", "das Instrument", "das Musikinstrument"],
+    ["die Industrie", "der Roboter", "der Industrieroboter"],
+    ["das Hotel", "die Rezeption", "die Hotelrezeption"],
+    ["die Stadt", "das Zentrum", "das Stadtzentrum"],
+    ["die Industrie", "das Museum", "das Industriemuseum"],
+    ["der Termin", "der Kalender", "der Terminkalender"],
+  ];
+  c7items.forEach((q,i) => {
+    c7list.appendChild(textItem(i+1, [q[0] + " + " + q[1] + " = ", {blank:{id:"c7-"+(i+1), answers:[q[2]], width:"22ch"}}]));
+  });
+
+  // ---------- grading ----------
+  const SECTION_PREFIX = [
+    ["C1", (id) => id.startsWith("c1-")],
+    ["C2", (id) => id.startsWith("c2-")],
+    ["C3", (id) => id.startsWith("c3-")],
+    ["C4", (id) => id.startsWith("c4-")],
+    ["C5", (id) => id.startsWith("c5-")],
+    ["C6", (id) => id.startsWith("c6-")],
+    ["C7", (id) => id.startsWith("c7-")],
+  ];
+  function sectionOf(id){
+    for (const [key, test] of SECTION_PREFIX){ if (test(id)) return key; }
+    return null;
+  }
+
+  function clearHints(){
+    document.querySelectorAll(".answer-hint").forEach(n => n.remove());
+  }
+
+  function gradeInputsIn(root, sectionScore){
+    let total = 0, correct = 0;
+    root.querySelectorAll('input[type="text"][data-answers]').forEach(inp => {
+      total++;
+      const isSentence = inp.dataset.sentence === "true";
+      const accepted = inp.dataset.answers.split("|").map(a => isSentence ? normalizeSentence(a) : a.trim().toLowerCase());
+      const val = isSentence ? normalizeSentence(inp.value) : inp.value.trim().toLowerCase();
+      const ok = accepted.includes(val);
+      inp.classList.remove("correct","incorrect");
+      inp.classList.add(ok ? "correct" : "incorrect");
+      if (!ok){
+        const hint = el("span", { class:"answer-hint" }, ["→ ", el("b", {}, [inp.dataset.answers.split("|")[0]])]);
+        inp.insertAdjacentElement("afterend", hint);
+      } else {
+        correct++;
+      }
+      if (sectionScore){
+        const s = sectionOf(inp.id);
+        if (s && ok) sectionScore[s] = (sectionScore[s]||0) + 1;
+      }
+    });
+    return { total, correct };
+  }
+
+  const TOTALS = { C1:6, C2:26, C3:8, C4:24, C5:12, C6:25, C7:11 };
+
+  function grade(){
+    clearHints();
+    const sectionScore = { C1:0, C2:0, C3:0, C4:0, C5:0, C6:0, C7:0 };
+    const { total, correct } = gradeInputsIn(document, sectionScore);
+
+    document.getElementById("scoreNum").textContent = correct + " / " + total;
+    document.getElementById("scoreNum").classList.remove("hidden-result");
+    document.querySelectorAll(".chip").forEach(chip => {
+      const s = chip.dataset.chip;
+      if (!s) return;
+      chip.textContent = s + " " + sectionScore[s] + "/" + TOTALS[s];
+      chip.classList.toggle("done", sectionScore[s] === TOTALS[s]);
+    });
+    document.getElementById("scorebar").scrollIntoView({ behavior:"smooth", block:"start" });
+  }
+
+  function resetAll(){
+    document.querySelectorAll('input[type="text"]').forEach(inp => {
+      inp.value = "";
+      inp.classList.remove("correct","incorrect");
+    });
+    clearHints();
+    document.getElementById("scoreNum").textContent = "–";
+    document.getElementById("scoreNum").classList.add("hidden-result");
+    document.querySelectorAll(".chip").forEach(chip => {
+      const s = chip.dataset.chip;
+      if (!s) return;
+      chip.textContent = s + " 0/" + TOTALS[s];
+      chip.classList.remove("done");
+    });
+    window.scrollTo({ top:0, behavior:"smooth" });
+  }
+
+  document.getElementById("gradeBtn").addEventListener("click", grade);
+  document.getElementById("gradeBtn2").addEventListener("click", grade);
+  document.getElementById("resetBtn").addEventListener("click", resetAll);
+  document.getElementById("resetBtn2").addEventListener("click", resetAll);
+
+  // ---------- per-section grading ----------
+  function clearHintsIn(root){
+    root.querySelectorAll(".answer-hint").forEach(n => n.remove());
+  }
+
+  function gradeSection(sectionKey, root){
+    if (!root) return;
+    clearHintsIn(root);
+    const { total, correct } = gradeInputsIn(root, null);
+    const chip = document.querySelector('.chip[data-chip="'+sectionKey+'"]');
+    if (chip){
+      chip.textContent = sectionKey + " " + correct + "/" + total;
+      chip.classList.toggle("done", correct === total);
+    }
+  }
+
+  document.querySelectorAll(".section-check").forEach(btn => {
+    btn.addEventListener("click", () => {
+      gradeSection(btn.dataset.section, document.getElementById(btn.dataset.target));
+    });
+  });
+
+  // ---------- hot state ----------
+  function collectState(){
+    const state = {};
+    document.querySelectorAll('input[type="text"]').forEach(i => state[i.id] = i.value);
+    return state;
+  }
+  function applyState(state){
+    if (!state) return;
+    document.querySelectorAll('input[type="text"]').forEach(i => { if (state[i.id] !== undefined) i.value = state[i.id]; });
+  }
+  try {
+    if (window.claude && window.claude.hot){
+      window.claude.hot.snapshot(collectState);
+      const boot = (data) => applyState(data);
+      window.claude.hot.ready ? window.claude.hot.ready(boot) : boot(window.claude.hot.data || {});
+    }
+  } catch(e) {}
+})();
+</script>
+</body></html>
