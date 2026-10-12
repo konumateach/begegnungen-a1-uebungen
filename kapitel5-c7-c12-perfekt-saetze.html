@@ -1,0 +1,678 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Kapitel 5 Perfekt: Verbformen &amp; Sätze</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f7f6; --surface:#ffffff; --surface-2:#eef4f3; --ink:#152524; --muted:#5c716f; --border:#d7e2e0;
+    --accent:#0d7a72; --accent-ink:#075a54; --accent-soft:#e0f2ef;
+    --correct:#1c7a43; --correct-bg:#e5f5ea; --correct-border:#a9d9b8;
+    --incorrect:#b3261e; --incorrect-bg:#fdecea; --incorrect-border:#f0b8b3;
+    --shadow: 0 1px 2px rgba(21,37,36,.04), 0 8px 24px -12px rgba(21,37,36,.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0f1716; --surface:#16201f; --surface-2:#1c2725; --ink:#e8f0ee; --muted:#9db3af; --border:#293735;
+      --accent:#3fc9bb; --accent-ink:#8fe3d8; --accent-soft:#1a3230;
+      --correct:#5fd487; --correct-bg:#173224; --correct-border:#2c5a3c;
+      --incorrect:#ff8a80; --incorrect-bg:#3a1c1a; --incorrect-border:#6b302b;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0f1716; --surface:#16201f; --surface-2:#1c2725; --ink:#e8f0ee; --muted:#9db3af; --border:#293735;
+    --accent:#3fc9bb; --accent-ink:#8fe3d8; --accent-soft:#1a3230;
+    --correct:#5fd487; --correct-bg:#173224; --correct-border:#2c5a3c;
+    --incorrect:#ff8a80; --incorrect-bg:#3a1c1a; --incorrect-border:#6b302b;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+  }
+
+  *{box-sizing:border-box;}
+  body{ background:var(--bg); color:var(--ink); font-family:"Source Sans 3", "Hiragino Sans", "Yu Gothic", sans-serif; line-height:1.55; }
+  .wrap{ max-width:780px; margin:0 auto; padding-inline:20px; padding-block:28px 120px; }
+  h1,h2,h3{ font-family:"Fraunces", serif; text-wrap:balance; margin:0; }
+  .masthead{ display:flex; flex-direction:column; gap:6px; margin-bottom:28px; }
+  .kicker{ font-size:12.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--accent-ink); font-weight:600; }
+  h1{ font-size:clamp(26px,5vw,34px); font-weight:700; color:var(--ink); }
+  .sub{ color:var(--muted); font-size:15px; max-width:62ch; }
+
+  .scorebar{ position:sticky; top:env(safe-area-inset-top,0px); z-index:20; display:flex; align-items:center; justify-content:space-between; gap:12px; background:var(--surface); border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); padding:12px 16px; margin-bottom:26px; flex-wrap:wrap; }
+  .scorebar .totals{ display:flex; align-items:baseline; gap:8px; }
+  .scorebar .totals .num{ font-family:"Fraunces", serif; font-size:26px; font-weight:700; font-variant-numeric:tabular-nums; color:var(--accent-ink); }
+  .scorebar .totals .num.hidden-result{ color:var(--muted); }
+  .scorebar .label{ font-size:13px; color:var(--muted); }
+  .btnrow{ display:flex; gap:8px; }
+  .section-check-row{ display:flex; justify-content:flex-end; margin-top:14px; }
+  button.small{ font-size:13px; padding:7px 14px; }
+  button{ font-family:inherit; font-size:14.5px; font-weight:600; border-radius:10px; padding:10px 18px; border:1px solid transparent; cursor:pointer; transition:transform .08s ease, background .15s ease, box-shadow .15s ease; }
+  button:focus-visible, input:focus-visible, textarea:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+  button.primary{ background:var(--accent); color:#fdfffe; box-shadow:0 4px 14px -6px var(--accent); }
+  button.primary:hover{ transform:translateY(-1px); }
+  button.ghost{ background:transparent; color:var(--muted); border-color:var(--border); }
+  button.ghost:hover{ background:var(--surface-2); }
+
+  .chips{ display:flex; gap:6px; flex-wrap:wrap; }
+  .chip{ font-size:12px; font-weight:600; padding:4px 9px; border-radius:999px; background:var(--surface-2); color:var(--muted); font-variant-numeric:tabular-nums; border:1px solid var(--border); }
+  .chip.done{ background:var(--accent-soft); color:var(--accent-ink); border-color:transparent; }
+
+  section.exercise{ background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:22px 22px 24px; margin-bottom:22px; box-shadow:var(--shadow); }
+  .exercise > header{ display:flex; align-items:baseline; gap:10px; margin-bottom:4px; flex-wrap:wrap; }
+  .exercise > header .tag{ font-family:"Fraunces", serif; font-weight:700; font-size:20px; color:var(--accent-ink); background:var(--accent-soft); border-radius:8px; padding:1px 10px; }
+  .exercise > header h2{ font-size:18px; font-weight:600; color:var(--ink); }
+  .instr{ font-style:italic; color:var(--muted); font-size:14px; margin:2px 0 16px; }
+  .wordbank{ font-size:13.5px; color:var(--accent-ink); background:var(--accent-soft); border-radius:10px; padding:8px 12px; margin-bottom:16px; line-height:1.6; }
+  .wordbank b{ font-weight:600; }
+
+  .example{ font-size:14.5px; color:var(--muted); margin-bottom:12px; padding-left:2px; }
+  .example .ex-mark{ display:inline-block; width:9px; height:9px; background:var(--accent); margin-right:8px; border-radius:2px; }
+  .example .ex-answer{ display:block; margin-top:2px; padding-left:17px; font-style:italic; color:var(--accent-ink); }
+
+  ol.items{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:14px; }
+  ol.items > li{ display:flex; align-items:flex-start; gap:10px; }
+  ol.items > li .idx{ font-variant-numeric:tabular-nums; color:var(--muted); font-size:14px; min-width:1.4em; padding-top:6px; }
+  .line{ flex:1; display:flex; flex-wrap:wrap; align-items:center; gap:6px; font-size:16px; }
+  .cue{ font-style:italic; color:var(--muted); font-size:13.5px; margin-right:2px; }
+
+  .q-cell{ display:flex; flex-direction:column; gap:4px; flex:1; }
+  .q-text{ font-size:15.5px; }
+
+  /* C7 pair rows */
+  .pp-grid{ display:flex; flex-direction:column; gap:10px; }
+  .pp-row{ display:flex; align-items:flex-start; gap:10px; }
+  .pp-row .idx{ font-variant-numeric:tabular-nums; color:var(--muted); font-size:14px; min-width:1.4em; padding-top:6px; }
+  .pp-cols{ flex:1; display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  @media (max-width:560px){ .pp-cols{ grid-template-columns:1fr; } }
+  .pp-col{ display:flex; flex-wrap:wrap; align-items:center; gap:6px; font-size:15px; }
+  .pp-label{ font-size:11.5px; font-weight:600; color:var(--muted); width:100%; }
+
+  /* C10 blocks */
+  .c10-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:16px; }
+  .c10-block{ display:flex; gap:10px; align-items:flex-start; }
+  .c10-block .idx{ font-variant-numeric:tabular-nums; color:var(--muted); font-size:14px; min-width:1.4em; padding-top:6px; }
+  .c10-content{ flex:1; display:flex; flex-direction:column; gap:6px; }
+  .c10-cue{ font-weight:600; color:var(--accent-ink); font-size:14.5px; }
+  .c10-subrow{ display:flex; flex-wrap:wrap; align-items:center; gap:6px; font-size:14.5px; }
+  .c10-subrow .sub-label{ color:var(--muted); min-width:11ch; font-size:13px; }
+  .c10-subrow input[type="text"].sentence-input{ width:auto; flex:1 1 220px; min-width:160px; text-align:left; }
+
+  .given-text{ font-weight:700; color:var(--accent-ink); font-style:italic; }
+
+  input[type="text"]{ font:inherit; font-size:16px; color:var(--ink); background:var(--surface-2); border:1.5px solid var(--border); border-radius:8px; padding:4px 8px; width:10.5ch; text-align:center; }
+  input[type="text"].sentence-input{ width:100%; text-align:left; }
+  input[type="text"]:focus{ border-color:var(--accent); background:var(--surface); }
+  input[type="text"].correct{ background:var(--correct-bg); border-color:var(--correct-border); color:var(--correct); font-weight:600; }
+  input[type="text"].incorrect{ background:var(--incorrect-bg); border-color:var(--incorrect-border); color:var(--incorrect); font-weight:600; }
+  .answer-hint{ font-size:13px; color:var(--incorrect); white-space:nowrap; }
+  .answer-hint.block{ display:block; white-space:normal; margin-top:2px; }
+  .answer-hint b{ font-weight:700; }
+  .c11-hint-box{ font-size:13px; color:var(--incorrect); margin-top:10px; }
+  .c11-hint-box b{ font-weight:700; }
+
+  textarea.free-write{ width:100%; min-height:200px; font:inherit; font-size:15px; padding:12px 14px; border-radius:10px; border:1.5px solid var(--border); background:var(--surface-2); color:var(--ink); resize:vertical; }
+  .ungraded-note{ font-size:12px; color:var(--muted); margin-top:8px; text-align:right; }
+  .c12-stub{ font-style:italic; color:var(--accent-ink); font-size:15px; margin-bottom:8px; }
+
+  @media (max-width:620px){ .scorebar{ flex-direction:column; align-items:stretch; } .btnrow{ justify-content:flex-end; } }
+
+  footer.note{ color:var(--muted); font-size:12.5px; text-align:center; margin-top:8px; }
+  .back-link{ display:inline-flex; align-items:center; gap:5px; font-size:13.5px; font-weight:600; color:var(--muted); text-decoration:none; margin-bottom:16px; }
+  .back-link:hover{ color:var(--accent-ink); }
+</style>
+
+
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="index.html">← Zurück zum Portal</a>
+  <div class="masthead">
+    <span class="kicker">Begegnungen A1+ · Kapitel 5 · Teil C</span>
+    <h1>Perfekt: Verbformen &amp; Sätze</h1>
+    <p class="sub">C7–C12 の練習問題です(S.134–136)。規則/不規則動詞のPräsensとPerfekt、助動詞の使い分け、文の組み立てを扱います。C12は自由記述のため採点対象外です。</p>
+  </div>
+
+  <div class="scorebar" id="scorebar">
+    <div class="totals">
+      <span class="num hidden-result" id="scoreNum">–</span>
+      <span class="label">正解数 / 全102問</span>
+    </div>
+    <div class="chips" id="chips">
+      <span class="chip" data-chip="C7">C7 0/30</span>
+      <span class="chip" data-chip="C8">C8 0/24</span>
+      <span class="chip" data-chip="C9">C9 0/8</span>
+      <span class="chip" data-chip="C10">C10 0/36</span>
+      <span class="chip" data-chip="C11">C11 0/4</span>
+    </div>
+    <div class="btnrow">
+      <button class="ghost" id="resetBtn" type="button">リセット</button>
+      <button class="primary" id="gradeBtn" type="button">採点する</button>
+    </div>
+  </div>
+
+  <!-- C7 -->
+  <section class="exercise" id="sec-c7">
+    <header><span class="tag">C7</span><h2>Ergänzen Sie die Präsensform und das Hilfsverb im Perfekt.</h2></header>
+    <p class="instr">左に現在形の短い句、右に完了形の助動詞を入れてください。</p>
+    <div id="c7-grid" class="pp-grid"></div>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C7" data-target="sec-c7">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C8 -->
+  <section class="exercise" id="sec-c8">
+    <header><span class="tag">C8</span><h2>Ergänzen Sie das Hilfsverb und das richtige Partizip.</h2></header>
+    <div class="wordbank"><b>単語リスト:</b> getrunken · gefunden · gegangen · gegessen · gefahren · geschrieben · geblieben · geschlafen · gesehen · gesungen · angekommen · gelesen · begonnen</div>
+    <div class="example"><span class="ex-mark"></span>Wir <u>sind</u> mit dem Bus <u>gefahren</u>.</div>
+    <ol class="items" id="c8-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C8" data-target="sec-c8">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C9 -->
+  <section class="exercise" id="sec-c9">
+    <header><span class="tag">C9</span><h2>Beantworten Sie die Fragen in ganzen Sätzen.</h2></header>
+    <div class="example">
+      <span class="ex-mark"></span>Wie lange bist du gefahren? <i>(drei Stunden)</i>
+      <span class="ex-answer">Ich bin drei Stunden gefahren.</span>
+    </div>
+    <ol class="items" id="c9-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C9" data-target="sec-c9">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C10 -->
+  <section class="exercise" id="sec-c10">
+    <header><span class="tag">C10</span><h2>Bilden Sie Sätze im Präsens (a), im Präsens mit Modalverb (b) und im Perfekt (c).</h2></header>
+    <div class="example">
+      <span class="ex-mark"></span>Licht – ausschalten
+      <span class="ex-answer">a) Er schaltet das Licht aus. &nbsp; b) Er muss das Licht ausschalten. &nbsp; c) Er hat das Licht ausgeschaltet.</span>
+    </div>
+    <ol class="c10-list" id="c10-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C10" data-target="sec-c10">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C11 -->
+  <section class="exercise" id="sec-c11">
+    <header><span class="tag">C11</span><h2>Bilden Sie Fragen im Perfekt.</h2></header>
+    <div class="wordbank"><b>Verben:</b> fotografieren · telefonieren · kopieren · installieren &nbsp;&nbsp;<b>Objekte:</b> den schönen Baum · das neue Programm · mit Heinz · die Übung</div>
+    <div class="example"><span class="ex-mark"></span>Hast du schon …?<span class="ex-answer">4つの疑問文をどの回答欄に書いても構いません。内容が合っていれば正解になります。</span></div>
+    <ol class="items" id="c11-list"></ol>
+    <div class="c11-hint-box" id="c11-hint" style="display:none;"></div>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C11" data-target="sec-c11">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C12 -->
+  <section class="exercise" id="sec-c12">
+    <header><span class="tag">C12</span><h2>Schreiben Sie den Text im Perfekt.</h2></header>
+    <p class="instr">Hannaの一日の文章を完了形(Perfekt)に書き換えてください。</p>
+    <div class="example" style="margin-bottom:14px;">
+      Hanna steht um 8.00 Uhr auf, danach frühstückt sie. Um 9.00 Uhr fährt sie zur Arbeit. Zuerst liest sie ihre E-Mails. Um 10.00 Uhr trinkt sie mit Frau Müller einen Kaffee. Von 10.30 bis 12.00 Uhr beantwortet sie die E-Mails und Briefe. Sie vereinbart zwei Termine mit der Firma KOK. Von 13.00 bis 13.30 Uhr macht sie Mittagspause. Sie isst in der Kantine Fleisch mit Gemüse und Kartoffeln. Am Nachmittag bucht sie für ihre Chefin einen Flug nach Rom. Sie kopiert viele Dokumente. Von 15.00 bis 15.30 Uhr führt sie ein Gespräch mit Frau Meier. Um 16.00 Uhr begrüßt sie die Gäste aus Moskau. Von 16.30 bis 17.30 Uhr schreibt sie wieder E-Mails. Um 17.30 Uhr macht Hanna Feierabend.
+    </div>
+    <div class="c12-stub">Hanna ist gestern um 8.00 Uhr aufgestanden, danach hat …</div>
+    <textarea class="free-write" id="c12-text" placeholder="…weiterschreiben"></textarea>
+    <div class="ungraded-note">自由記述のため採点対象外です。</div>
+  </section>
+
+  <div class="btnrow" style="justify-content:center; margin-top:8px;">
+    <button class="ghost" id="resetBtn2" type="button">リセット</button>
+    <button class="primary" id="gradeBtn2" type="button">採点する</button>
+  </div>
+  <footer class="note">Begegnungen A1+（Schubert Verlag）Kapitel 5, S.134–136 の練習問題を基に作成</footer>
+</div>
+
+<script>
+(function(){
+
+  function el(tag, props, children){
+    const e = document.createElement(tag);
+    if (props) for (const k in props){
+      if (k === "class") e.className = props[k];
+      else if (k === "html") e.innerHTML = props[k];
+      else e.setAttribute(k, props[k]);
+    }
+    (children||[]).forEach(c => e.appendChild(typeof c === "string" ? document.createTextNode(c) : c));
+    return e;
+  }
+
+  function blankInput(id, answers, width){
+    const inp = el("input", { type:"text", id:id, autocomplete:"off", spellcheck:"false" });
+    if (width) inp.style.width = width;
+    inp.dataset.answers = answers.join("|");
+    return inp;
+  }
+
+  function given(text){ return el("span", { class:"given-text" }, [text]); }
+
+  function buildLine(segments){
+    const wrap = el("span", { class:"line" });
+    segments.forEach(seg => {
+      if (typeof seg === "string"){
+        wrap.appendChild(document.createTextNode(seg));
+      } else if (seg.blank){
+        wrap.appendChild(blankInput(seg.blank.id, seg.blank.answers, seg.blank.width));
+      } else if (seg.given !== undefined){
+        wrap.appendChild(given(seg.given));
+      }
+    });
+    return wrap;
+  }
+
+  function textItem(idx, segments){
+    const li = el("li");
+    if (idx !== null) li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    li.appendChild(buildLine(segments));
+    return li;
+  }
+
+  function sentenceItem(idx, cue, expectedList, id){
+    const li = el("li");
+    li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    const line = el("div", { class:"line" });
+    if (cue) line.appendChild(el("span", { class:"cue" }, [cue]));
+    const inp = el("input", { type:"text", id:id, class:"sentence-input", autocomplete:"off", spellcheck:"false" });
+    inp.dataset.sentence = (Array.isArray(expectedList) ? expectedList : [expectedList]).join("||");
+    line.appendChild(inp);
+    li.appendChild(line);
+    return li;
+  }
+
+  // ====================== C7 ======================
+  const c7Grid = document.getElementById("c7-grid");
+  const c7Rows = [
+    { pronoun:"wir", praesensGiven:"wir kommen", hperson:"wir", hilfsGiven:"sind", partizipGiven:"gekommen" },
+    { pronoun:"er",  praesens:["liest"],            hperson:"er",  hilfs:["hat"],  partizipGiven:"gelesen" },
+    { pronoun:"ihr", praesens:["schreibt"],          hperson:"ihr", hilfs:["habt"], partizipGiven:"geschrieben" },
+    { pronoun:"er",  praesens:["fängt an"],          hperson:"er",  hilfs:["hat"],  partizipGiven:"angefangen" },
+    { pronoun:"wir", praesens:["singen"],            hperson:"wir", hilfs:["haben"],partizipGiven:"gesungen" },
+    { pronoun:"sie", praesens:["spricht","sprechen"],hperson:"sie", hilfs:["haben"],partizipGiven:"gesprochen" },
+    { pronoun:"er",  praesens:["isst"],              hperson:"er",  hilfs:["hat"],  partizipGiven:"gegessen" },
+    { pronoun:"er",  praesens:["steht auf"],         hperson:"er",  hilfs:["ist"],  partizipGiven:"aufgestanden" },
+    { pronoun:"du",  praesens:["trinkst"],           hperson:"du",  hilfs:["hast"], partizipGiven:"getrunken" },
+    { pronoun:"du",  praesens:["schläfst"],          hperson:"du",  hilfs:["hast"], partizipGiven:"geschlafen" },
+    { pronoun:"sie", praesens:["sieht","sehen"],     hperson:"sie", hilfs:["haben"],partizipGiven:"gesehen" },
+    { pronoun:"ihr", praesens:["kommt an"],          hperson:"ihr", hilfs:["seid"], partizipGiven:"angekommen" },
+    { pronoun:"er",  praesens:["läuft"],             hperson:"er",  hilfs:["ist"],  partizipGiven:"gelaufen" },
+    { pronoun:"ich", praesens:["sehe fern"],         hperson:"ich", hilfs:["habe"], partizipGiven:"ferngesehen" },
+    { pronoun:"du",  praesens:["gehst"],             hperson:"du",  hilfs:["bist"], partizipGiven:"gegangen" },
+    { pronoun:"wir", praesens:["beginnen"],          hperson:"wir", hilfs:["haben"],partizipGiven:"begonnen" },
+  ];
+  let c7idx = 0;
+  c7Rows.forEach((r) => {
+    const row = el("div", { class:"pp-row" });
+    if (r.praesensGiven){
+      row.appendChild(el("span", { class:"idx" }, [""]));
+      const cols = el("div", { class:"pp-cols" });
+      cols.appendChild(el("div", { class:"pp-col" }, [el("span",{class:"pp-label"},["Präsens"]), given(r.praesensGiven)]));
+      const perfCol = el("div", { class:"pp-col" });
+      perfCol.appendChild(el("span",{class:"pp-label"},["Perfekt"]));
+      perfCol.appendChild(document.createTextNode(r.hperson + " "));
+      perfCol.appendChild(given(r.hilfsGiven));
+      perfCol.appendChild(document.createTextNode(" "));
+      perfCol.appendChild(given(r.partizipGiven));
+      cols.appendChild(perfCol);
+      row.appendChild(cols);
+    } else {
+      c7idx++;
+      row.appendChild(el("span", { class:"idx" }, [c7idx + "."]));
+      const cols = el("div", { class:"pp-cols" });
+      const praesensCol = el("div", { class:"pp-col" });
+      praesensCol.appendChild(el("span",{class:"pp-label"},["Präsens"]));
+      praesensCol.appendChild(document.createTextNode(r.pronoun + " "));
+      praesensCol.appendChild(blankInput("c7-p" + c7idx, r.praesens, "13ch"));
+      cols.appendChild(praesensCol);
+      const perfCol = el("div", { class:"pp-col" });
+      perfCol.appendChild(el("span",{class:"pp-label"},["Perfekt"]));
+      perfCol.appendChild(document.createTextNode(r.hperson + " "));
+      perfCol.appendChild(blankInput("c7-h" + c7idx, r.hilfs, "8.5ch"));
+      perfCol.appendChild(document.createTextNode(" "));
+      perfCol.appendChild(given(r.partizipGiven));
+      cols.appendChild(perfCol);
+      row.appendChild(cols);
+    }
+    c7Grid.appendChild(row);
+  });
+
+  // ====================== C8 ======================
+  const c8List = document.getElementById("c8-list");
+  const c8Items = [
+    ["Er ", {blank:{id:"c8-h1", answers:["hat"], width:"7ch"}}, " zum Frühstück nur Joghurt ", {blank:{id:"c8-p1", answers:["gegessen"], width:"12ch"}}, "."],
+    ["Wir ", {blank:{id:"c8-h2", answers:["sind"], width:"7ch"}}, " erst um 24.00 Uhr ins Bett ", {blank:{id:"c8-p2", answers:["gegangen"], width:"12ch"}}, "."],
+    ["Herr Weber ", {blank:{id:"c8-h3", answers:["hat"], width:"7ch"}}, " abends fünf Bier ", {blank:{id:"c8-p3", answers:["getrunken"], width:"12ch"}}, "."],
+    ["Wir ", {blank:{id:"c8-h4", answers:["sind"], width:"7ch"}}, " im Hotel Central nur eine Nacht ", {blank:{id:"c8-p4", answers:["geblieben"], width:"12ch"}}, "."],
+    ["Ich ", {blank:{id:"c8-h5", answers:["habe"], width:"7ch"}}, " heute schon 30 E-Mails ", {blank:{id:"c8-p5", answers:["geschrieben"], width:"14ch"}}, "."],
+    ["", {blank:{id:"c8-h6", answers:["hast"], width:"7ch"}}, " du meinen Stift ", {blank:{id:"c8-p6", answers:["gefunden"], width:"12ch"}}, "?"],
+    ["Wann ", {blank:{id:"c8-h7", answers:["hat"], width:"7ch"}}, " die Besprechung ", {blank:{id:"c8-p7", answers:["begonnen"], width:"12ch"}}, "?"],
+    ["Der Chor ", {blank:{id:"c8-h8", answers:["hat"], width:"7ch"}}, " schöne Lieder ", {blank:{id:"c8-p8", answers:["gesungen"], width:"12ch"}}, "."],
+    ["Wie viele Stunden ", {blank:{id:"c8-h9", answers:["hast"], width:"7ch"}}, " du diese Nacht ", {blank:{id:"c8-p9", answers:["geschlafen"], width:"13ch"}}, "?"],
+    ["Wann ", {blank:{id:"c8-h10", answers:["ist"], width:"7ch"}}, " Frau Marx hier ", {blank:{id:"c8-p10", answers:["angekommen"], width:"14ch"}}, "?"],
+    ["Das Buch ", {blank:{id:"c8-h11", answers:["habe"], width:"7ch"}}, " ich schon ", {blank:{id:"c8-p11", answers:["gelesen"], width:"11ch"}}, "."],
+    ["Bettina ", {blank:{id:"c8-h12", answers:["hat"], width:"7ch"}}, " den Film schon zehnmal ", {blank:{id:"c8-p12", answers:["gesehen"], width:"11ch"}}, "."],
+  ];
+  c8Items.forEach((segs, i) => c8List.appendChild(textItem(i + 1, segs)));
+
+  // ====================== C9 ======================
+  const c9List = document.getElementById("c9-list");
+  const c9Items = [
+    ["Wann seid ihr angekommen? (14.55 Uhr)", "Wir sind um 14.55 Uhr angekommen."],
+    ["Wann hast du mich angerufen? (gestern Abend)", "Ich habe dich gestern Abend angerufen."],
+    ["Wann haben Sie den Brief erhalten? (am Mittwoch)", "Ich habe den Brief am Mittwoch erhalten."],
+    ["Wie lange sind Sie spazieren gegangen? (30 Minuten)", "Ich bin 30 Minuten spazieren gegangen."],
+    ["Wann seid ihr heute aufgestanden? (6.00 Uhr)", "Wir sind heute um 6.00 Uhr aufgestanden."],
+    ["Wann hat das Konzert angefangen? (20.15 Uhr)", "Das Konzert hat um 20.15 Uhr angefangen."],
+    ["Wie viel Geld hast du bekommen? (1 000 Euro)", "Ich habe 1000 Euro bekommen."],
+    ["Wie viele Meter bist du gelaufen? (2 000 Meter)", "Ich bin 2000 Meter gelaufen."],
+  ];
+  c9Items.forEach((item, i) => c9List.appendChild(sentenceItem(i + 1, item[0], [item[1]], "c9-" + (i + 1))));
+
+  // ====================== C10 ======================
+  const c10List = document.getElementById("c10-list");
+  function stripSubj(sentence, subj){
+    return sentence.startsWith(subj + " ") ? sentence.slice(subj.length + 1) : sentence;
+  }
+
+  function c10Block(idx, cue, subj, sepVerb){
+    // sepVerb: {a:[...], b:[...], c:[...]} — each a FULL sentence including the subject
+    const li = el("li", { class:"c10-block" });
+    li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    const content = el("div", { class:"c10-content" });
+    content.appendChild(el("div", { class:"c10-cue" }, [cue]));
+
+    function subRow(label, key){
+      const row = el("div", { class:"c10-subrow" });
+      row.appendChild(el("span", { class:"sub-label" }, [label]));
+      row.appendChild(given(subj));
+      row.appendChild(document.createTextNode(" "));
+      const inp = el("input", { type:"text", id:"c10-"+idx+key, class:"sentence-input", autocomplete:"off", spellcheck:"false" });
+      inp.dataset.sentence = sepVerb[key].map(s => stripSubj(s, subj)).join("||");
+      row.appendChild(inp);
+      content.appendChild(row);
+    }
+    subRow("a) Präsens:", "a");
+    subRow("b) mit Modalverb:", "b");
+    subRow("c) Perfekt:", "c");
+
+    li.appendChild(content);
+    return li;
+  }
+
+  const c10Data = [
+    ["Termin – absagen", "Ich", {
+      a:["Ich sage den Termin ab."],
+      b:["Ich muss den Termin absagen.","Ich soll den Termin absagen.","Ich kann den Termin absagen.","Ich möchte den Termin absagen."],
+      c:["Ich habe den Termin abgesagt."]
+    }],
+    ["Drucker – anschließen", "Wir", {
+      a:["Wir schließen den Drucker an."],
+      b:["Wir müssen den Drucker anschließen.","Wir sollen den Drucker anschließen.","Wir können den Drucker anschließen.","Wir möchten den Drucker anschließen."],
+      c:["Wir haben den Drucker angeschlossen."]
+    }],
+    ["Bildschirm – einschalten", "Er", {
+      a:["Er schaltet den Bildschirm ein."],
+      b:["Er muss den Bildschirm einschalten.","Er soll den Bildschirm einschalten.","Er kann den Bildschirm einschalten.","Er möchte den Bildschirm einschalten."],
+      c:["Er hat den Bildschirm eingeschaltet."]
+    }],
+    ["Text – einfügen", "Du", {
+      a:["Du fügst den Text ein."],
+      b:["Du musst den Text einfügen.","Du sollst den Text einfügen.","Du kannst den Text einfügen.","Du möchtest den Text einfügen."],
+      c:["Du hast den Text eingefügt."]
+    }],
+    ["E-Mail – weiterleiten", "Sie", {
+      a:["Sie leiten die E-Mail weiter."],
+      b:["Sie müssen die E-Mail weiterleiten.","Sie sollen die E-Mail weiterleiten.","Sie können die E-Mail weiterleiten.","Sie möchten die E-Mail weiterleiten."],
+      c:["Sie haben die E-Mail weitergeleitet."]
+    }],
+    ["im Supermarkt – einkaufen", "Ich", {
+      a:["Ich kaufe im Supermarkt ein."],
+      b:["Ich muss im Supermarkt einkaufen.","Ich soll im Supermarkt einkaufen.","Ich kann im Supermarkt einkaufen.","Ich möchte im Supermarkt einkaufen."],
+      c:["Ich habe im Supermarkt eingekauft."]
+    }],
+    ["den Kundenservice – anrufen", "Wir", {
+      a:["Wir rufen den Kundenservice an."],
+      b:["Wir müssen den Kundenservice anrufen.","Wir sollen den Kundenservice anrufen.","Wir können den Kundenservice anrufen.","Wir möchten den Kundenservice anrufen."],
+      c:["Wir haben den Kundenservice angerufen."]
+    }],
+    ["um 9.00 Uhr – anfangen", "Ich", {
+      a:["Ich fange um 9.00 Uhr an."],
+      b:["Ich muss um 9.00 Uhr anfangen.","Ich soll um 9.00 Uhr anfangen.","Ich kann um 9.00 Uhr anfangen.","Ich möchte um 9.00 Uhr anfangen."],
+      c:["Ich habe um 9.00 Uhr angefangen."]
+    }],
+    ["den Fernseher – ausmachen", "Du", {
+      a:["Du machst den Fernseher aus."],
+      b:["Du musst den Fernseher ausmachen.","Du sollst den Fernseher ausmachen.","Du kannst den Fernseher ausmachen.","Du möchtest den Fernseher ausmachen."],
+      c:["Du hast den Fernseher ausgemacht."]
+    }],
+    ["um 6.00 Uhr – aufstehen", "Herr Kolle", {
+      a:["Herr Kolle steht um 6.00 Uhr auf."],
+      b:["Herr Kolle muss um 6.00 Uhr aufstehen.","Herr Kolle soll um 6.00 Uhr aufstehen.","Herr Kolle kann um 6.00 Uhr aufstehen.","Herr Kolle möchte um 6.00 Uhr aufstehen."],
+      c:["Herr Kolle ist um 6.00 Uhr aufgestanden."]
+    }],
+    ["pünktlich – ankommen", "Wir", {
+      a:["Wir kommen pünktlich an."],
+      b:["Wir müssen pünktlich ankommen.","Wir sollen pünktlich ankommen.","Wir können pünktlich ankommen.","Wir möchten pünktlich ankommen."],
+      c:["Wir sind pünktlich angekommen."]
+    }],
+    ["die Tür – zumachen", "Ich", {
+      a:["Ich mache die Tür zu."],
+      b:["Ich muss die Tür zumachen.","Ich soll die Tür zumachen.","Ich kann die Tür zumachen.","Ich möchte die Tür zumachen."],
+      c:["Ich habe die Tür zugemacht."]
+    }],
+  ];
+  c10Data.forEach((item, i) => c10List.appendChild(c10Block(i + 1, item[0], item[1], item[2])));
+
+  // ====================== C11 ======================
+  const c11List = document.getElementById("c11-list");
+  const C11_EXPECTED = [
+    "Hast du schon den schönen Baum fotografiert?",
+    "Hast du schon mit Heinz telefoniert?",
+    "Hast du schon die Übung kopiert?",
+    "Hast du schon das neue Programm installiert?",
+  ];
+  function c11Item(idx, id){
+    const li = el("li");
+    li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    const line = el("div", { class:"line" });
+    const inp = el("input", { type:"text", id:id, class:"sentence-input", autocomplete:"off", spellcheck:"false", placeholder:"Hast du schon …?" });
+    inp.dataset.group = "c11";
+    line.appendChild(inp);
+    li.appendChild(line);
+    return li;
+  }
+  [1,2,3,4].forEach(i => c11List.appendChild(c11Item(i, "c11-" + i)));
+
+  // ---------- grading ----------
+  const SECTION_PREFIX = [
+    ["C7", (id) => id.startsWith("c7-")],
+    ["C8", (id) => id.startsWith("c8-")],
+    ["C9", (id) => id.startsWith("c9-")],
+    ["C10", (id) => id.startsWith("c10-")],
+    ["C11", (id) => id.startsWith("c11-")],
+  ];
+  function sectionOf(id){
+    for (const [key, test] of SECTION_PREFIX){ if (test(id)) return key; }
+    return null;
+  }
+
+  function normalizeSentence(s){
+    return s.trim().toLowerCase().replace(/\s*[.!?]+\s*$/, "").replace(/\s+/g, " ").trim();
+  }
+
+  function clearHints(){ document.querySelectorAll(".answer-hint").forEach(n => n.remove()); }
+
+  function gradeInputsIn(root, sectionScore){
+    let total = 0, correct = 0;
+
+    root.querySelectorAll('input[type="text"][data-answers]').forEach(inp => {
+      total++;
+      const accepted = inp.dataset.answers.split("|").map(a => a.trim().toLowerCase());
+      const val = inp.value.trim().toLowerCase();
+      const ok = accepted.includes(val);
+      inp.classList.remove("correct","incorrect");
+      inp.classList.add(ok ? "correct" : "incorrect");
+      if (!ok){
+        const hint = el("span", { class:"answer-hint" }, ["→ ", el("b", {}, [inp.dataset.answers.split("|")[0]])]);
+        inp.insertAdjacentElement("afterend", hint);
+      } else { correct++; }
+      if (sectionScore){
+        const s = sectionOf(inp.id);
+        if (s && ok) sectionScore[s] = (sectionScore[s]||0) + 1;
+      }
+    });
+
+    root.querySelectorAll('input[type="text"][data-sentence]').forEach(inp => {
+      total++;
+      const acceptedList = inp.dataset.sentence.split("||").map(normalizeSentence);
+      const val = normalizeSentence(inp.value);
+      const ok = val.length > 0 && acceptedList.includes(val);
+      inp.classList.remove("correct","incorrect");
+      inp.classList.add(ok ? "correct" : "incorrect");
+      if (!ok){
+        const hint = el("span", { class:"answer-hint block" }, ["→ ", el("b", {}, [inp.dataset.sentence.split("||")[0]])]);
+        inp.insertAdjacentElement("afterend", hint);
+      } else { correct++; }
+      if (sectionScore){
+        const s = sectionOf(inp.id);
+        if (s && ok) sectionScore[s] = (sectionScore[s]||0) + 1;
+      }
+    });
+
+    return { total, correct };
+  }
+
+  // C11: order-independent grading — any of the 4 boxes may hold any of the 4 valid questions.
+  function gradeC11Group(root){
+    const inputs = Array.from(root.querySelectorAll('input[type="text"][data-group="c11"]'));
+    if (inputs.length === 0) return null;
+    const expectedNorm = C11_EXPECTED.map(normalizeSentence);
+    const used = new Array(expectedNorm.length).fill(false);
+    let correct = 0;
+    inputs.forEach(inp => {
+      const val = normalizeSentence(inp.value);
+      inp.classList.remove("correct","incorrect");
+      let matched = false;
+      if (val.length > 0){
+        const idx = expectedNorm.findIndex((exp, i) => !used[i] && exp === val);
+        if (idx >= 0){ used[idx] = true; matched = true; }
+      }
+      inp.classList.add(matched ? "correct" : "incorrect");
+      if (matched) correct++;
+    });
+    const hintBox = document.getElementById("c11-hint");
+    if (hintBox){
+      if (correct < inputs.length){
+        const missing = expectedNorm.map((e, i) => used[i] ? null : C11_EXPECTED[i]).filter(Boolean);
+        hintBox.textContent = "";
+        hintBox.appendChild(document.createTextNode("→ まだ使われていない正解例: "));
+        hintBox.appendChild(el("b", {}, [missing.join(" / ")]));
+        hintBox.style.display = "";
+      } else {
+        hintBox.style.display = "none";
+        hintBox.textContent = "";
+      }
+    }
+    return { total: inputs.length, correct };
+  }
+
+  const TOTALS = { C7:30, C8:24, C9:8, C10:36, C11:4 };
+
+  function grade(){
+    clearHints();
+    const sectionScore = { C7:0, C8:0, C9:0, C10:0, C11:0 };
+    let { total, correct } = gradeInputsIn(document, sectionScore);
+    const c11Result = gradeC11Group(document);
+    if (c11Result){
+      total += c11Result.total;
+      correct += c11Result.correct;
+      sectionScore.C11 = c11Result.correct;
+    }
+
+    document.getElementById("scoreNum").textContent = correct + " / " + total;
+    document.getElementById("scoreNum").classList.remove("hidden-result");
+    document.querySelectorAll(".chip").forEach(chip => {
+      const s = chip.dataset.chip;
+      if (!s) return;
+      chip.textContent = s + " " + sectionScore[s] + "/" + TOTALS[s];
+      chip.classList.toggle("done", sectionScore[s] === TOTALS[s]);
+    });
+    document.getElementById("scorebar").scrollIntoView({ behavior:"smooth", block:"start" });
+  }
+
+  function resetAll(){
+    document.querySelectorAll('input[type="text"]').forEach(inp => {
+      inp.value = "";
+      inp.classList.remove("correct","incorrect");
+    });
+    const ta = document.getElementById("c12-text");
+    if (ta) ta.value = "";
+    const hintBox = document.getElementById("c11-hint");
+    if (hintBox){ hintBox.textContent = ""; hintBox.style.display = "none"; }
+    clearHints();
+    document.getElementById("scoreNum").textContent = "–";
+    document.getElementById("scoreNum").classList.add("hidden-result");
+    document.querySelectorAll(".chip").forEach(chip => {
+      const s = chip.dataset.chip;
+      if (!s) return;
+      chip.textContent = s + " 0/" + TOTALS[s];
+      chip.classList.remove("done");
+    });
+    window.scrollTo({ top:0, behavior:"smooth" });
+  }
+
+  document.getElementById("gradeBtn").addEventListener("click", grade);
+  document.getElementById("gradeBtn2").addEventListener("click", grade);
+  document.getElementById("resetBtn").addEventListener("click", resetAll);
+  document.getElementById("resetBtn2").addEventListener("click", resetAll);
+
+  function clearHintsIn(root){ root.querySelectorAll(".answer-hint").forEach(n => n.remove()); }
+
+  function gradeSection(sectionKey, root){
+    if (!root) return;
+    clearHintsIn(root);
+    if (sectionKey === "C11"){
+      const c11Result = gradeC11Group(root);
+      const chip = document.querySelector('.chip[data-chip="C11"]');
+      if (chip && c11Result){
+        chip.textContent = "C11 " + c11Result.correct + "/" + c11Result.total;
+        chip.classList.toggle("done", c11Result.correct === c11Result.total);
+      }
+      return;
+    }
+    const { total, correct } = gradeInputsIn(root, null);
+    const chip = document.querySelector('.chip[data-chip="'+sectionKey+'"]');
+    if (chip){
+      chip.textContent = sectionKey + " " + correct + "/" + total;
+      chip.classList.toggle("done", correct === total);
+    }
+  }
+
+  document.querySelectorAll(".section-check").forEach(btn => {
+    btn.addEventListener("click", () => {
+      gradeSection(btn.dataset.section, document.getElementById(btn.dataset.target));
+    });
+  });
+
+  function collectState(){
+    const state = {};
+    document.querySelectorAll('input[type="text"][id]').forEach(i => state[i.id] = i.value);
+    const ta = document.getElementById("c12-text");
+    if (ta) state["c12-text"] = ta.value;
+    return state;
+  }
+  function applyState(state){
+    if (!state) return;
+    document.querySelectorAll('input[type="text"][id]').forEach(i => { if (state[i.id] !== undefined) i.value = state[i.id]; });
+    const ta = document.getElementById("c12-text");
+    if (ta && state["c12-text"] !== undefined) ta.value = state["c12-text"];
+  }
+  try {
+    if (window.claude && window.claude.hot){
+      window.claude.hot.snapshot(collectState);
+      const boot = (data) => applyState(data);
+      window.claude.hot.ready ? window.claude.hot.ready(boot) : boot(window.claude.hot.data || {});
+    }
+  } catch(e) {}
+})();
+</script>
+
+</body>
+</html>
