@@ -1,0 +1,800 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Kapitel 4 Plural, Verben & Imperativ</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f7f6;
+    --surface:#ffffff;
+    --surface-2:#eef4f3;
+    --ink:#152524;
+    --muted:#5c716f;
+    --border:#d7e2e0;
+    --accent:#0d7a72;
+    --accent-ink:#075a54;
+    --accent-soft:#e0f2ef;
+    --correct:#1c7a43;
+    --correct-bg:#e5f5ea;
+    --correct-border:#a9d9b8;
+    --incorrect:#b3261e;
+    --incorrect-bg:#fdecea;
+    --incorrect-border:#f0b8b3;
+    --shadow: 0 1px 2px rgba(21,37,36,.04), 0 8px 24px -12px rgba(21,37,36,.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0f1716;
+      --surface:#16201f;
+      --surface-2:#1c2725;
+      --ink:#e8f0ee;
+      --muted:#9db3af;
+      --border:#293735;
+      --accent:#3fc9bb;
+      --accent-ink:#8fe3d8;
+      --accent-soft:#1a3230;
+      --correct:#5fd487;
+      --correct-bg:#173224;
+      --correct-border:#2c5a3c;
+      --incorrect:#ff8a80;
+      --incorrect-bg:#3a1c1a;
+      --incorrect-border:#6b302b;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0f1716;
+    --surface:#16201f;
+    --surface-2:#1c2725;
+    --ink:#e8f0ee;
+    --muted:#9db3af;
+    --border:#293735;
+    --accent:#3fc9bb;
+    --accent-ink:#8fe3d8;
+    --accent-soft:#1a3230;
+    --correct:#5fd487;
+    --correct-bg:#173224;
+    --correct-border:#2c5a3c;
+    --incorrect:#ff8a80;
+    --incorrect-bg:#3a1c1a;
+    --incorrect-border:#6b302b;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Source Sans 3", "Hiragino Sans", "Yu Gothic", sans-serif;
+    line-height:1.55;
+  }
+  .wrap{
+    max-width:760px;
+    margin:0 auto;
+    padding-inline:20px;
+    padding-block:28px 120px;
+  }
+  h1,h2,h3{
+    font-family:"Fraunces", serif;
+    text-wrap:balance;
+    margin:0;
+  }
+  .masthead{ display:flex; flex-direction:column; gap:6px; margin-bottom:28px; }
+  .kicker{ font-size:12.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--accent-ink); font-weight:600; }
+  h1{ font-size:clamp(26px,5vw,34px); font-weight:700; color:var(--ink); }
+  .sub{ color:var(--muted); font-size:15px; max-width:60ch; }
+
+  .scorebar{
+    position:sticky; top:env(safe-area-inset-top,0px); z-index:20;
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    background:var(--surface); border:1px solid var(--border); border-radius:14px;
+    box-shadow:var(--shadow); padding:12px 16px; margin-bottom:26px; flex-wrap:wrap;
+  }
+  .scorebar .totals{ display:flex; align-items:baseline; gap:8px; }
+  .scorebar .totals .num{ font-family:"Fraunces", serif; font-size:26px; font-weight:700; font-variant-numeric:tabular-nums; color:var(--accent-ink); }
+  .scorebar .totals .num.hidden-result{ color:var(--muted); }
+  .scorebar .label{ font-size:13px; color:var(--muted); }
+  .btnrow{ display:flex; gap:8px; }
+  .section-check-row{ display:flex; justify-content:flex-end; margin-top:14px; }
+  button.small{ font-size:13px; padding:7px 14px; }
+  button{
+    font-family:inherit; font-size:14.5px; font-weight:600; border-radius:10px;
+    padding:10px 18px; border:1px solid transparent; cursor:pointer;
+    transition:transform .08s ease, background .15s ease, box-shadow .15s ease;
+  }
+  button:focus-visible, input:focus-visible, textarea:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+  button.primary{ background:var(--accent); color:#fdfffe; box-shadow:0 4px 14px -6px var(--accent); }
+  button.primary:hover{ transform:translateY(-1px); }
+  button.ghost{ background:transparent; color:var(--muted); border-color:var(--border); }
+  button.ghost:hover{ background:var(--surface-2); }
+
+  .chips{ display:flex; gap:6px; flex-wrap:wrap; }
+  .chip{ font-size:12px; font-weight:600; padding:4px 9px; border-radius:999px; background:var(--surface-2); color:var(--muted); font-variant-numeric:tabular-nums; border:1px solid var(--border); }
+  .chip.done{ background:var(--accent-soft); color:var(--accent-ink); border-color:transparent; }
+
+  section.exercise{ background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:22px 22px 24px; margin-bottom:22px; box-shadow:var(--shadow); }
+  .exercise > header{ display:flex; align-items:baseline; gap:10px; margin-bottom:4px; flex-wrap:wrap; }
+  .exercise > header .tag{ font-family:"Fraunces", serif; font-weight:700; font-size:20px; color:var(--accent-ink); background:var(--accent-soft); border-radius:8px; padding:1px 10px; }
+  .exercise > header h2{ font-size:18px; font-weight:600; color:var(--ink); }
+  .instr{ font-style:italic; color:var(--muted); font-size:14px; margin:2px 0 16px; }
+  .wordbank{ font-size:13.5px; color:var(--accent-ink); background:var(--accent-soft); border-radius:10px; padding:8px 12px; margin-bottom:16px; line-height:1.6; }
+  .wordbank b{ font-weight:600; }
+
+  .example{ font-size:14.5px; color:var(--muted); margin-bottom:12px; padding-left:2px; }
+  .example .ex-mark{ display:inline-block; width:9px; height:9px; background:var(--accent); margin-right:8px; border-radius:2px; }
+
+  ol.items{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px; }
+  ol.items > li{ display:flex; align-items:flex-start; gap:10px; }
+  ol.items > li .idx{ font-variant-numeric:tabular-nums; color:var(--muted); font-size:14px; min-width:1.4em; padding-top:6px; }
+  .line{ flex:1; display:flex; flex-wrap:wrap; align-items:center; gap:6px; font-size:16px; }
+  .cue{ font-style:italic; color:var(--muted); font-size:13.5px; margin-right:2px; white-space:nowrap; }
+
+  input[type="text"]{
+    font:inherit; font-size:16px; color:var(--ink); background:var(--surface-2);
+    border:1.5px solid var(--border); border-radius:8px; padding:4px 8px; width:10.5ch; text-align:center;
+  }
+  input[type="text"].sentence-input{ width:auto; flex:1; min-width:20ch; text-align:left; }
+  input[type="text"]:focus{ border-color:var(--accent); background:var(--surface); }
+  input[type="text"].correct{ background:var(--correct-bg); border-color:var(--correct-border); color:var(--correct); font-weight:600; }
+  input[type="text"].incorrect{ background:var(--incorrect-bg); border-color:var(--incorrect-border); color:var(--incorrect); font-weight:600; }
+  .answer-hint{ font-size:13px; color:var(--incorrect); white-space:nowrap; }
+  .answer-hint.block{ display:block; white-space:normal; margin-top:2px; }
+  .answer-hint b{ font-weight:700; }
+
+  .given-text{ font-weight:700; color:var(--accent-ink); font-style:italic; }
+
+  /* brace-grouped conjugation blocks (mögen / Präteritum) */
+  ol.mg-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:18px; }
+  .mg-item{ display:flex; align-items:flex-start; gap:10px; }
+  .mg-item .idx{ font-variant-numeric:tabular-nums; color:var(--muted); font-size:14px; min-width:1.4em; padding-top:6px; }
+  .mg-content{ display:flex; flex-direction:column; gap:4px; }
+  .conj-group{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .conj-lead{ font-weight:600; color:var(--muted); font-size:15.5px; }
+  .conj-rows{ display:flex; flex-direction:column; gap:6px; }
+  .conj-row{ display:flex; align-items:center; gap:6px; font-size:15.5px; flex-wrap:wrap; }
+  .conj-row.solo-row{ margin-top:2px; }
+  .conj-brace{ font-family:Georgia,"Times New Roman",serif; color:var(--muted); line-height:1; font-weight:300; transform:scaleY(1.1); user-select:none; }
+  .conj-tail{ font-size:15.5px; }
+
+  /* conjugation table (C7) */
+  .table-scroll{ overflow-x:auto; padding-bottom:4px; margin-bottom:4px; }
+  table.conj{ width:100%; border-collapse:collapse; font-size:14.5px; min-width:580px; }
+  table.conj th, table.conj td{ padding:7px 9px; border-bottom:1px solid var(--border); text-align:left; }
+  table.conj thead th{ color:var(--muted); font-weight:600; font-size:13px; }
+  table.conj tbody th{ color:var(--ink); font-weight:600; white-space:nowrap; }
+  .irregular-mark{ color:var(--accent-ink); font-weight:700; margin-left:2px; }
+  input.cell-input{ width:7ch; }
+
+  /* letter card (C8) */
+  .letter-card{ background:var(--surface-2); border:1px solid var(--border); border-radius:14px; padding:20px 22px; font-size:15px; line-height:2; }
+  .letter-card p{ margin:0 0 14px; }
+  .letter-card p:last-child{ margin-bottom:0; }
+  .letter-card .line{ font-size:15px; }
+
+  /* free writing (C9) */
+  .bullet-list{ list-style:disc; padding-left:22px; color:var(--muted); font-size:14.5px; margin:0 0 14px; display:flex; flex-direction:column; gap:4px; }
+  textarea.free-write{
+    width:100%; min-height:170px; font:inherit; font-size:15px; padding:12px 14px;
+    border-radius:10px; border:1.5px solid var(--border); background:var(--surface-2); color:var(--ink); resize:vertical;
+  }
+  .ungraded-note{ font-size:12px; color:var(--muted); margin-top:8px; text-align:right; }
+
+  @media (max-width:620px){ .scorebar{ flex-direction:column; align-items:stretch; } .btnrow{ justify-content:flex-end; } }
+
+  footer.note{ color:var(--muted); font-size:12.5px; text-align:center; margin-top:8px; }
+
+  .back-link{ display:inline-flex; align-items:center; gap:5px; font-size:13.5px; font-weight:600; color:var(--muted); text-decoration:none; margin-bottom:16px; }
+  .back-link:hover{ color:var(--accent-ink); }
+</style>
+
+
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="index.html">← Zurück zum Portal</a>
+  <div class="masthead">
+    <span class="kicker">Begegnungen A1+ · Kapitel 4 · Teil C</span>
+    <h1>Plural, Verben &amp; Imperativ</h1>
+    <p class="sub">C3–C10 の練習問題です(S.101–104)。名詞の複数形・単数形、mögen/können/möchte(n)、動詞の現在人称変化、手紙の穴埋め、自由作文、命令形(höflich)を扱います。C9は自由記述のため採点対象外です。</p>
+  </div>
+
+  <div class="scorebar" id="scorebar">
+    <div class="totals">
+      <span class="num hidden-result" id="scoreNum">–</span>
+      <span class="label">正解数 / 全97問</span>
+    </div>
+    <div class="chips" id="chips">
+      <span class="chip" data-chip="C3">C3 0/13</span>
+      <span class="chip" data-chip="C4">C4 0/15</span>
+      <span class="chip" data-chip="C5">C5 0/11</span>
+      <span class="chip" data-chip="C6">C6 0/9</span>
+      <span class="chip" data-chip="C7">C7 0/28</span>
+      <span class="chip" data-chip="C8">C8 0/13</span>
+      <span class="chip" data-chip="C10">C10 0/8</span>
+    </div>
+    <div class="btnrow">
+      <button class="ghost" id="resetBtn" type="button">リセット</button>
+      <button class="primary" id="gradeBtn" type="button">採点する</button>
+    </div>
+  </div>
+
+  <!-- C3 -->
+  <section class="exercise" id="sec-c3">
+    <header><span class="tag">C3</span><h2>Ergänzen Sie die Pluralformen.</h2></header>
+    <p class="instr">( )内の単語を正しい複数形にして入れてください。</p>
+    <div class="example"><span class="ex-mark"></span>(das Brötchen) Ich esse zum Frühstück zwei <u>Brötchen</u>.</div>
+    <ol class="items" id="c3-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C3" data-target="sec-c3">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C4 -->
+  <section class="exercise" id="sec-c4">
+    <header><span class="tag">C4</span><h2>Ergänzen Sie die Singularformen.</h2></header>
+    <p class="instr">冠詞もつけて単数形を入れてください。</p>
+    <div class="example"><span class="ex-mark"></span>die Menschen → <u>der Mensch</u></div>
+    <ol class="items" id="c4-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C4" data-target="sec-c4">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C5 -->
+  <section class="exercise" id="sec-c5">
+    <header><span class="tag">C5</span><h2>Ergänzen Sie <i>mögen</i>.</h2></header>
+    <p class="instr">主語に合わせて mögen を正しい形にして入れてください。</p>
+    <ol class="mg-list" id="c5-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C5" data-target="sec-c5">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C6 -->
+  <section class="exercise" id="sec-c6">
+    <header><span class="tag">C6</span><h2>Ergänzen Sie <i>mögen</i>, <i>können</i> oder <i>möchte(n)</i> in der richtigen Form.</h2></header>
+    <div class="example"><span class="ex-mark"></span><u>Magst</u> du Schokolade?</div>
+    <ol class="items" id="c6-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C6" data-target="sec-c6">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C7 -->
+  <section class="exercise" id="sec-c7">
+    <header><span class="tag">C7</span><h2>Ergänzen Sie die Tabelle.</h2></header>
+    <p class="instr">各動詞を人称に合わせて現在人称変化させてください。「!」は不規則変化のヒントです。</p>
+    <div id="c7-table"></div>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C7" data-target="sec-c7">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C8 -->
+  <section class="exercise" id="sec-c8">
+    <header><span class="tag">C8</span><h2>Ergänzen Sie die fehlenden Verben.</h2></header>
+    <div class="wordbank"><b>単語リスト:</b> können · spielen · haben(2×) · geben · wohnen · arbeiten · finden · gehen · besuchen · möchte(n) · sein · essen(2×)</div>
+    <div class="letter-card" id="c8-letter"></div>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C8" data-target="sec-c8">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C9 -->
+  <section class="exercise" id="sec-c9">
+    <header><span class="tag">C9</span><h2>Schreiben Sie in einem Brief an eine Freundin/einen Freund:</h2></header>
+    <ul class="bullet-list">
+      <li>… wo Sie wohnen.</li>
+      <li>… was Sie besonders mögen.</li>
+      <li>… was Sie essen und trinken.</li>
+      <li>… was Sie heute/morgen noch machen.</li>
+    </ul>
+    <textarea class="free-write" id="c9-text" placeholder="Liebe/r …,"></textarea>
+    <div class="ungraded-note">自由記述のため採点対象外です。</div>
+  </section>
+
+  <!-- C10 -->
+  <section class="exercise" id="sec-c10">
+    <header><span class="tag">C10</span><h2>Formulieren Sie Aufforderungen.</h2></header>
+    <p class="instr">Imperativ (formell) で文を作ってください。</p>
+    <div class="example"><span class="ex-mark"></span>die Kartoffeln – kochen → <u>Kochen Sie die Kartoffeln.</u></div>
+    <ol class="items" id="c10-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C10" data-target="sec-c10">このセクションを採点する</button></div>
+  </section>
+
+  <div class="btnrow" style="justify-content:center; margin-top:8px;">
+    <button class="ghost" id="resetBtn2" type="button">リセット</button>
+    <button class="primary" id="gradeBtn2" type="button">採点する</button>
+  </div>
+  <footer class="note">Begegnungen A1+（Schubert Verlag）Kapitel 4, S.101–104 の練習問題を基に作成</footer>
+</div>
+
+<script>
+(function(){
+
+  function el(tag, props, children){
+    const e = document.createElement(tag);
+    if (props) for (const k in props){
+      if (k === "class") e.className = props[k];
+      else if (k === "html") e.innerHTML = props[k];
+      else e.setAttribute(k, props[k]);
+    }
+    (children||[]).forEach(c => e.appendChild(typeof c === "string" ? document.createTextNode(c) : c));
+    return e;
+  }
+
+  function blankInput(id, answers, width){
+    const inp = el("input", { type:"text", id:id, autocomplete:"off", spellcheck:"false" });
+    if (width) inp.style.width = width;
+    inp.dataset.answers = answers.join("|");
+    return inp;
+  }
+
+  function given(text){ return el("span", { class:"given-text" }, [text]); }
+
+  function buildLine(segments){
+    const wrap = el("span", { class:"line" });
+    segments.forEach(seg => {
+      if (typeof seg === "string"){
+        wrap.appendChild(document.createTextNode(seg));
+      } else if (seg.blank){
+        wrap.appendChild(blankInput(seg.blank.id, seg.blank.answers, seg.blank.width));
+      } else if (seg.given !== undefined){
+        wrap.appendChild(given(seg.given));
+      }
+    });
+    return wrap;
+  }
+
+  function textItem(idx, segments){
+    const li = el("li");
+    if (idx !== null) li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    li.appendChild(buildLine(segments));
+    return li;
+  }
+
+  function cueItem(idx, cue, segments){
+    const li = el("li");
+    li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    const line = buildLine(segments);
+    line.insertBefore(el("span", { class:"cue" }, [cue]), line.firstChild);
+    li.appendChild(line);
+    return li;
+  }
+
+  function sentenceItem(idx, cue, expected, id){
+    const li = el("li");
+    li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    const line = el("div", { class:"line" });
+    line.appendChild(el("span", { class:"cue" }, [cue]));
+    const inp = el("input", { type:"text", id:id, class:"sentence-input", autocomplete:"off", spellcheck:"false" });
+    inp.dataset.sentence = expected;
+    line.appendChild(inp);
+    li.appendChild(line);
+    return li;
+  }
+
+  // ---------- brace groups (C5, used for mögen) ----------
+  function conjRow(order, label, cell, suffix){
+    const row = el("div", { class:"conj-row" });
+    const cellNode = cell.given ? given(cell.given) : blankInput(cell.blank.id, cell.blank.answers, cell.blank.width || "9ch");
+    if (order === "verb-first"){
+      row.appendChild(cellNode);
+      row.appendChild(document.createTextNode(" " + label + (suffix || "")));
+    } else {
+      row.appendChild(document.createTextNode(label + " "));
+      row.appendChild(cellNode);
+      if (suffix) row.appendChild(document.createTextNode(suffix));
+    }
+    return row;
+  }
+
+  function braceGroup(rows, opts){
+    opts = opts || {};
+    const group = el("div", { class:"conj-group" });
+    if (opts.lead) group.appendChild(el("div", { class:"conj-lead" }, [opts.lead]));
+    const rowsWrap = el("div", { class:"conj-rows" });
+    rows.forEach(r => rowsWrap.appendChild(conjRow(opts.order || "subject-first", r.label, r, r.suffix)));
+    const braceSize = 12 + rows.length * 14;
+    const braceChar = opts.bracePosition === "before" ? "{" : "}";
+    const braceEl = el("div", { class:"conj-brace", style:"font-size:" + braceSize + "px;" }, [braceChar]);
+    if (opts.bracePosition === "before"){
+      group.appendChild(braceEl);
+      group.appendChild(rowsWrap);
+    } else {
+      group.appendChild(rowsWrap);
+      group.appendChild(braceEl);
+    }
+    if (opts.tail) group.appendChild(el("div", { class:"conj-tail" }, [opts.tail]));
+    return group;
+  }
+
+  function soloRow(order, label, cell, tail){
+    const row = el("div", { class:"conj-row solo-row" });
+    const cellNode = cell.given ? given(cell.given) : blankInput(cell.blank.id, cell.blank.answers, cell.blank.width || "9ch");
+    if (order === "verb-first"){
+      row.appendChild(cellNode);
+      row.appendChild(document.createTextNode(" " + label + (tail ? " " + tail : "")));
+    } else {
+      row.appendChild(document.createTextNode(label + " "));
+      row.appendChild(cellNode);
+      row.appendChild(document.createTextNode(tail ? " " + tail : ""));
+    }
+    return row;
+  }
+
+  function numberedBrace(idx, rows, opts, soloSpec){
+    const li = el("li", { class:"mg-item" });
+    li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    const content = el("div", { class:"mg-content" });
+    content.appendChild(braceGroup(rows, opts));
+    if (soloSpec) content.appendChild(soloRow(opts.order || "subject-first", soloSpec.label, soloSpec, opts.tail));
+    li.appendChild(content);
+    return li;
+  }
+
+  // ---------- conjugation table (C7) ----------
+  function conjTable(cols, rowDefs){
+    const table = el("table", { class:"conj" });
+    const thead = el("thead");
+    const headRow = el("tr");
+    headRow.appendChild(el("th"));
+    cols.forEach(c => headRow.appendChild(el("th", {}, [c])));
+    thead.appendChild(headRow);
+    table.appendChild(thead);
+    const tbody = el("tbody");
+    rowDefs.forEach(rd => {
+      const tr = el("tr");
+      tr.appendChild(el("th", {}, [rd.label]));
+      rd.cells.forEach(cell => {
+        const td = el("td");
+        if (cell.given){
+          td.appendChild(given(cell.given));
+          if (cell.irregular) td.appendChild(el("span", { class:"irregular-mark" }, ["!"]));
+        } else {
+          td.appendChild(blankInput(cell.blank.id, cell.blank.answers, "7ch"));
+          if (cell.irregular) td.appendChild(el("span", { class:"irregular-mark" }, ["!"]));
+        }
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+    const scrollWrap = el("div", { class:"table-scroll" });
+    scrollWrap.appendChild(table);
+    return scrollWrap;
+  }
+
+  // ====================== C3 ======================
+  const c3List = document.getElementById("c3-list");
+  const c3Items = [
+    ["(das Weinglas)", ["Wo sind die ", {blank:{id:"c3-1", answers:["weingläser"], width:"13ch"}}, "?"]],
+    ["(die Zwiebel)", ["Wie viele ", {blank:{id:"c3-2", answers:["zwiebeln"], width:"11ch"}}, " brauchen wir?"]],
+    ["(das Küchenmesser)", ["Ich nehme zum Kochen immer zwei ", {blank:{id:"c3-3", answers:["küchenmesser"], width:"15ch"}}, "."]],
+    ["(das Kilo, das Pfund)", ["Ich hätte gern fünf ", {blank:{id:"c3-4", answers:["kilo"], width:"7ch"}}, " Kartoffeln und drei ", {blank:{id:"c3-5", answers:["pfund"], width:"7ch"}}, " Bohnen."]],
+    ["(der Teller)", ["Haben wir für so viele Gäste genug ", {blank:{id:"c3-6", answers:["teller"], width:"9ch"}}, "?"]],
+    ["(der Apfel, die Banane, die Orange)", ["Für einen guten Obstsalat brauchen Sie zwei ", {blank:{id:"c3-7", answers:["äpfel"], width:"8ch"}}, ", zwei ", {blank:{id:"c3-8", answers:["bananen"], width:"10ch"}}, " und zwei ", {blank:{id:"c3-9", answers:["orangen"], width:"10ch"}}, "."]],
+    ["(die Tasse)", ["Er trinkt jeden Tag drei ", {blank:{id:"c3-10", answers:["tassen"], width:"9ch"}}, " Kaffee."]],
+    ["(die Scheibe)", ["Ich nehme zwei ", {blank:{id:"c3-11", answers:["scheiben"], width:"10ch"}}, " Schinken."]],
+    ["(die Schüssel)", ["Für die Nachspeise brauchen wir vier kleine ", {blank:{id:"c3-12", answers:["schüsseln"], width:"11ch"}}, "."]],
+    ["(das Ei)", ["Wie viele ", {blank:{id:"c3-13", answers:["eier"], width:"7ch"}}, " isst du zum Frühstück?"]],
+  ];
+  c3Items.forEach((item, i) => c3List.appendChild(cueItem(i + 1, item[0], item[1])));
+
+  // ====================== C4 ======================
+  const c4List = document.getElementById("c4-list");
+  const c4Items = [
+    ["die Einwohner", "der einwohner", "der Einwohner"],
+    ["die Universitäten", "die universität", "die Universität"],
+    ["die Hochschulen", "die hochschule", "die Hochschule"],
+    ["die Tische", "der tisch", "der Tisch"],
+    ["die Telefone", "das telefon", "das Telefon"],
+    ["die Computer", "der computer", "der Computer"],
+    ["die Autos", "das auto", "das Auto"],
+    ["die Filme", "der film", "der Film"],
+    ["die Jahre", "das jahr", "das Jahr"],
+    ["die Theater", "das theater", "das Theater"],
+    ["die Museen", "das museum", "das Museum"],
+    ["die Bilder", "das bild", "das Bild"],
+    ["die Kunstwerke", "das kunstwerk", "das Kunstwerk"],
+    ["die Erfindungen", "die erfindung", "die Erfindung"],
+    ["die Städte", "die stadt", "die Stadt"],
+  ];
+  c4Items.forEach((item, i) => {
+    c4List.appendChild(textItem(i + 1, [item[0] + " → ", {blank:{id:"c4-" + (i + 1), answers:[item[1]], width:"16ch"}}]));
+  });
+
+  // ====================== C5 (mögen, brace groups) ======================
+  const c5List = document.getElementById("c5-list");
+  c5List.appendChild(numberedBrace(1,
+    [ {label:"Oma", blank:{id:"c5-1", answers:["mag"]}}, {label:"Unsere Freunde", blank:{id:"c5-2", answers:["mögen"]}}, {label:"Wir", blank:{id:"c5-3", answers:["mögen"]}} ],
+    { order:"subject-first", tail:"Kartoffelsalat sehr." },
+    null
+  ));
+  c5List.appendChild(numberedBrace(2,
+    [ {label:"Ich", given:"mag"}, {label:"Paul", blank:{id:"c5-4", answers:["mag"]}}, {label:"Wir", blank:{id:"c5-5", answers:["mögen"]}} ],
+    { order:"subject-first", tail:"kein Fleisch." },
+    null
+  ));
+  c5List.appendChild(numberedBrace(3,
+    [ {label:"Herr Krüger", blank:{id:"c5-6", answers:["mag"]}}, {label:"Fritz und Georg", blank:{id:"c5-7", answers:["mögen"]}}, {label:"Ich", blank:{id:"c5-8", answers:["mag"]}} ],
+    { order:"subject-first", tail:"Krimis." },
+    null
+  ));
+  c5List.appendChild(numberedBrace(4,
+    [ {label:"du", blank:{id:"c5-9", answers:["magst"], width:"8ch"}}, {label:"ihr", blank:{id:"c5-10", answers:["mögt"], width:"8ch"}}, {label:"Sie", blank:{id:"c5-11", answers:["mögen"], width:"8ch"}} ],
+    { order:"verb-first", tail:"die neue Sekretärin?" },
+    null
+  ));
+
+  // ====================== C6 ======================
+  const c6List = document.getElementById("c6-list");
+  const c6Items = [
+    ["", {blank:{id:"c6-1", answers:["mögen"], width:"9ch"}}, " Sie klassische Musik?"],
+    ["", {blank:{id:"c6-2", answers:["kannst"], width:"9ch"}}, " du gut Tennis spielen?"],
+    ["Ich ", {blank:{id:"c6-3", answers:["möchte"], width:"9ch"}}, " ein Kilo Erdbeeren."],
+    ["", {blank:{id:"c6-4", answers:["möchtest"], width:"10ch"}}, " du noch eine Tasse Tee?"],
+    ["Wo ", {blank:{id:"c6-5", answers:["kann"], width:"7ch"}}, " man hier etwas essen?"],
+    ["Nein, danke, ich ", {blank:{id:"c6-6", answers:["möchte"], width:"9ch"}}, " bitte keinen Wein mehr."],
+    ["", {blank:{id:"c6-7", answers:["könnt"], width:"8ch"}}, " ihr meinen Drucker reparieren?"],
+    ["Franz ", {blank:{id:"c6-8", answers:["kann"], width:"7ch"}}, " die Rechnung nicht bezahlen."],
+    ["Wir ", {blank:{id:"c6-9", answers:["möchten"], width:"10ch"}}, " bitte ein Doppelzimmer."],
+  ];
+  c6Items.forEach((segs, i) => c6List.appendChild(textItem(i + 1, segs)));
+
+  // ====================== C7 ======================
+  const c7Cols = ["kochen", "kaufen", "trinken", "essen", "nehmen", "braten"];
+  const c7Rows = [
+    { label:"ich", cells:[
+      {given:"koche"},
+      {blank:{id:"c7-1", answers:["kaufe"]}},
+      {blank:{id:"c7-2", answers:["trinke"]}},
+      {blank:{id:"c7-3", answers:["esse"]}},
+      {blank:{id:"c7-4", answers:["nehme"]}},
+      {blank:{id:"c7-5", answers:["brate"]}},
+    ]},
+    { label:"du", cells:[
+      {blank:{id:"c7-6", answers:["kochst"]}},
+      {blank:{id:"c7-7", answers:["kaufst"]}},
+      {blank:{id:"c7-8", answers:["trinkst"]}},
+      {blank:{id:"c7-9", answers:["isst"]}, irregular:true},
+      {given:"nimmst", irregular:true},
+      {given:"brätst", irregular:true},
+    ]},
+    { label:"er/sie/es/man", cells:[
+      {blank:{id:"c7-10", answers:["kocht"]}},
+      {given:"kauft"},
+      {blank:{id:"c7-11", answers:["trinkt"]}},
+      {blank:{id:"c7-12", answers:["isst"]}, irregular:true},
+      {blank:{id:"c7-13", answers:["nimmt"]}, irregular:true},
+      {given:"brät", irregular:true},
+    ]},
+    { label:"wir", cells:[
+      {given:"kochen"},
+      {blank:{id:"c7-14", answers:["kaufen"]}},
+      {blank:{id:"c7-15", answers:["trinken"]}},
+      {given:"essen"},
+      {blank:{id:"c7-16", answers:["nehmen"]}},
+      {blank:{id:"c7-17", answers:["braten"]}},
+    ]},
+    { label:"ihr", cells:[
+      {blank:{id:"c7-18", answers:["kocht"]}},
+      {blank:{id:"c7-19", answers:["kauft"]}},
+      {blank:{id:"c7-20", answers:["trinkt"]}},
+      {blank:{id:"c7-21", answers:["esst"]}},
+      {blank:{id:"c7-22", answers:["nehmt"]}},
+      {blank:{id:"c7-23", answers:["bratet"]}},
+    ]},
+    { label:"sie/Sie", cells:[
+      {blank:{id:"c7-24", answers:["kochen"]}},
+      {blank:{id:"c7-25", answers:["kaufen"]}},
+      {given:"trinken"},
+      {blank:{id:"c7-26", answers:["essen"]}},
+      {blank:{id:"c7-27", answers:["nehmen"]}},
+      {blank:{id:"c7-28", answers:["braten"]}},
+    ]},
+  ];
+  document.getElementById("c7-table").appendChild(conjTable(c7Cols, c7Rows));
+
+  // ====================== C8 (letter) ======================
+  const letter = document.getElementById("c8-letter");
+  letter.appendChild(el("p", {}, ["Liebe Beate,"]));
+  const p1 = el("p");
+  p1.appendChild(document.createTextNode("viele Grüße aus Berlin! Ich "));
+  p1.appendChild(given("wohne"));
+  p1.appendChild(document.createTextNode(" bei Familie Müller. Herr Müller "));
+  p1.appendChild(blankInput("c8-1", ["arbeitet"], "10ch"));
+  p1.appendChild(document.createTextNode(" als Physiker bei Siemens und Frau Müller "));
+  p1.appendChild(blankInput("c8-2", ["ist"], "7ch"));
+  p1.appendChild(document.createTextNode(" Lehrerin. Sie "));
+  p1.appendChild(blankInput("c8-3", ["haben"], "9ch"));
+  p1.appendChild(document.createTextNode(" zwei Kinder, Marie ist 13 Jahre alt und Gustav ist 16."));
+  letter.appendChild(p1);
+
+  const p2 = el("p");
+  p2.appendChild(document.createTextNode("Mit dem Essen "));
+  p2.appendChild(blankInput("c8-4", ["habe"], "8ch"));
+  p2.appendChild(document.createTextNode(" ich ein paar Probleme. Zum Frühstück "));
+  p2.appendChild(blankInput("c8-5", ["gibt"], "7ch"));
+  p2.appendChild(document.createTextNode(" es nur Brötchen mit Butter, Marmelade, Honig oder Käse. Ich "));
+  p2.appendChild(blankInput("c8-6", ["möchte"], "9ch"));
+  p2.appendChild(document.createTextNode(" aber viel lieber Rühreier zum Frühstück! Mittags "));
+  p2.appendChild(blankInput("c8-7", ["isst"], "7ch"));
+  p2.appendChild(document.createTextNode(" man in Deutschland warm. Das "));
+  p2.appendChild(blankInput("c8-8", ["finde"], "8ch"));
+  p2.appendChild(document.createTextNode(" ich seltsam."));
+  letter.appendChild(p2);
+
+  const p3 = el("p");
+  p3.appendChild(document.createTextNode("Ich "));
+  p3.appendChild(blankInput("c8-9", ["esse"], "7ch"));
+  p3.appendChild(document.createTextNode(" jetzt mittags Wiener Schnitzel oder Spaghetti. Abends "));
+  p3.appendChild(blankInput("c8-10", ["gehe"], "7ch"));
+  p3.appendChild(document.createTextNode(" ich oft in ein kleines Restaurant. Dort "));
+  p3.appendChild(blankInput("c8-11", ["kann"], "7ch"));
+  p3.appendChild(document.createTextNode(" man gut und billig essen. Morgen früh "));
+  p3.appendChild(blankInput("c8-12", ["spiele"], "8ch"));
+  p3.appendChild(document.createTextNode(" ich mit Marie und Gustav Tennis und nachmittags "));
+  p3.appendChild(blankInput("c8-13", ["besuchen"], "11ch"));
+  p3.appendChild(document.createTextNode(" wir das Pergamon-Museum."));
+  letter.appendChild(p3);
+
+  letter.appendChild(el("p", { html:"Bis bald!<br>Dein Paolo" }));
+
+  // ====================== C10 ======================
+  const c10List = document.getElementById("c10-list");
+  const c10Items = [
+    ["das Obst – waschen", "Waschen Sie das Obst."],
+    ["die Orangen – schälen", "Schälen Sie die Orangen."],
+    ["Bioprodukte – kaufen", "Kaufen Sie Bioprodukte."],
+    ["die Tomaten – in kleine Stücke – schneiden", "Schneiden Sie die Tomaten in kleine Stücke."],
+    ["täglich – Vollkornbrot – essen", "Essen Sie täglich Vollkornbrot."],
+    ["viel Milch – trinken", "Trinken Sie viel Milch."],
+    ["die Suppe – mit Salz – würzen", "Würzen Sie die Suppe mit Salz."],
+    ["das Fenster – öffnen", "Öffnen Sie das Fenster."],
+  ];
+  c10Items.forEach((item, i) => c10List.appendChild(sentenceItem(i + 1, item[0], item[1], "c10-" + (i + 1))));
+
+  // ---------- grading ----------
+  const SECTION_PREFIX = [
+    ["C10", (id) => id.startsWith("c10-")],
+    ["C3", (id) => id.startsWith("c3-")],
+    ["C4", (id) => id.startsWith("c4-")],
+    ["C5", (id) => id.startsWith("c5-")],
+    ["C6", (id) => id.startsWith("c6-")],
+    ["C7", (id) => id.startsWith("c7-")],
+    ["C8", (id) => id.startsWith("c8-")],
+  ];
+  function sectionOf(id){
+    for (const [key, test] of SECTION_PREFIX){ if (test(id)) return key; }
+    return null;
+  }
+
+  function normalizeSentence(s){
+    return s.trim().toLowerCase().replace(/\s*[.!?]+\s*$/, "").replace(/\s+/g, " ").trim();
+  }
+
+  function clearHints(){
+    document.querySelectorAll(".answer-hint").forEach(n => n.remove());
+  }
+
+  function gradeInputsIn(root, sectionScore){
+    let total = 0, correct = 0;
+
+    root.querySelectorAll('input[type="text"][data-answers]').forEach(inp => {
+      total++;
+      const accepted = inp.dataset.answers.split("|").map(a => a.trim().toLowerCase());
+      const val = inp.value.trim().toLowerCase();
+      const ok = accepted.includes(val);
+      inp.classList.remove("correct","incorrect");
+      inp.classList.add(ok ? "correct" : "incorrect");
+      if (!ok){
+        const hint = el("span", { class:"answer-hint" }, ["→ ", el("b", {}, [inp.dataset.answers.split("|")[0]])]);
+        inp.insertAdjacentElement("afterend", hint);
+      } else { correct++; }
+      if (sectionScore){
+        const s = sectionOf(inp.id);
+        if (s && ok) sectionScore[s] = (sectionScore[s]||0) + 1;
+      }
+    });
+
+    root.querySelectorAll('input[type="text"][data-sentence]').forEach(inp => {
+      total++;
+      const expected = normalizeSentence(inp.dataset.sentence);
+      const val = normalizeSentence(inp.value);
+      const ok = val.length > 0 && val === expected;
+      inp.classList.remove("correct","incorrect");
+      inp.classList.add(ok ? "correct" : "incorrect");
+      if (!ok){
+        const hint = el("span", { class:"answer-hint block" }, ["→ ", el("b", {}, [inp.dataset.sentence])]);
+        inp.insertAdjacentElement("afterend", hint);
+      } else { correct++; }
+      if (sectionScore){
+        const s = sectionOf(inp.id);
+        if (s && ok) sectionScore[s] = (sectionScore[s]||0) + 1;
+      }
+    });
+
+    return { total, correct };
+  }
+
+  const TOTALS = { C3:13, C4:15, C5:11, C6:9, C7:28, C8:13, C10:8 };
+
+  function grade(){
+    clearHints();
+    const sectionScore = { C3:0, C4:0, C5:0, C6:0, C7:0, C8:0, C10:0 };
+    const { total, correct } = gradeInputsIn(document, sectionScore);
+
+    document.getElementById("scoreNum").textContent = correct + " / " + total;
+    document.getElementById("scoreNum").classList.remove("hidden-result");
+    document.querySelectorAll(".chip").forEach(chip => {
+      const s = chip.dataset.chip;
+      if (!s) return;
+      chip.textContent = s + " " + sectionScore[s] + "/" + TOTALS[s];
+      chip.classList.toggle("done", sectionScore[s] === TOTALS[s]);
+    });
+    document.getElementById("scorebar").scrollIntoView({ behavior:"smooth", block:"start" });
+  }
+
+  function resetAll(){
+    document.querySelectorAll('input[type="text"]').forEach(inp => {
+      inp.value = "";
+      inp.classList.remove("correct","incorrect");
+    });
+    const ta = document.getElementById("c9-text");
+    if (ta) ta.value = "";
+    clearHints();
+    document.getElementById("scoreNum").textContent = "–";
+    document.getElementById("scoreNum").classList.add("hidden-result");
+    document.querySelectorAll(".chip").forEach(chip => {
+      const s = chip.dataset.chip;
+      if (!s) return;
+      chip.textContent = s + " 0/" + TOTALS[s];
+      chip.classList.remove("done");
+    });
+    window.scrollTo({ top:0, behavior:"smooth" });
+  }
+
+  document.getElementById("gradeBtn").addEventListener("click", grade);
+  document.getElementById("gradeBtn2").addEventListener("click", grade);
+  document.getElementById("resetBtn").addEventListener("click", resetAll);
+  document.getElementById("resetBtn2").addEventListener("click", resetAll);
+
+  function clearHintsIn(root){
+    root.querySelectorAll(".answer-hint").forEach(n => n.remove());
+  }
+
+  function gradeSection(sectionKey, root){
+    if (!root) return;
+    clearHintsIn(root);
+    const { total, correct } = gradeInputsIn(root, null);
+    const chip = document.querySelector('.chip[data-chip="'+sectionKey+'"]');
+    if (chip){
+      chip.textContent = sectionKey + " " + correct + "/" + total;
+      chip.classList.toggle("done", correct === total);
+    }
+  }
+
+  document.querySelectorAll(".section-check").forEach(btn => {
+    btn.addEventListener("click", () => {
+      gradeSection(btn.dataset.section, document.getElementById(btn.dataset.target));
+    });
+  });
+
+  function collectState(){
+    const state = {};
+    document.querySelectorAll('input[type="text"]').forEach(i => state[i.id] = i.value);
+    const ta = document.getElementById("c9-text");
+    if (ta) state["c9-text"] = ta.value;
+    return state;
+  }
+  function applyState(state){
+    if (!state) return;
+    document.querySelectorAll('input[type="text"]').forEach(i => { if (state[i.id] !== undefined) i.value = state[i.id]; });
+    const ta = document.getElementById("c9-text");
+    if (ta && state["c9-text"] !== undefined) ta.value = state["c9-text"];
+  }
+  try {
+    if (window.claude && window.claude.hot){
+      window.claude.hot.snapshot(collectState);
+      const boot = (data) => applyState(data);
+      window.claude.hot.ready ? window.claude.hot.ready(boot) : boot(window.claude.hot.data || {});
+    }
+  } catch(e) {}
+})();
+</script>
+
+</body>
+</html>
