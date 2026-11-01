@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Kapitel 7 Modalverben &amp; Adjektive</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f7f6; --surface:#ffffff; --surface-2:#eef4f3; --ink:#152524; --muted:#5c716f; --border:#d7e2e0;
+    --accent:#0d7a72; --accent-ink:#075a54; --accent-soft:#e0f2ef;
+    --correct:#1c7a43; --correct-bg:#e5f5ea; --correct-border:#a9d9b8;
+    --incorrect:#b3261e; --incorrect-bg:#fdecea; --incorrect-border:#f0b8b3;
+    --shadow: 0 1px 2px rgba(21,37,36,.04), 0 8px 24px -12px rgba(21,37,36,.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0f1716; --surface:#16201f; --surface-2:#1c2725; --ink:#e8f0ee; --muted:#9db3af; --border:#293735;
+      --accent:#3fc9bb; --accent-ink:#8fe3d8; --accent-soft:#1a3230;
+      --correct:#5fd487; --correct-bg:#173224; --correct-border:#2c5a3c;
+      --incorrect:#ff8a80; --incorrect-bg:#3a1c1a; --incorrect-border:#6b302b;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0f1716; --surface:#16201f; --surface-2:#1c2725; --ink:#e8f0ee; --muted:#9db3af; --border:#293735;
+    --accent:#3fc9bb; --accent-ink:#8fe3d8; --accent-soft:#1a3230;
+    --correct:#5fd487; --correct-bg:#173224; --correct-border:#2c5a3c;
+    --incorrect:#ff8a80; --incorrect-bg:#3a1c1a; --incorrect-border:#6b302b;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+  }
+
+  *{box-sizing:border-box;}
+  body{ background:var(--bg); color:var(--ink); font-family:"Source Sans 3", "Hiragino Sans", "Yu Gothic", sans-serif; line-height:1.55; }
+  .wrap{ max-width:780px; margin:0 auto; padding-inline:20px; padding-block:28px 120px; }
+  h1,h2,h3{ font-family:"Fraunces", serif; text-wrap:balance; margin:0; }
+  .masthead{ display:flex; flex-direction:column; gap:6px; margin-bottom:28px; }
+  .kicker{ font-size:12.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--accent-ink); font-weight:600; }
+  h1{ font-size:clamp(26px,5vw,34px); font-weight:700; color:var(--ink); }
+  .sub{ color:var(--muted); font-size:15px; max-width:62ch; }
+
+  .scorebar{ position:sticky; top:env(safe-area-inset-top,0px); z-index:20; display:flex; align-items:center; justify-content:space-between; gap:12px; background:var(--surface); border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); padding:12px 16px; margin-bottom:26px; flex-wrap:wrap; }
+  .scorebar .totals{ display:flex; align-items:baseline; gap:8px; }
+  .scorebar .totals .num{ font-family:"Fraunces", serif; font-size:26px; font-weight:700; font-variant-numeric:tabular-nums; color:var(--accent-ink); }
+  .scorebar .totals .num.hidden-result{ color:var(--muted); }
+  .scorebar .label{ font-size:13px; color:var(--muted); }
+  .btnrow{ display:flex; gap:8px; }
+  .section-check-row{ display:flex; justify-content:flex-end; margin-top:14px; }
+  button.small{ font-size:13px; padding:7px 14px; }
+  button{ font-family:inherit; font-size:14.5px; font-weight:600; border-radius:10px; padding:10px 18px; border:1px solid transparent; cursor:pointer; transition:transform .08s ease, background .15s ease, box-shadow .15s ease; }
+  button:focus-visible, input:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+  button.primary{ background:var(--accent); color:#fdfffe; box-shadow:0 4px 14px -6px var(--accent); }
+  button.primary:hover{ transform:translateY(-1px); }
+  button.ghost{ background:transparent; color:var(--muted); border-color:var(--border); }
+  button.ghost:hover{ background:var(--surface-2); }
+
+  .chips{ display:flex; gap:6px; flex-wrap:wrap; }
+  .chip{ font-size:12px; font-weight:600; padding:4px 9px; border-radius:999px; background:var(--surface-2); color:var(--muted); font-variant-numeric:tabular-nums; border:1px solid var(--border); }
+  .chip.done{ background:var(--accent-soft); color:var(--accent-ink); border-color:transparent; }
+
+  section.exercise{ background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:22px 22px 24px; margin-bottom:22px; box-shadow:var(--shadow); }
+  .exercise > header{ display:flex; align-items:baseline; gap:10px; margin-bottom:4px; flex-wrap:wrap; }
+  .exercise > header .tag{ font-family:"Fraunces", serif; font-weight:700; font-size:20px; color:var(--accent-ink); background:var(--accent-soft); border-radius:8px; padding:1px 10px; }
+  .exercise > header h2{ font-size:18px; font-weight:600; color:var(--ink); }
+  .instr{ font-style:italic; color:var(--muted); font-size:14px; margin:2px 0 16px; }
+
+  .example{ font-size:14.5px; color:var(--muted); margin-bottom:12px; padding-left:2px; }
+  .example .ex-mark{ display:inline-block; width:9px; height:9px; background:var(--accent); margin-right:8px; border-radius:2px; }
+  .example .ex-answer{ display:block; margin-top:2px; padding-left:17px; font-style:italic; color:var(--accent-ink); }
+
+  ol.items{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:14px; }
+  ol.items > li{ display:flex; align-items:flex-start; gap:10px; }
+  ol.items > li .idx{ font-variant-numeric:tabular-nums; color:var(--muted); font-size:14px; min-width:1.4em; padding-top:6px; }
+  .line{ flex:1; display:flex; flex-wrap:wrap; align-items:center; gap:6px; font-size:16px; }
+  .cue{ font-style:italic; color:var(--muted); font-size:13.5px; margin-right:2px; }
+  .qline{ display:block; color:var(--ink); margin-bottom:4px; }
+
+  input[type="text"]{ font:inherit; font-size:16px; color:var(--ink); background:var(--surface-2); border:1.5px solid var(--border); border-radius:8px; padding:4px 8px; width:12ch; text-align:center; }
+  input[type="text"].sentence-input{ width:100%; text-align:left; }
+  input[type="text"]:focus{ border-color:var(--accent); background:var(--surface); }
+  input[type="text"].correct{ background:var(--correct-bg); border-color:var(--correct-border); color:var(--correct); font-weight:600; }
+  input[type="text"].incorrect{ background:var(--incorrect-bg); border-color:var(--incorrect-border); color:var(--incorrect); font-weight:600; }
+  .answer-hint{ font-size:13px; color:var(--incorrect); white-space:nowrap; }
+  .answer-hint.block{ display:block; white-space:normal; margin-top:2px; }
+  .answer-hint b{ font-weight:700; }
+
+  .refbox{ background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:14px 16px; font-size:13.5px; color:var(--muted); margin-bottom:18px; line-height:1.8; }
+  .refbox b{ color:var(--ink); }
+  .refbox .ref-title{ font-weight:700; color:var(--ink); display:block; margin-bottom:4px; }
+
+  @media (max-width:620px){ .scorebar{ flex-direction:column; align-items:stretch; } .btnrow{ justify-content:flex-end; } }
+
+  footer.note{ color:var(--muted); font-size:12.5px; text-align:center; margin-top:8px; }
+  .back-link{ display:inline-flex; align-items:center; gap:5px; font-size:13.5px; font-weight:600; color:var(--muted); text-decoration:none; margin-bottom:16px; }
+  .back-link:hover{ color:var(--accent-ink); }
+</style>
+
+
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="index.html">← Zurück zum Portal</a>
+  <div class="masthead">
+    <span class="kicker">Begegnungen A1+ · Kapitel 7 · Teil C</span>
+    <h1>Modalverben &amp; Adjektive</h1>
+    <p class="sub">C12–C15 の練習問題です(S.191–192)。話法の助動詞 dürfen/müssen/können と形容詞の比較級(Komparativ)、反対語を扱います。</p>
+  </div>
+
+  <div class="scorebar" id="scorebar">
+    <div class="totals">
+      <span class="num hidden-result" id="scoreNum">–</span>
+      <span class="label">正解数 / 全35問</span>
+    </div>
+    <div class="chips" id="chips">
+      <span class="chip" data-chip="C12">C12 0/7</span>
+      <span class="chip" data-chip="C13">C13 0/8</span>
+      <span class="chip" data-chip="C14">C14 0/16</span>
+      <span class="chip" data-chip="C15">C15 0/4</span>
+    </div>
+    <div class="btnrow">
+      <button class="ghost" id="resetBtn" type="button">リセット</button>
+      <button class="primary" id="gradeBtn" type="button">採点する</button>
+    </div>
+  </div>
+
+  <div class="refbox">
+    <span class="ref-title">Das Modalverb dürfen</span>
+    ich darf · du darfst · er/sie/es darf · wir dürfen · ihr dürft · sie/Sie dürfen<br>
+    Verbot: <b>Im Krankenhaus darf man nicht rauchen.</b> &nbsp;|&nbsp; Erlaubnis: <b>Die Kinder dürfen hier spielen.</b> &nbsp;|&nbsp; höfliche Frage: <b>Darf ich hier mal telefonieren?</b>
+  </div>
+
+  <!-- C12 -->
+  <section class="exercise" id="sec-c12">
+    <header><span class="tag">C12</span><h2>Beantworten Sie die Fragen.</h2></header>
+    <div class="example">
+      <span class="ex-mark"></span>Darf ich das Fenster öffnen?
+      <span class="ex-answer">Ja, natürlich dürfen Sie das Fenster öffnen.</span>
+    </div>
+    <ol class="items" id="c12-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C12" data-target="sec-c12">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C13 -->
+  <section class="exercise" id="sec-c13">
+    <header><span class="tag">C13</span><h2>Ergänzen Sie müssen, können oder dürfen in der richtigen Form.</h2></header>
+    <p class="instr">Manchmal sind mehrere Lösungen möglich.</p>
+    <div class="example">
+      <span class="ex-mark"></span>Hier <i>darf</i> man keinen Alkohol trinken.
+    </div>
+    <ol class="items" id="c13-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C13" data-target="sec-c13">このセクションを採点する</button></div>
+  </section>
+
+  <div class="refbox">
+    <span class="ref-title">Komparation der Adjektive</span>
+    billig → billiger &nbsp;|&nbsp; a→ä: warm→wärmer, lang→länger, kalt→kälter, hart→härter, nah→näher, alt→älter &nbsp;|&nbsp; o→ö: groß→größer &nbsp;|&nbsp; u→ü: kurz→kürzer, jung→jünger<br>
+    -er/-el: teuer→teurer, dunkel→dunkler &nbsp;|&nbsp; Sonderformen: gut→besser, viel→mehr, gern→lieber
+  </div>
+
+  <!-- C14 -->
+  <section class="exercise" id="sec-c14">
+    <header><span class="tag">C14</span><h2>Ergänzen Sie den Komparativ.</h2></header>
+    <div class="example">
+      <span class="ex-mark"></span>Frau Klein findet den Frühling schön. Herr Groß findet den Sommer <i>schöner</i>.
+    </div>
+    <ol class="items" id="c14-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C14" data-target="sec-c14">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C15 -->
+  <section class="exercise" id="sec-c15">
+    <header><span class="tag">C15</span><h2>Wie heißt das Gegenteil?</h2></header>
+    <div class="example">
+      <span class="ex-mark"></span>Sind diese Teller sauber?
+      <span class="ex-answer">Nein, sie sind schmutzig.</span>
+    </div>
+    <ol class="items" id="c15-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C15" data-target="sec-c15">このセクションを採点する</button></div>
+  </section>
+
+  <div class="btnrow" style="justify-content:center; margin-top:8px;">
+    <button class="ghost" id="resetBtn2" type="button">リセット</button>
+    <button class="primary" id="gradeBtn2" type="button">採点する</button>
+  </div>
+  <footer class="note">Begegnungen A1+（Schubert Verlag）Kapitel 7, S.191–192 の練習問題を基に作成</footer>
+</div>
+
+<script>
+(function(){
+
+  function el(tag, props, children){
+    const e = document.createElement(tag);
+    if (props) for (const k in props){
+      if (k === "class") e.className = props[k];
+      else if (k === "html") e.innerHTML = props[k];
+      else e.setAttribute(k, props[k]);
+    }
+    (children||[]).forEach(c => e.appendChild(typeof c === "string" ? document.createTextNode(c) : c));
+    return e;
+  }
+
+  function blankInput(id, answers, width){
+    const inp = el("input", { type:"text", id:id, autocomplete:"off", spellcheck:"false" });
+    if (width) inp.style.width = width;
+    inp.dataset.answers = answers.join("|");
+    return inp;
+  }
+
+  function buildLine(segments, lineClass){
+    const wrap = el("span", { class: lineClass || "line" });
+    segments.forEach(seg => {
+      if (typeof seg === "string"){
+        wrap.appendChild(document.createTextNode(seg));
+      } else if (seg.blank){
+        const inp = blankInput(seg.blank.id, seg.blank.answers, seg.blank.width);
+        if (seg.blank.cls) inp.classList.add(seg.blank.cls);
+        wrap.appendChild(inp);
+      }
+    });
+    return wrap;
+  }
+
+  function textItem(idx, segments, lineClass){
+    const li = el("li");
+    li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    li.appendChild(buildLine(segments, lineClass));
+    return li;
+  }
+
+  function sentenceItem(idx, cue, expectedList, id){
+    const li = el("li");
+    li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    const line = el("div", { class:"line" });
+    if (cue) line.appendChild(el("span", { class:"cue" }, [cue]));
+    const inp = el("input", { type:"text", id:id, class:"sentence-input", autocomplete:"off", spellcheck:"false" });
+    inp.dataset.sentence = (Array.isArray(expectedList) ? expectedList : [expectedList]).join("||");
+    line.appendChild(inp);
+    li.appendChild(line);
+    return li;
+  }
+
+  // qaItem: question shown on its own line, answer sentence input below (full-width, stacked)
+  function qaItem(idx, question, expectedList, id){
+    const li = el("li");
+    li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    const col = el("div", { style:"flex:1; display:flex; flex-direction:column; gap:4px;" });
+    col.appendChild(el("span", { class:"qline" }, [question]));
+    const inp = el("input", { type:"text", id:id, class:"sentence-input", autocomplete:"off", spellcheck:"false" });
+    inp.dataset.sentence = (Array.isArray(expectedList) ? expectedList : [expectedList]).join("||");
+    col.appendChild(inp);
+    li.appendChild(col);
+    return li;
+  }
+
+  // qaItemCue: question on its own line; answer line shows a fixed lead-in (Ja, / Nein, / Ja, natürlich)
+  // as given text, then a sentence input that grades only the remainder of the sentence.
+  function qaItemCue(idx, question, prefix, expectedList, id){
+    const li = el("li");
+    li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    const col = el("div", { style:"flex:1; display:flex; flex-direction:column; gap:4px;" });
+    col.appendChild(el("span", { class:"qline" }, [question]));
+    const line = el("div", { class:"line" });
+    line.appendChild(el("span", { class:"cue" }, [prefix]));
+    const inp = el("input", { type:"text", id:id, class:"sentence-input", autocomplete:"off", spellcheck:"false" });
+    inp.dataset.sentence = (Array.isArray(expectedList) ? expectedList : [expectedList]).join("||");
+    line.appendChild(inp);
+    col.appendChild(line);
+    li.appendChild(col);
+    return li;
+  }
+
+  // ====================== C12 ======================
+  const c12List = document.getElementById("c12-list");
+  const c12Items = [
+    ["Dürfen Ihre Kinder bis 22 Uhr fernsehen?", "Nein, ", ["sie dürfen nicht bis 22 Uhr fernsehen.", "meine Kinder dürfen nicht bis 22 Uhr fernsehen."]],
+    ["Dürfen Sie in Ihrem Büro laut singen?", "Nein, ", ["ich darf in meinem Büro nicht laut singen."]],
+    ["Mama, dürfen wir in der Tiefgarage spielen?", "Nein, ", ["ihr dürft nicht in der Tiefgarage spielen."]],
+    ["Darf ich hier mal telefonieren?", "Ja, natürlich ", ["dürfen Sie hier telefonieren.", "dürfen Sie hier mal telefonieren."]],
+    ["Darf man in diesem Kino Popcorn essen?", "Ja, ", ["man darf in diesem Kino Popcorn essen.", "in diesem Kino darf man Popcorn essen."]],
+    ["Darf man hier links abbiegen?", "Nein, ", ["man darf hier nicht links abbiegen.", "hier darf man nicht links abbiegen."]],
+    ["Dürfen wir hier parken?", "Ja, ", ["Sie dürfen hier parken.", "ihr dürft hier parken.", "wir dürfen hier parken."]],
+  ];
+  c12Items.forEach((item, i) => c12List.appendChild(qaItemCue(i + 1, item[0], item[1], item[2], "c12-" + (i + 1))));
+
+  // ====================== C13 ======================
+  const c13List = document.getElementById("c13-list");
+  const c13Items = [
+    ["Sie ", {blank:{id:"c13-1", answers:["können","müssen"], width:"10ch"}}, " dort an der Kasse bezahlen."],
+    [{blank:{id:"c13-2", answers:["Kann","Darf"], width:"8ch"}}, " ich Ihnen helfen?"],
+    ["Ich ", {blank:{id:"c13-3", answers:["muss","kann","darf"], width:"8ch"}}, " heute noch nach Dortmund fahren."],
+    ["In dem Museum ", {blank:{id:"c13-4", answers:["darf"], width:"8ch"}}, " man nicht laut sprechen."],
+    ["Mein Sohn ist erst zwei Jahre alt: Er ", {blank:{id:"c13-5", answers:["kann"], width:"8ch"}}, " noch nicht lesen."],
+    ["Hallo! Hier ", {blank:{id:"c13-6", answers:["dürfen"], width:"9ch"}}, " Sie nicht Rad fahren!"],
+    ["Morgen Nachmittag ", {blank:{id:"c13-7", answers:["kann"], width:"8ch"}}, " ich dich leider nicht besuchen, denn ich ",
+     {blank:{id:"c13-8", answers:["muss"], width:"8ch"}}, " bis 19 Uhr arbeiten."],
+  ];
+  c13Items.forEach((segs, i) => c13List.appendChild(textItem(i + 1, segs)));
+
+  // ====================== C14 ======================
+  // Each item: [line1 (context sentence shown above, or null for single-line items), before-blank text, answers, after-blank text]
+  const c14List = document.getElementById("c14-list");
+  const c14Items = [
+    [null, "In Italien ist es warm. In Ägypten ist es noch ", ["wärmer"], "."],
+    [null, "Dieses Regal ist billig. Das dort ist aber noch viel ", ["billiger"], "."],
+    ["Die Wohnung in der Wiegandstraße ist groß.", "Die Wohnung in der Schellingstraße ist noch ", ["größer"], "."],
+    ["Ich finde den neuen Krimi von Franka Böse langweilig.", "Ach, der letzte Krimi von Franka Böse war noch viel ", ["langweiliger"], "."],
+    ["Herr Zimmermann hat ein modernes Telefon,", "doch das Telefon von seiner Sekretärin ist noch ", ["moderner"], "."],
+    ["Das Bild „Die Kartoffelesser” von Vincent van Gogh ist sehr berühmt.", "Aber „Die Sonnenblumen” sind noch viel ", ["berühmter"], "."],
+    ["Früher habe ich meine frischen Brötchen im Supermarkt gekauft.", "Heute kaufe ich die Brötchen beim Bäcker, dort sind sie viel ", ["frischer"], "."],
+    ["Sind die Stühle neu? Die sind aber hässlich.", "Ich finde deine Stühle noch viel ", ["hässlicher"], "."],
+    ["Als Abteilungsleiterin hat Frau Krause viel Geld verdient.", "Jetzt ist sie Direktorin und verdient noch ", ["mehr"], "."],
+    [null, "Ich fahre gern ans Meer, aber noch ", ["lieber"], " fahre ich in die Berge."],
+    ["Das Haus auf der linken Seite ist sehr alt. Es ist aus dem Jahr 1894.", "Das Haus auf der rechten Seite ist aus dem Jahre 1794. Es ist 100 Jahre ", ["älter"], "."],
+    ["Letztes Jahr war das Benzin teuer: Es kostete 1,30 Euro.", "Jetzt kostet es 1,50 Euro, es ist 20 Cent ", ["teurer"], " als im letzten Jahr."],
+    ["Die Einkaufsmöglichkeiten waren im Stadtzentrum schon früher gut.", "Heute sind sie noch ", ["besser"], "."],
+    ["Ich habe den Wein aus dem Keller geholt. Er ist kalt.", "Dieser Wein hier ist aus dem Kühlschrank. Er ist noch ", ["kälter"], "."],
+    ["Der Flur in deiner Wohnung ist sechs Meter lang.", "Der Flur in unserer Wohnung ist viel ", ["länger"], "."],
+    ["Mein Sommerurlaub dauert dieses Jahr nur zwei Wochen. Das finde ich zu kurz.", "Der Chef hat nur eine Woche Sommerurlaub gemacht. Das ist noch viel ", ["kürzer"], "."],
+  ];
+  c14Items.forEach((item, i) => {
+    const [line1, before, answers, after] = item;
+    const li = el("li");
+    li.appendChild(el("span", { class:"idx" }, [(i + 1) + "."]));
+    const col = el("div", { style:"flex:1; display:flex; flex-direction:column; gap:2px;" });
+    if (line1) col.appendChild(el("div", { class:"qline" }, [line1]));
+    const line = el("div", { class:"line" });
+    line.appendChild(el("span", { class:"cue" }, [before]));
+    line.appendChild(blankInput("c14-" + (i + 1), answers, Math.max(8, answers[0].length + 3) + "ch"));
+    if (after) line.appendChild(el("span", { class:"cue" }, [after]));
+    col.appendChild(line);
+    li.appendChild(col);
+    c14List.appendChild(li);
+  });
+
+  // ====================== C15 ======================
+  const c15List = document.getElementById("c15-list");
+  const c15Items = [
+    ["Ist eure Straße laut?", "Nein, sie ist sehr ", ["leise"]],
+    ["War dieser Sessel teuer?", "Nein, er war ganz ", ["billig"]],
+    ["Ist die Wohnung von Karl schön?", "Nein, sie ist ", ["hässlich"]],
+    ["Haben Sie ein helles Wohnzimmer?", "Nein, das Wohnzimmer ist leider ", ["dunkel"]],
+  ];
+  c15Items.forEach((item, i) => {
+    const li = el("li");
+    li.appendChild(el("span", { class:"idx" }, [(i + 1) + "."]));
+    const col = el("div", { style:"flex:1; display:flex; flex-direction:column; gap:4px;" });
+    col.appendChild(el("span", { class:"qline" }, [item[0]]));
+    const line = el("div", { class:"line" });
+    line.appendChild(el("span", { class:"cue" }, [item[1]]));
+    line.appendChild(blankInput("c15-" + (i + 1), item[2], Math.max(9, item[2][0].length + 3) + "ch"));
+    line.appendChild(el("span", { class:"cue" }, ["."]));
+    col.appendChild(line);
+    li.appendChild(col);
+    c15List.appendChild(li);
+  });
+
+  // ---------- grading ----------
+  const SECTION_PREFIX = [
+    ["C12", (id) => id.startsWith("c12-")],
+    ["C13", (id) => id.startsWith("c13-")],
+    ["C14", (id) => id.startsWith("c14-")],
+    ["C15", (id) => id.startsWith("c15-")],
+  ];
+  function sectionOf(id){
+    for (const [key, test] of SECTION_PREFIX){ if (test(id)) return key; }
+    return null;
+  }
+
+  function normalizeSentence(s){
+    return s.trim().toLowerCase().replace(/\s*[.!?]+\s*$/, "").replace(/\s+/g, " ").trim();
+  }
+
+  function clearHints(){ document.querySelectorAll(".answer-hint").forEach(n => n.remove()); }
+
+  function gradeInputsIn(root, sectionScore){
+    let total = 0, correct = 0;
+
+    root.querySelectorAll('input[type="text"][data-answers]').forEach(inp => {
+      total++;
+      const accepted = inp.dataset.answers.split("|").map(a => a.trim().toLowerCase());
+      const val = inp.value.trim().toLowerCase();
+      const ok = accepted.includes(val);
+      inp.classList.remove("correct","incorrect");
+      inp.classList.add(ok ? "correct" : "incorrect");
+      if (!ok){
+        const hint = el("span", { class:"answer-hint" }, ["→ ", el("b", {}, [inp.dataset.answers.split("|")[0]])]);
+        inp.insertAdjacentElement("afterend", hint);
+      } else { correct++; }
+      if (sectionScore){
+        const s = sectionOf(inp.id);
+        if (s && ok) sectionScore[s] = (sectionScore[s]||0) + 1;
+      }
+    });
+
+    root.querySelectorAll('input[type="text"][data-sentence]').forEach(inp => {
+      total++;
+      const acceptedList = inp.dataset.sentence.split("||").map(normalizeSentence);
+      const val = normalizeSentence(inp.value);
+      const ok = val.length > 0 && acceptedList.includes(val);
+      inp.classList.remove("correct","incorrect");
+      inp.classList.add(ok ? "correct" : "incorrect");
+      if (!ok){
+        const hint = el("span", { class:"answer-hint block" }, ["→ ", el("b", {}, [inp.dataset.sentence.split("||")[0]])]);
+        inp.insertAdjacentElement("afterend", hint);
+      } else { correct++; }
+      if (sectionScore){
+        const s = sectionOf(inp.id);
+        if (s && ok) sectionScore[s] = (sectionScore[s]||0) + 1;
+      }
+    });
+
+    return { total, correct };
+  }
+
+  const TOTALS = { C12:7, C13:8, C14:16, C15:4 };
+
+  function grade(){
+    clearHints();
+    const sectionScore = { C12:0, C13:0, C14:0, C15:0 };
+    const { total, correct } = gradeInputsIn(document, sectionScore);
+
+    document.getElementById("scoreNum").textContent = correct + " / " + total;
+    document.getElementById("scoreNum").classList.remove("hidden-result");
+    document.querySelectorAll(".chip").forEach(chip => {
+      const s = chip.dataset.chip;
+      if (!s) return;
+      chip.textContent = s + " " + sectionScore[s] + "/" + TOTALS[s];
+      chip.classList.toggle("done", sectionScore[s] === TOTALS[s]);
+    });
+    document.getElementById("scorebar").scrollIntoView({ behavior:"smooth", block:"start" });
+  }
+
+  function resetAll(){
+    document.querySelectorAll('input[type="text"]').forEach(inp => {
+      inp.value = "";
+      inp.classList.remove("correct","incorrect");
+    });
+    clearHints();
+    document.getElementById("scoreNum").textContent = "–";
+    document.getElementById("scoreNum").classList.add("hidden-result");
+    document.querySelectorAll(".chip").forEach(chip => {
+      const s = chip.dataset.chip;
+      if (!s) return;
+      chip.textContent = s + " 0/" + TOTALS[s];
+      chip.classList.remove("done");
+    });
+    window.scrollTo({ top:0, behavior:"smooth" });
+  }
+
+  document.getElementById("gradeBtn").addEventListener("click", grade);
+  document.getElementById("gradeBtn2").addEventListener("click", grade);
+  document.getElementById("resetBtn").addEventListener("click", resetAll);
+  document.getElementById("resetBtn2").addEventListener("click", resetAll);
+
+  function clearHintsIn(root){ root.querySelectorAll(".answer-hint").forEach(n => n.remove()); }
+
+  function gradeSection(sectionKey, root){
+    if (!root) return;
+    clearHintsIn(root);
+    const { total, correct } = gradeInputsIn(root, null);
+    const chip = document.querySelector('.chip[data-chip="'+sectionKey+'"]');
+    if (chip){
+      chip.textContent = sectionKey + " " + correct + "/" + total;
+      chip.classList.toggle("done", correct === total);
+    }
+  }
+
+  document.querySelectorAll(".section-check").forEach(btn => {
+    btn.addEventListener("click", () => {
+      gradeSection(btn.dataset.section, document.getElementById(btn.dataset.target));
+    });
+  });
+
+  function collectState(){
+    const state = {};
+    document.querySelectorAll('input[type="text"][id]').forEach(i => state[i.id] = i.value);
+    return state;
+  }
+  function applyState(state){
+    if (!state) return;
+    document.querySelectorAll('input[type="text"][id]').forEach(i => { if (state[i.id] !== undefined) i.value = state[i.id]; });
+  }
+  try {
+    if (window.claude && window.claude.hot){
+      window.claude.hot.snapshot(collectState);
+      const boot = (data) => applyState(data);
+      window.claude.hot.ready ? window.claude.hot.ready(boot) : boot(window.claude.hot.data || {});
+    }
+  } catch(e) {}
+})();
+</script>
+
+</body>
+</html>
