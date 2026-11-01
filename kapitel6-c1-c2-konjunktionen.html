@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Kapitel 6 Satzverbindungen: Konjunktionen</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f7f6; --surface:#ffffff; --surface-2:#eef4f3; --ink:#152524; --muted:#5c716f; --border:#d7e2e0;
+    --accent:#0d7a72; --accent-ink:#075a54; --accent-soft:#e0f2ef;
+    --correct:#1c7a43; --correct-bg:#e5f5ea; --correct-border:#a9d9b8;
+    --incorrect:#b3261e; --incorrect-bg:#fdecea; --incorrect-border:#f0b8b3;
+    --shadow: 0 1px 2px rgba(21,37,36,.04), 0 8px 24px -12px rgba(21,37,36,.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0f1716; --surface:#16201f; --surface-2:#1c2725; --ink:#e8f0ee; --muted:#9db3af; --border:#293735;
+      --accent:#3fc9bb; --accent-ink:#8fe3d8; --accent-soft:#1a3230;
+      --correct:#5fd487; --correct-bg:#173224; --correct-border:#2c5a3c;
+      --incorrect:#ff8a80; --incorrect-bg:#3a1c1a; --incorrect-border:#6b302b;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0f1716; --surface:#16201f; --surface-2:#1c2725; --ink:#e8f0ee; --muted:#9db3af; --border:#293735;
+    --accent:#3fc9bb; --accent-ink:#8fe3d8; --accent-soft:#1a3230;
+    --correct:#5fd487; --correct-bg:#173224; --correct-border:#2c5a3c;
+    --incorrect:#ff8a80; --incorrect-bg:#3a1c1a; --incorrect-border:#6b302b;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+  }
+
+  *{box-sizing:border-box;}
+  body{ background:var(--bg); color:var(--ink); font-family:"Source Sans 3", "Hiragino Sans", "Yu Gothic", sans-serif; line-height:1.55; }
+  .wrap{ max-width:760px; margin:0 auto; padding-inline:20px; padding-block:28px 120px; }
+  h1,h2,h3{ font-family:"Fraunces", serif; text-wrap:balance; margin:0; }
+  .masthead{ display:flex; flex-direction:column; gap:6px; margin-bottom:28px; }
+  .kicker{ font-size:12.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--accent-ink); font-weight:600; }
+  h1{ font-size:clamp(26px,5vw,34px); font-weight:700; color:var(--ink); }
+  .sub{ color:var(--muted); font-size:15px; max-width:62ch; }
+
+  .scorebar{ position:sticky; top:env(safe-area-inset-top,0px); z-index:20; display:flex; align-items:center; justify-content:space-between; gap:12px; background:var(--surface); border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); padding:12px 16px; margin-bottom:26px; flex-wrap:wrap; }
+  .scorebar .totals{ display:flex; align-items:baseline; gap:8px; }
+  .scorebar .totals .num{ font-family:"Fraunces", serif; font-size:26px; font-weight:700; font-variant-numeric:tabular-nums; color:var(--accent-ink); }
+  .scorebar .totals .num.hidden-result{ color:var(--muted); }
+  .scorebar .label{ font-size:13px; color:var(--muted); }
+  .btnrow{ display:flex; gap:8px; }
+  .section-check-row{ display:flex; justify-content:flex-end; margin-top:14px; }
+  button.small{ font-size:13px; padding:7px 14px; }
+  button{ font-family:inherit; font-size:14.5px; font-weight:600; border-radius:10px; padding:10px 18px; border:1px solid transparent; cursor:pointer; transition:transform .08s ease, background .15s ease, box-shadow .15s ease; }
+  button:focus-visible, input:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+  button.primary{ background:var(--accent); color:#fdfffe; box-shadow:0 4px 14px -6px var(--accent); }
+  button.primary:hover{ transform:translateY(-1px); }
+  button.ghost{ background:transparent; color:var(--muted); border-color:var(--border); }
+  button.ghost:hover{ background:var(--surface-2); }
+
+  .chips{ display:flex; gap:6px; flex-wrap:wrap; }
+  .chip{ font-size:12px; font-weight:600; padding:4px 9px; border-radius:999px; background:var(--surface-2); color:var(--muted); font-variant-numeric:tabular-nums; border:1px solid var(--border); }
+  .chip.done{ background:var(--accent-soft); color:var(--accent-ink); border-color:transparent; }
+
+  section.exercise{ background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:22px 22px 24px; margin-bottom:22px; box-shadow:var(--shadow); }
+  .exercise > header{ display:flex; align-items:baseline; gap:10px; margin-bottom:4px; flex-wrap:wrap; }
+  .exercise > header .tag{ font-family:"Fraunces", serif; font-weight:700; font-size:20px; color:var(--accent-ink); background:var(--accent-soft); border-radius:8px; padding:1px 10px; }
+  .exercise > header h2{ font-size:18px; font-weight:600; color:var(--ink); }
+  .instr{ font-style:italic; color:var(--muted); font-size:14px; margin:2px 0 16px; }
+  .wordbank{ font-size:13.5px; color:var(--accent-ink); background:var(--accent-soft); border-radius:10px; padding:8px 12px; margin-bottom:16px; line-height:1.6; }
+
+  .example{ font-size:14.5px; color:var(--muted); margin-bottom:12px; padding-left:2px; }
+  .example .ex-mark{ display:inline-block; width:9px; height:9px; background:var(--accent); margin-right:8px; border-radius:2px; }
+  .example .ex-answer{ display:block; margin-top:2px; padding-left:17px; font-style:italic; color:var(--accent-ink); }
+
+  ol.items{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:14px; }
+  ol.items > li{ display:flex; align-items:flex-start; gap:10px; }
+  ol.items > li .idx{ font-variant-numeric:tabular-nums; color:var(--muted); font-size:14px; min-width:1.4em; padding-top:6px; }
+  .line{ flex:1; display:flex; flex-wrap:wrap; align-items:center; gap:6px; font-size:16px; }
+
+  .given-text{ font-weight:700; color:var(--accent-ink); font-style:italic; }
+
+  .match-ref{ background:var(--surface-2); border:1px solid var(--border); border-radius:12px; padding:14px 18px; margin-bottom:18px; font-size:14.5px; }
+  .match-ref .row{ display:flex; gap:8px; margin-bottom:5px; }
+  .match-ref .row:last-child{ margin-bottom:0; }
+  .match-ref .letter{ font-weight:700; color:var(--accent-ink); min-width:1.6em; }
+
+  input[type="text"]{ font:inherit; font-size:16px; color:var(--ink); background:var(--surface-2); border:1.5px solid var(--border); border-radius:8px; padding:4px 8px; width:10.5ch; text-align:center; }
+  input[type="text"].letter-input{ width:4ch; }
+  input[type="text"]:focus{ border-color:var(--accent); background:var(--surface); }
+  input[type="text"].correct{ background:var(--correct-bg); border-color:var(--correct-border); color:var(--correct); font-weight:600; }
+  input[type="text"].incorrect{ background:var(--incorrect-bg); border-color:var(--incorrect-border); color:var(--incorrect); font-weight:600; }
+  .answer-hint{ font-size:13px; color:var(--incorrect); white-space:nowrap; }
+  .answer-hint b{ font-weight:700; }
+
+  @media (max-width:620px){ .scorebar{ flex-direction:column; align-items:stretch; } .btnrow{ justify-content:flex-end; } }
+
+  footer.note{ color:var(--muted); font-size:12.5px; text-align:center; margin-top:8px; }
+  .back-link{ display:inline-flex; align-items:center; gap:5px; font-size:13.5px; font-weight:600; color:var(--muted); text-decoration:none; margin-bottom:16px; }
+  .back-link:hover{ color:var(--accent-ink); }
+</style>
+
+
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="index.html">← Zurück zum Portal</a>
+  <div class="masthead">
+    <span class="kicker">Begegnungen A1+ · Kapitel 6 · Teil C</span>
+    <h1>Satzverbindungen: Konjunktionen</h1>
+    <p class="sub">C1–C2 の練習問題です(S.159)。denn/oder/aber/und/sondern を使った文の接続を扱います。</p>
+  </div>
+
+  <div class="scorebar" id="scorebar">
+    <div class="totals">
+      <span class="num hidden-result" id="scoreNum">–</span>
+      <span class="label">正解数 / 全15問</span>
+    </div>
+    <div class="chips" id="chips">
+      <span class="chip" data-chip="C1">C1 0/7</span>
+      <span class="chip" data-chip="C2">C2 0/8</span>
+    </div>
+    <div class="btnrow">
+      <button class="ghost" id="resetBtn" type="button">リセット</button>
+      <button class="primary" id="gradeBtn" type="button">採点する</button>
+    </div>
+  </div>
+
+  <!-- C1 -->
+  <section class="exercise" id="sec-c1">
+    <header><span class="tag">C1</span><h2>Finden Sie die passende Ergänzung.</h2></header>
+    <p class="instr">右のリストから合う文字を選んで入力してください。</p>
+    <div class="match-ref" id="c1-ref"></div>
+    <div class="example">
+      <span class="ex-mark"></span>(1) Ich besuche dich nicht am Freitag,
+      <span class="ex-answer">→ (c) sondern ich komme am Sonntag.</span>
+    </div>
+    <ol class="items" id="c1-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C1" data-target="sec-c1">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C2 -->
+  <section class="exercise" id="sec-c2">
+    <header><span class="tag">C2</span><h2>Ergänzen Sie <i>denn, oder, aber, und, sondern</i>.</h2></header>
+    <div class="example">
+      <span class="ex-mark"></span>Ich kann leider nicht in den Urlaub fahren, <u>denn</u> ich muss arbeiten.
+    </div>
+    <ol class="items" id="c2-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C2" data-target="sec-c2">このセクションを採点する</button></div>
+  </section>
+
+  <div class="btnrow" style="justify-content:center; margin-top:8px;">
+    <button class="ghost" id="resetBtn2" type="button">リセット</button>
+    <button class="primary" id="gradeBtn2" type="button">採点する</button>
+  </div>
+  <footer class="note">Begegnungen A1+（Schubert Verlag）Kapitel 6, S.159 の練習問題を基に作成</footer>
+</div>
+
+<script>
+(function(){
+
+  function el(tag, props, children){
+    const e = document.createElement(tag);
+    if (props) for (const k in props){
+      if (k === "class") e.className = props[k];
+      else if (k === "html") e.innerHTML = props[k];
+      else e.setAttribute(k, props[k]);
+    }
+    (children||[]).forEach(c => e.appendChild(typeof c === "string" ? document.createTextNode(c) : c));
+    return e;
+  }
+
+  function blankInput(id, answers, width){
+    const inp = el("input", { type:"text", id:id, autocomplete:"off", spellcheck:"false" });
+    if (width) inp.style.width = width;
+    inp.dataset.answers = answers.join("|");
+    return inp;
+  }
+
+  function textItem(idx, segments){
+    const li = el("li");
+    li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    const wrap = el("span", { class:"line" });
+    segments.forEach(seg => {
+      if (typeof seg === "string"){
+        wrap.appendChild(document.createTextNode(seg));
+      } else if (seg.blank){
+        wrap.appendChild(blankInput(seg.blank.id, seg.blank.answers, seg.blank.width));
+      }
+    });
+    li.appendChild(wrap);
+    return li;
+  }
+
+  // ====================== C1 ======================
+  const c1Ref = document.getElementById("c1-ref");
+  const C1_OPTIONS = [
+    ["a", "aber es schmeckt schrecklich."],
+    ["b", "und danach essen wir etwas."],
+    ["c", "sondern ich komme am Sonntag."],
+    ["d", "aber es hat einen Fernseher und eine Minibar."],
+    ["e", "sondern sie studiert in Berlin."],
+    ["f", "denn dort ist es so kalt."],
+    ["g", "denn ich habe kein Geld."],
+    ["h", "oder wir übernachten für 150 Euro drei Nächte im Hotel „Adria”."],
+  ];
+  C1_OPTIONS.forEach(([letter, text]) => {
+    c1Ref.appendChild(el("div", { class:"row" }, [
+      el("span", { class:"letter" }, ["(" + letter + ")"]),
+      el("span", {}, [text]),
+    ]));
+  });
+
+  const c1List = document.getElementById("c1-list");
+  const c1Items = [
+    ["(2) Das Essen in diesem Restaurant ist sehr teuer,", ["a"]],
+    ["(3) Ich fahre im Winter nicht nach Schweden,", ["f"]],
+    ["(4) Wir wollen zuerst ins Museum gehen", ["b"]],
+    ["(5) Wir können für 150 Euro eine Nacht im Hotel „Merian” schlafen", ["h"]],
+    ["(6) Dieses Zimmer hat kein WLAN,", ["d"]],
+    ["(7) Sie studiert nicht in Hamburg,", ["e"]],
+    ["(8) Ich kann die Rechnung nicht bezahlen,", ["g"]],
+  ];
+  c1Items.forEach((item, i) => {
+    c1List.appendChild(textItem(null, [
+      item[0] + " ",
+      { blank: { id: "c1-" + (i + 1), answers: item[1], width: "4ch" } },
+    ]));
+  });
+  // fix missing idx number style (reuse original numbering 2-8)
+  Array.from(c1List.children).forEach((li, i) => {
+    li.querySelector(".idx").textContent = "";
+  });
+
+  // ====================== C2 ======================
+  const c2List = document.getElementById("c2-list");
+  const c2Items = [
+    ["Früher war es in Frankreich noch nicht so teuer, ", "aber", " heute zahlt man für eine Tasse Kaffee in St. Tropez über drei Euro."],
+    ["Wir fahren diesen Sommer nach Spanien ", "oder", " wir bleiben zu Hause."],
+    ["Wir bleiben diesen Sommer zu Hause, ", "denn", " wir haben kein Geld für eine Reise."],
+    ["Unsere Nachbarn haben ein neues Auto gekauft ", "und", " sie fliegen im Sommer nach Japan."],
+    ["Ich fahre im Winter nicht in die Berge, ", "denn", " ich kann nicht Ski fahren."],
+    ["Wir wohnen dieses Jahr nicht im Hotel „Seeblick”, ", "sondern", " wir übernachten im Hotel „Jäger”."],
+    ["Paul arbeitet viel und hart, ", "aber", " er hat keinen Erfolg."],
+    ["Wir gehen gerne ins Restaurant „Goldfisch”, ", "denn", " das Essen ist dort ausgezeichnet."],
+  ];
+  c2Items.forEach((item, i) => {
+    c2List.appendChild(textItem(i + 1, [
+      item[0],
+      { blank: { id: "c2-" + (i + 1), answers: [item[1]], width: "9ch" } },
+      item[2],
+    ]));
+  });
+
+  // ---------- grading ----------
+  const SECTION_PREFIX = [
+    ["C1", (id) => id.startsWith("c1-")],
+    ["C2", (id) => id.startsWith("c2-")],
+  ];
+  function sectionOf(id){
+    for (const [key, test] of SECTION_PREFIX){ if (test(id)) return key; }
+    return null;
+  }
+
+  function clearHints(){ document.querySelectorAll(".answer-hint").forEach(n => n.remove()); }
+
+  function gradeInputsIn(root, sectionScore){
+    let total = 0, correct = 0;
+
+    root.querySelectorAll('input[type="text"][data-answers]').forEach(inp => {
+      total++;
+      const accepted = inp.dataset.answers.split("|").map(a => a.trim().toLowerCase());
+      const val = inp.value.trim().toLowerCase();
+      const ok = accepted.includes(val);
+      inp.classList.remove("correct","incorrect");
+      inp.classList.add(ok ? "correct" : "incorrect");
+      if (!ok){
+        const hint = el("span", { class:"answer-hint" }, ["→ ", el("b", {}, [inp.dataset.answers.split("|")[0]])]);
+        inp.insertAdjacentElement("afterend", hint);
+      } else { correct++; }
+      if (sectionScore){
+        const s = sectionOf(inp.id);
+        if (s && ok) sectionScore[s] = (sectionScore[s]||0) + 1;
+      }
+    });
+
+    return { total, correct };
+  }
+
+  const TOTALS = { C1:7, C2:8 };
+
+  function grade(){
+    clearHints();
+    const sectionScore = { C1:0, C2:0 };
+    const { total, correct } = gradeInputsIn(document, sectionScore);
+
+    document.getElementById("scoreNum").textContent = correct + " / " + total;
+    document.getElementById("scoreNum").classList.remove("hidden-result");
+    document.querySelectorAll(".chip").forEach(chip => {
+      const s = chip.dataset.chip;
+      if (!s) return;
+      chip.textContent = s + " " + sectionScore[s] + "/" + TOTALS[s];
+      chip.classList.toggle("done", sectionScore[s] === TOTALS[s]);
+    });
+    document.getElementById("scorebar").scrollIntoView({ behavior:"smooth", block:"start" });
+  }
+
+  function resetAll(){
+    document.querySelectorAll('input[type="text"]').forEach(inp => {
+      inp.value = "";
+      inp.classList.remove("correct","incorrect");
+    });
+    clearHints();
+    document.getElementById("scoreNum").textContent = "–";
+    document.getElementById("scoreNum").classList.add("hidden-result");
+    document.querySelectorAll(".chip").forEach(chip => {
+      const s = chip.dataset.chip;
+      if (!s) return;
+      chip.textContent = s + " 0/" + TOTALS[s];
+      chip.classList.remove("done");
+    });
+    window.scrollTo({ top:0, behavior:"smooth" });
+  }
+
+  document.getElementById("gradeBtn").addEventListener("click", grade);
+  document.getElementById("gradeBtn2").addEventListener("click", grade);
+  document.getElementById("resetBtn").addEventListener("click", resetAll);
+  document.getElementById("resetBtn2").addEventListener("click", resetAll);
+
+  function clearHintsIn(root){ root.querySelectorAll(".answer-hint").forEach(n => n.remove()); }
+
+  function gradeSection(sectionKey, root){
+    if (!root) return;
+    clearHintsIn(root);
+    const { total, correct } = gradeInputsIn(root, null);
+    const chip = document.querySelector('.chip[data-chip="'+sectionKey+'"]');
+    if (chip){
+      chip.textContent = sectionKey + " " + correct + "/" + total;
+      chip.classList.toggle("done", correct === total);
+    }
+  }
+
+  document.querySelectorAll(".section-check").forEach(btn => {
+    btn.addEventListener("click", () => {
+      gradeSection(btn.dataset.section, document.getElementById(btn.dataset.target));
+    });
+  });
+
+  function collectState(){
+    const state = {};
+    document.querySelectorAll('input[type="text"][id]').forEach(i => state[i.id] = i.value);
+    return state;
+  }
+  function applyState(state){
+    if (!state) return;
+    document.querySelectorAll('input[type="text"][id]').forEach(i => { if (state[i.id] !== undefined) i.value = state[i.id]; });
+  }
+  try {
+    if (window.claude && window.claude.hot){
+      window.claude.hot.snapshot(collectState);
+      const boot = (data) => applyState(data);
+      window.claude.hot.ready ? window.claude.hot.ready(boot) : boot(window.claude.hot.data || {});
+    }
+  } catch(e) {}
+})();
+</script>
+
+</body>
+</html>
