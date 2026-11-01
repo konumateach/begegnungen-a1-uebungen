@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Kapitel 8 Verben &amp; Modalverben</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f7f6; --surface:#ffffff; --surface-2:#eef4f3; --ink:#152524; --muted:#5c716f; --border:#d7e2e0;
+    --accent:#0d7a72; --accent-ink:#075a54; --accent-soft:#e0f2ef;
+    --correct:#1c7a43; --correct-bg:#e5f5ea; --correct-border:#a9d9b8;
+    --incorrect:#b3261e; --incorrect-bg:#fdecea; --incorrect-border:#f0b8b3;
+    --shadow: 0 1px 2px rgba(21,37,36,.04), 0 8px 24px -12px rgba(21,37,36,.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0f1716; --surface:#16201f; --surface-2:#1c2725; --ink:#e8f0ee; --muted:#9db3af; --border:#293735;
+      --accent:#3fc9bb; --accent-ink:#8fe3d8; --accent-soft:#1a3230;
+      --correct:#5fd487; --correct-bg:#173224; --correct-border:#2c5a3c;
+      --incorrect:#ff8a80; --incorrect-bg:#3a1c1a; --incorrect-border:#6b302b;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0f1716; --surface:#16201f; --surface-2:#1c2725; --ink:#e8f0ee; --muted:#9db3af; --border:#293735;
+    --accent:#3fc9bb; --accent-ink:#8fe3d8; --accent-soft:#1a3230;
+    --correct:#5fd487; --correct-bg:#173224; --correct-border:#2c5a3c;
+    --incorrect:#ff8a80; --incorrect-bg:#3a1c1a; --incorrect-border:#6b302b;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+  }
+
+  *{box-sizing:border-box;}
+  body{ background:var(--bg); color:var(--ink); font-family:"Source Sans 3", "Hiragino Sans", "Yu Gothic", sans-serif; line-height:1.55; }
+  .wrap{ max-width:780px; margin:0 auto; padding-inline:20px; padding-block:28px 120px; }
+  h1,h2,h3{ font-family:"Fraunces", serif; text-wrap:balance; margin:0; }
+  .masthead{ display:flex; flex-direction:column; gap:6px; margin-bottom:28px; }
+  .kicker{ font-size:12.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--accent-ink); font-weight:600; }
+  h1{ font-size:clamp(26px,5vw,34px); font-weight:700; color:var(--ink); }
+  .sub{ color:var(--muted); font-size:15px; max-width:62ch; }
+
+  .scorebar{ position:sticky; top:env(safe-area-inset-top,0px); z-index:20; display:flex; align-items:center; justify-content:space-between; gap:12px; background:var(--surface); border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); padding:12px 16px; margin-bottom:26px; flex-wrap:wrap; }
+  .scorebar .totals{ display:flex; align-items:baseline; gap:8px; }
+  .scorebar .totals .num{ font-family:"Fraunces", serif; font-size:26px; font-weight:700; font-variant-numeric:tabular-nums; color:var(--accent-ink); }
+  .scorebar .totals .num.hidden-result{ color:var(--muted); }
+  .scorebar .label{ font-size:13px; color:var(--muted); }
+  .btnrow{ display:flex; gap:8px; }
+  .section-check-row{ display:flex; justify-content:flex-end; margin-top:14px; }
+  button.small{ font-size:13px; padding:7px 14px; }
+  button{ font-family:inherit; font-size:14.5px; font-weight:600; border-radius:10px; padding:10px 18px; border:1px solid transparent; cursor:pointer; transition:transform .08s ease, background .15s ease, box-shadow .15s ease; }
+  button:focus-visible, input:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+  button.primary{ background:var(--accent); color:#fdfffe; box-shadow:0 4px 14px -6px var(--accent); }
+  button.primary:hover{ transform:translateY(-1px); }
+  button.ghost{ background:transparent; color:var(--muted); border-color:var(--border); }
+  button.ghost:hover{ background:var(--surface-2); }
+
+  .chips{ display:flex; gap:6px; flex-wrap:wrap; }
+  .chip{ font-size:12px; font-weight:600; padding:4px 9px; border-radius:999px; background:var(--surface-2); color:var(--muted); font-variant-numeric:tabular-nums; border:1px solid var(--border); }
+  .chip.done{ background:var(--accent-soft); color:var(--accent-ink); border-color:transparent; }
+  .chip.free{ font-style:italic; }
+
+  section.exercise{ background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:22px 22px 24px; margin-bottom:22px; box-shadow:var(--shadow); }
+  .exercise > header{ display:flex; align-items:baseline; gap:10px; margin-bottom:4px; flex-wrap:wrap; }
+  .exercise > header .tag{ font-family:"Fraunces", serif; font-weight:700; font-size:20px; color:var(--accent-ink); background:var(--accent-soft); border-radius:8px; padding:1px 10px; }
+  .exercise > header h2{ font-size:18px; font-weight:600; color:var(--ink); }
+  .instr{ font-style:italic; color:var(--muted); font-size:14px; margin:2px 0 16px; }
+
+  .example{ font-size:14.5px; color:var(--muted); margin-bottom:12px; padding-left:2px; }
+  .example .ex-mark{ display:inline-block; width:9px; height:9px; background:var(--accent); margin-right:8px; border-radius:2px; }
+  .example .ex-answer{ display:block; margin-top:2px; padding-left:17px; font-style:italic; color:var(--accent-ink); }
+
+  ol.items{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:14px; }
+  ol.items > li{ display:flex; align-items:flex-start; gap:10px; }
+  ol.items > li .idx{ font-variant-numeric:tabular-nums; color:var(--muted); font-size:14px; min-width:1.4em; padding-top:6px; }
+  .line{ flex:1; display:flex; flex-wrap:wrap; align-items:center; gap:6px; font-size:16px; }
+  .cue{ font-style:italic; color:var(--muted); font-size:13.5px; margin-right:2px; }
+  .qline{ display:block; color:var(--ink); margin-bottom:4px; }
+  .qline.prompt{ font-style:italic; color:var(--muted); }
+
+  input[type="text"]{ font:inherit; font-size:16px; color:var(--ink); background:var(--surface-2); border:1.5px solid var(--border); border-radius:8px; padding:4px 8px; width:12ch; text-align:center; }
+  input[type="text"].sentence-input{ width:100%; text-align:left; }
+  input[type="text"]:focus{ border-color:var(--accent); background:var(--surface); }
+  input[type="text"].correct{ background:var(--correct-bg); border-color:var(--correct-border); color:var(--correct); font-weight:600; }
+  input[type="text"].incorrect{ background:var(--incorrect-bg); border-color:var(--incorrect-border); color:var(--incorrect); font-weight:600; }
+  .answer-hint{ font-size:13px; color:var(--incorrect); white-space:nowrap; }
+  .answer-hint.block{ display:block; white-space:normal; margin-top:2px; }
+  .answer-hint b{ font-weight:700; }
+
+  .refbox{ background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:14px 16px; font-size:13.5px; color:var(--muted); margin-bottom:18px; line-height:1.8; }
+  .refbox b{ color:var(--ink); }
+  .refbox .ref-title{ font-weight:700; color:var(--ink); display:block; margin-bottom:4px; }
+
+  /* C2 free-practice box */
+  .wordbank{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:16px; }
+  @media (max-width:520px){ .wordbank{ grid-template-columns:1fr; } }
+  .wordbank .col{ background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:10px 12px; }
+  .wordbank .col h4{ font-size:12.5px; text-transform:uppercase; letter-spacing:.04em; color:var(--accent-ink); margin:0 0 6px; }
+  .wordbank .col ul{ margin:0; padding-left:16px; font-size:14px; }
+  .wordbank .col ul li{ margin-bottom:2px; }
+  .free-badge{ display:inline-block; font-size:11.5px; font-weight:700; color:var(--accent-ink); background:var(--accent-soft); border-radius:999px; padding:2px 10px; margin-left:8px; vertical-align:middle; }
+  .free-row{ margin-bottom:10px; }
+  .free-row .idx{ font-size:14px; color:var(--muted); margin-right:6px; }
+  .reveal{ margin-top:10px; }
+  .reveal-box{ display:none; background:var(--accent-soft); border-radius:10px; padding:10px 14px; font-size:14px; color:var(--accent-ink); margin-top:8px; line-height:1.7; }
+  .reveal-box.open{ display:block; }
+
+  /* C4 modal conjugation groups */
+  .modal-group{ margin-bottom:18px; }
+  .modal-group:last-child{ margin-bottom:0; }
+  .modal-name{ font-weight:700; color:var(--accent-ink); margin-bottom:8px; font-size:15px; }
+  .modal-rows{ display:flex; flex-direction:column; gap:8px; }
+  .modal-row{ display:flex; align-items:center; flex-wrap:wrap; gap:6px; font-size:15.5px; }
+  .modal-subj{ min-width:190px; }
+  .modal-given{ font-style:italic; color:var(--accent-ink); font-weight:600; }
+  .modal-tail{ color:var(--ink); }
+
+  @media (max-width:620px){ .scorebar{ flex-direction:column; align-items:stretch; } .btnrow{ justify-content:flex-end; } .modal-subj{ min-width:0; width:100%; } }
+
+  footer.note{ color:var(--muted); font-size:12.5px; text-align:center; margin-top:8px; }
+  .back-link{ display:inline-flex; align-items:center; gap:5px; font-size:13.5px; font-weight:600; color:var(--muted); text-decoration:none; margin-bottom:16px; }
+  .back-link:hover{ color:var(--accent-ink); }
+</style>
+
+
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="index.html">← Zurück zum Portal</a>
+  <div class="masthead">
+    <span class="kicker">Begegnungen A1+ · Kapitel 8 · Teil C (1/2)</span>
+    <h1>Verben &amp; Modalverben</h1>
+    <p class="sub">C1–C6 の練習問題です(S.213–215)。werden の活用、ダティブ/アクザティブを取る動詞、話法の助動詞の現在形・過去形を扱います。</p>
+  </div>
+
+  <div class="scorebar" id="scorebar">
+    <div class="totals">
+      <span class="num hidden-result" id="scoreNum">–</span>
+      <span class="label">正解数 / 全49問</span>
+    </div>
+    <div class="chips" id="chips">
+      <span class="chip" data-chip="C1">C1 0/5</span>
+      <span class="chip free">C2 自由作文</span>
+      <span class="chip" data-chip="C3">C3 0/10</span>
+      <span class="chip" data-chip="C4">C4 0/17</span>
+      <span class="chip" data-chip="C5">C5 0/9</span>
+      <span class="chip" data-chip="C6">C6 0/8</span>
+    </div>
+    <div class="btnrow">
+      <button class="ghost" id="resetBtn" type="button">リセット</button>
+      <button class="primary" id="gradeBtn" type="button">採点する</button>
+    </div>
+  </div>
+
+  <div class="refbox">
+    <span class="ref-title">werden</span>
+    ich werde · du wirst · er/sie/es wird · wir werden · ihr werdet · sie/Sie werden<br>
+    <b>Ich werde 80.</b>（年齢・状態の変化） &nbsp;|&nbsp; <b>Ich werde Direktor.</b>（職業・役割になる、どちらもNOMINATIV）
+  </div>
+
+  <!-- C1 -->
+  <section class="exercise" id="sec-c1">
+    <header><span class="tag">C1</span><h2>Bilden Sie Sätze.</h2></header>
+    <div class="example">
+      <span class="ex-mark"></span>meine Mutter – nächsten Montag – 60 – werden
+      <span class="ex-answer">Meine Mutter wird nächsten Montag 60. / Nächsten Montag wird meine Mutter 60.</span>
+    </div>
+    <ol class="items" id="c1-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C1" data-target="sec-c1">このセクションを採点する</button></div>
+  </section>
+
+  <div class="refbox">
+    <span class="ref-title">Verben mit Dativ und Akkusativ</span>
+    <b>Ich brauche ein neues Auto.</b>（brauchen + AKKUSATIV） &nbsp;|&nbsp; <b>Die Jacke gefällt mir.</b>（gefallen + DATIV）<br>
+    <b>Ich kaufe mir ein neues Kleid.</b> &nbsp;|&nbsp; <b>Ich schenke ihr ein Buch.</b>（kaufen/schenken + DATIV + AKKUSATIV）<br>
+    Satzbau（よくある語順）: Nominativ → Dativ → Akkusativ &nbsp;<i>Ich kaufe meiner Mutter ein Geschenk.</i>
+  </div>
+
+  <!-- C2 -->
+  <section class="exercise" id="sec-c2">
+    <header><span class="tag">C2</span><h2>Bilden Sie möglichst viele Sätze.</h2><span class="free-badge">自由作文・自動採点なし</span></header>
+    <p class="instr">下の単語表から自由に組み合わせて、できるだけ多くの文を作ってみましょう。正解は一つではありません。</p>
+    <div class="wordbank">
+      <div class="col"><h4>Subjekt im Nominativ</h4><ul><li>ich</li><li>du</li><li>Frau Kühne</li><li>die Kollegen</li><li>Matthias</li><li>die neue Mitarbeiterin</li></ul></div>
+      <div class="col"><h4>Verb</h4><ul><li>schicken</li><li>schreiben</li><li>zeigen</li><li>kaufen</li><li>schenken</li><li>senden</li></ul></div>
+      <div class="col"><h4>Dativergänzung</h4><ul><li>mir</li><li>dir</li><li>Frau Kümmel</li><li>dem Chef</li><li>Kathrin</li><li>dem Kollegen</li></ul></div>
+      <div class="col"><h4>Akkusativergänzung</h4><ul><li>einen Brief</li><li>eine E-Mail</li><li>eine Postkarte</li><li>einen Blumenstrauß</li><li>eine neue Tasche</li><li>das neue Büro</li></ul></div>
+    </div>
+    <div class="example">
+      <span class="ex-mark"></span>Ich schicke dir eine Postkarte.
+    </div>
+    <div class="free-row"><span class="idx">1.</span><input type="text" id="c2-1" class="sentence-input" autocomplete="off" spellcheck="false"></div>
+    <div class="free-row"><span class="idx">2.</span><input type="text" id="c2-2" class="sentence-input" autocomplete="off" spellcheck="false"></div>
+    <div class="reveal">
+      <button class="ghost small" id="c2-reveal-btn" type="button">サンプル解答例を見る</button>
+      <div class="reveal-box" id="c2-reveal-box">
+        例: Frau Kühne schreibt dem Chef eine E-Mail. / Die Kollegen kaufen Kathrin einen Blumenstrauß. / Matthias schenkt mir eine neue Tasche.
+      </div>
+    </div>
+  </section>
+
+  <!-- C3 -->
+  <section class="exercise" id="sec-c3">
+    <header><span class="tag">C3</span><h2>Formulieren Sie Fragen und antworten Sie.</h2></header>
+    <div class="example">
+      <span class="ex-mark"></span>Wem hast du (Postkarte – schicken)? (mein Freund)
+      <span class="ex-answer">Wem hast du die Postkarte geschickt? Meinem Freund.</span>
+    </div>
+    <ol class="items" id="c3-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C3" data-target="sec-c3">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C4 -->
+  <section class="exercise" id="sec-c4">
+    <header><span class="tag">C4</span><h2>Wiederholen Sie die Modalverben im Präsens.</h2></header>
+    <div id="c4-groups"></div>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C4" data-target="sec-c4">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C5 -->
+  <section class="exercise" id="sec-c5">
+    <header><span class="tag">C5</span><h2>Ergänzen Sie die Verben dürfen, können, müssen, sollen und möchte(n) in der richtigen Form.</h2></header>
+    <div class="example">
+      <span class="ex-mark"></span>Im Krankenhaus <i>dürfen</i> Sie nicht rauchen.
+    </div>
+    <ol class="items" id="c5-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C5" data-target="sec-c5">このセクションを採点する</button></div>
+  </section>
+
+  <div class="refbox">
+    <span class="ref-title">Präteritum der Modalverben</span>
+    können→konnte &nbsp;|&nbsp; müssen→musste &nbsp;|&nbsp; dürfen→durfte &nbsp;|&nbsp; sollen→sollte &nbsp;|&nbsp; wollen→wollte &nbsp;|&nbsp; mögen→mochte<br>
+    sein/haben と同じように、助動詞の過去の出来事にはふつう Präteritum を使います。<i>Paul kann nicht kommen. → Paul konnte nicht kommen.</i>
+  </div>
+
+  <!-- C6 -->
+  <section class="exercise" id="sec-c6">
+    <header><span class="tag">C6</span><h2>Ergänzen Sie die Modalverben im Präteritum.</h2></header>
+    <div class="example">
+      <span class="ex-mark"></span>Paul ist krank. Er kann zu der Party nicht kommen.
+      <span class="ex-answer">Paul war krank. Er konnte zu der Party nicht kommen.</span>
+    </div>
+    <ol class="items" id="c6-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C6" data-target="sec-c6">このセクションを採点する</button></div>
+  </section>
+
+  <div class="btnrow" style="justify-content:center; margin-top:8px;">
+    <button class="ghost" id="resetBtn2" type="button">リセット</button>
+    <button class="primary" id="gradeBtn2" type="button">採点する</button>
+  </div>
+  <footer class="note">Begegnungen A1+（Schubert Verlag）Kapitel 8, S.213–215 の練習問題を基に作成</footer>
+</div>
+
+<script>
+(function(){
+
+  function el(tag, props, children){
+    const e = document.createElement(tag);
+    if (props) for (const k in props){
+      if (k === "class") e.className = props[k];
+      else if (k === "html") e.innerHTML = props[k];
+      else if (k === "style") e.setAttribute("style", props[k]);
+      else e.setAttribute(k, props[k]);
+    }
+    (children||[]).forEach(c => e.appendChild(typeof c === "string" ? document.createTextNode(c) : c));
+    return e;
+  }
+
+  function blankInput(id, answers, width){
+    const inp = el("input", { type:"text", id:id, autocomplete:"off", spellcheck:"false" });
+    if (width) inp.style.width = width;
+    inp.dataset.answers = answers.join("|");
+    return inp;
+  }
+
+  function buildLine(segments, lineClass){
+    const wrap = el("span", { class: lineClass || "line" });
+    segments.forEach(seg => {
+      if (typeof seg === "string"){
+        wrap.appendChild(document.createTextNode(seg));
+      } else if (seg.blank){
+        const inp = blankInput(seg.blank.id, seg.blank.answers, seg.blank.width);
+        if (seg.blank.cls) inp.classList.add(seg.blank.cls);
+        wrap.appendChild(inp);
+      }
+    });
+    return wrap;
+  }
+
+  function textItem(idx, segments, lineClass){
+    const li = el("li");
+    li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    li.appendChild(buildLine(segments, lineClass));
+    return li;
+  }
+
+  // cueItem: a word-list / context cue shown in italics, with one full-width sentence input below
+  function cueItem(idx, cue, expectedList, id){
+    const li = el("li");
+    li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    const col = el("div", { style:"flex:1; display:flex; flex-direction:column; gap:4px;" });
+    col.appendChild(el("span", { class:"qline prompt" }, [cue]));
+    const inp = el("input", { type:"text", id:id, class:"sentence-input", autocomplete:"off", spellcheck:"false" });
+    inp.dataset.sentence = (Array.isArray(expectedList) ? expectedList : [expectedList]).join("||");
+    col.appendChild(inp);
+    li.appendChild(col);
+    return li;
+  }
+
+  // doubleSentenceItem: prompt line, then Frage + Antwort inputs stacked
+  function doubleSentenceItem(idx, promptFull, qAnswers, aAnswers, idPrefix){
+    const li = el("li");
+    li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    const col = el("div", { style:"flex:1; display:flex; flex-direction:column; gap:6px;" });
+    col.appendChild(el("span", { class:"qline prompt" }, [promptFull]));
+    const qRow = el("div", { class:"line" });
+    qRow.appendChild(el("span", { class:"cue" }, ["Frage: "]));
+    const qInp = el("input", { type:"text", id:idPrefix+"-q", class:"sentence-input", autocomplete:"off", spellcheck:"false" });
+    qInp.dataset.sentence = qAnswers.join("||");
+    qRow.appendChild(qInp);
+    col.appendChild(qRow);
+    const aRow = el("div", { class:"line" });
+    aRow.appendChild(el("span", { class:"cue" }, ["Antwort: "]));
+    const aInp = el("input", { type:"text", id:idPrefix+"-a", class:"sentence-input", autocomplete:"off", spellcheck:"false" });
+    aInp.dataset.sentence = aAnswers.join("||");
+    aRow.appendChild(aInp);
+    col.appendChild(aRow);
+    li.appendChild(col);
+    return li;
+  }
+
+  // modalGroup: a conjugation block for C4 (verb name + 3 subject rows sharing a tail phrase)
+  function modalGroup(verbName, tail, rows){
+    const box = el("div", { class:"modal-group" });
+    box.appendChild(el("div", { class:"modal-name" }, [verbName]));
+    const list = el("div", { class:"modal-rows" });
+    rows.forEach(r => {
+      const row = el("div", { class:"modal-row" });
+      row.appendChild(el("span", { class:"modal-subj" }, [r.subject]));
+      if (r.answer){
+        row.appendChild(blankInput(r.id, r.answer, Math.max(7, r.answer[0].length + 3) + "ch"));
+      } else {
+        row.appendChild(el("span", { class:"modal-given" }, [r.given]));
+      }
+      row.appendChild(el("span", { class:"modal-tail" }, [" " + tail]));
+      list.appendChild(row);
+    });
+    box.appendChild(list);
+    return box;
+  }
+
+  // ====================== C1 ======================
+  const c1List = document.getElementById("c1-list");
+  const c1Items = [
+    ["Franziska – sicher – eine berühmte Sängerin – werden", ["Franziska wird sicher eine berühmte Sängerin.", "Sicher wird Franziska eine berühmte Sängerin."]],
+    ["wann – ihr – mit der Arbeit – fertig – werden?", ["Wann werdet ihr mit der Arbeit fertig?"]],
+    ["meine Tochter – bald – Ärztin – werden", ["Meine Tochter wird bald Ärztin.", "Bald wird meine Tochter Ärztin."]],
+    ["diese Studenten – später – bestimmt – gute Ingenieure – werden", ["Diese Studenten werden später bestimmt gute Ingenieure.", "Später werden diese Studenten bestimmt gute Ingenieure."]],
+    ["wer – der neue Abteilungsleiter – werden?", ["Wer wird der neue Abteilungsleiter?"]],
+  ];
+  c1Items.forEach((item, i) => c1List.appendChild(cueItem(i + 1, item[0], item[1], "c1-" + (i + 1))));
+
+  // ====================== C2 (free practice, not graded) ======================
+  document.getElementById("c2-reveal-btn").addEventListener("click", () => {
+    const box = document.getElementById("c2-reveal-box");
+    box.classList.toggle("open");
+  });
+
+  // ====================== C3 ======================
+  const c3List = document.getElementById("c3-list");
+  const c3Items = [
+    ["Wem hast du (Flasche Wein, schenken)? (meine Freundin)", ["Wem hast du die Flasche Wein geschenkt?"], ["Meiner Freundin."]],
+    ["Wem hast du (Geschichte, erzählen)? (meine Mutter)", ["Wem hast du die Geschichte erzählt?"], ["Meiner Mutter."]],
+    ["Wem hast du (Blumenstrauß, kaufen)? (meine Oma)", ["Wem hast du den Blumenstrauß gekauft?"], ["Meiner Oma."]],
+    ["Wem hast du (Foto, zeigen)? (mein Bruder)", ["Wem hast du das Foto gezeigt?"], ["Meinem Bruder."]],
+    ["Wem hast du (E-Mail, senden)? (mein Chef)", ["Wem hast du die E-Mail gesendet?"], ["Meinem Chef."]],
+  ];
+  c3Items.forEach((item, i) => c3List.appendChild(doubleSentenceItem(i + 1, item[0], item[1], item[2], "c3-" + (i + 1))));
+
+  // ====================== C4 ======================
+  const c4Container = document.getElementById("c4-groups");
+  const c4Groups = [
+    { verb:"können", tail:"heute leider nicht kommen.", rows:[
+        { subject:"Ich", given:"kann" },
+        { subject:"Er", answer:["kann"], id:"c4-1" },
+        { subject:"Christiane und Michael", answer:["können"], id:"c4-2" },
+    ]},
+    { verb:"müssen", tail:"noch arbeiten.", rows:[
+        { subject:"Mein Chef", answer:["muss"], id:"c4-3" },
+        { subject:"Peter", answer:["muss"], id:"c4-4" },
+        { subject:"Ich", answer:["muss"], id:"c4-5" },
+    ]},
+    { verb:"sollen", tail:"regelmäßig Sport machen.", rows:[
+        { subject:"Der Arzt sagt: Ihr", answer:["sollt"], id:"c4-6" },
+        { subject:"Der Arzt sagt: Frau Krüger", answer:["soll"], id:"c4-7" },
+        { subject:"Der Arzt sagt: Wir", answer:["sollen"], id:"c4-8" },
+    ]},
+    { verb:"dürfen", tail:"hier nicht rauchen.", rows:[
+        { subject:"Du", answer:["darfst"], id:"c4-9" },
+        { subject:"Man", answer:["darf"], id:"c4-10" },
+        { subject:"Sie", answer:["dürfen"], id:"c4-11" },
+    ]},
+    { verb:"wollen", tail:"dieses Jahr nach Spanien fahren.", rows:[
+        { subject:"Wir", answer:["wollen"], id:"c4-12" },
+        { subject:"Mein Bruder", answer:["will"], id:"c4-13" },
+        { subject:"Meine Freunde", answer:["wollen"], id:"c4-14" },
+    ]},
+    { verb:"möchte(n)", tail:"ein Zweibettzimmer.", rows:[
+        { subject:"Wir", answer:["möchten"], id:"c4-15" },
+        { subject:"Ich", answer:["möchte"], id:"c4-16" },
+        { subject:"Mein Kollege", answer:["möchte"], id:"c4-17" },
+    ]},
+  ];
+  c4Groups.forEach(g => c4Container.appendChild(modalGroup(g.verb, g.tail, g.rows)));
+
+  // ====================== C5 ======================
+  const c5List = document.getElementById("c5-list");
+  const c5Items = [
+    ["Sie ", {blank:{id:"c5-1", answers:["müssen","sollen"], width:"10ch"}}, " diese Tabletten zweimal am Tag einnehmen."],
+    ["Der Arzt hat gesagt, du ", {blank:{id:"c5-2", answers:["sollst"], width:"10ch"}}, " mehr spazieren gehen."],
+    ["Ich ", {blank:{id:"c5-3", answers:["kann"], width:"8ch"}}, " nicht mehr laufen, mein Bein tut so weh."],
+    ["Hast du Kopfschmerzen? Dann ", {blank:{id:"c5-4", answers:["sollst"], width:"10ch"}}, " du keinen Alkohol trinken."],
+    ["Bei Husten und Schnupfen ", {blank:{id:"c5-5", answers:["sollst"], width:"10ch"}}, " du warme Sachen anziehen und heißen Tee mit Honig trinken, das hilft."],
+    ["Ich ", {blank:{id:"c5-6", answers:["möchte","muss"], width:"10ch"}}, " einen Termin beim Arzt vereinbaren."],
+    ["Meine Mutter meint, ich ", {blank:{id:"c5-7", answers:["soll"], width:"8ch"}}, " weniger Schokolade essen."],
+    ["Claudia, du ", {blank:{id:"c5-8", answers:["sollst"], width:"10ch"}}, " nächste Woche zum Arzt gehen. Du ",
+     {blank:{id:"c5-9", answers:["darfst"], width:"10ch"}}, " den Termin nicht vergessen."],
+  ];
+  c5Items.forEach((segs, i) => c5List.appendChild(textItem(i + 1, segs)));
+
+  // ====================== C6 ======================
+  const c6List = document.getElementById("c6-list");
+  // [line1 (Präsens, given), before, answers, after]
+  const c6Items = [
+    ["Susanne will heute ins Kino gehen.", "Susanne ", ["wollte"], " gestern ins Kino gehen."],
+    ["Ich habe keinen Führerschein. Ich darf nicht Auto fahren.", "Ich hatte keinen Führerschein. Ich ", ["durfte"], " nicht Auto fahren."],
+    ["Martin muss den Termin absagen.", "Martin ", ["musste"], " den Termin absagen."],
+    ["Die Sekretärin soll für den Chef einen Tisch reservieren.", "Die Sekretärin ", ["sollte"], " für den Chef einen Tisch reservieren."],
+    ["Ich muss die E-Mail sofort beantworten.", "Ich ", ["musste"], " die E-Mail sofort beantworten."],
+    ["Rudi kann sehr gut Fußball spielen.", "Früher ", ["konnte"], " Rudi sehr gut Fußball spielen."],
+    ["Auf dem Flughafen darf man nicht mehr rauchen.", "Früher ", ["durfte"], " man auf dem Flughafen rauchen."],
+    ["Claudia hat kein Geld. Sie kann die Rechnung nicht bezahlen.", "Claudia hatte kein Geld. Sie ", ["konnte"], " die Rechnung nicht bezahlen."],
+  ];
+  c6Items.forEach((item, i) => {
+    const [line1, before, answers, after] = item;
+    const li = el("li");
+    li.appendChild(el("span", { class:"idx" }, [(i + 1) + "."]));
+    const col = el("div", { style:"flex:1; display:flex; flex-direction:column; gap:2px;" });
+    if (line1) col.appendChild(el("div", { class:"qline" }, [line1]));
+    const line = el("div", { class:"line" });
+    line.appendChild(el("span", { class:"cue" }, [before]));
+    line.appendChild(blankInput("c6-" + (i + 1), answers, Math.max(8, answers[0].length + 3) + "ch"));
+    if (after) line.appendChild(el("span", { class:"cue" }, [after]));
+    col.appendChild(line);
+    li.appendChild(col);
+    c6List.appendChild(li);
+  });
+
+  // ---------- grading ----------
+  const SECTION_PREFIX = [
+    ["C1", (id) => id.startsWith("c1-")],
+    ["C3", (id) => id.startsWith("c3-")],
+    ["C4", (id) => id.startsWith("c4-")],
+    ["C5", (id) => id.startsWith("c5-")],
+    ["C6", (id) => id.startsWith("c6-")],
+  ];
+  function sectionOf(id){
+    for (const [key, test] of SECTION_PREFIX){ if (test(id)) return key; }
+    return null;
+  }
+
+  function normalizeSentence(s){
+    return s.trim().toLowerCase().replace(/\s*[.!?]+\s*$/, "").replace(/\s+/g, " ").trim();
+  }
+
+  function clearHints(){ document.querySelectorAll(".answer-hint").forEach(n => n.remove()); }
+
+  function gradeInputsIn(root, sectionScore){
+    let total = 0, correct = 0;
+
+    root.querySelectorAll('input[type="text"][data-answers]').forEach(inp => {
+      total++;
+      const accepted = inp.dataset.answers.split("|").map(a => a.trim().toLowerCase());
+      const val = inp.value.trim().toLowerCase();
+      const ok = accepted.includes(val);
+      inp.classList.remove("correct","incorrect");
+      inp.classList.add(ok ? "correct" : "incorrect");
+      if (!ok){
+        const hint = el("span", { class:"answer-hint" }, ["→ ", el("b", {}, [inp.dataset.answers.split("|")[0]])]);
+        inp.insertAdjacentElement("afterend", hint);
+      } else { correct++; }
+      if (sectionScore){
+        const s = sectionOf(inp.id);
+        if (s && ok) sectionScore[s] = (sectionScore[s]||0) + 1;
+      }
+    });
+
+    root.querySelectorAll('input[type="text"][data-sentence]').forEach(inp => {
+      total++;
+      const acceptedList = inp.dataset.sentence.split("||").map(normalizeSentence);
+      const val = normalizeSentence(inp.value);
+      const ok = val.length > 0 && acceptedList.includes(val);
+      inp.classList.remove("correct","incorrect");
+      inp.classList.add(ok ? "correct" : "incorrect");
+      if (!ok){
+        const hint = el("span", { class:"answer-hint block" }, ["→ ", el("b", {}, [inp.dataset.sentence.split("||")[0]])]);
+        inp.insertAdjacentElement("afterend", hint);
+      } else { correct++; }
+      if (sectionScore){
+        const s = sectionOf(inp.id);
+        if (s && ok) sectionScore[s] = (sectionScore[s]||0) + 1;
+      }
+    });
+
+    return { total, correct };
+  }
+
+  const TOTALS = { C1:5, C3:10, C4:17, C5:9, C6:8 };
+
+  function grade(){
+    clearHints();
+    const sectionScore = { C1:0, C3:0, C4:0, C5:0, C6:0 };
+    const { total, correct } = gradeInputsIn(document, sectionScore);
+
+    document.getElementById("scoreNum").textContent = correct + " / " + total;
+    document.getElementById("scoreNum").classList.remove("hidden-result");
+    document.querySelectorAll(".chip").forEach(chip => {
+      const s = chip.dataset.chip;
+      if (!s) return;
+      chip.textContent = s + " " + sectionScore[s] + "/" + TOTALS[s];
+      chip.classList.toggle("done", sectionScore[s] === TOTALS[s]);
+    });
+    document.getElementById("scorebar").scrollIntoView({ behavior:"smooth", block:"start" });
+  }
+
+  function resetAll(){
+    document.querySelectorAll('input[type="text"]').forEach(inp => {
+      inp.value = "";
+      inp.classList.remove("correct","incorrect");
+    });
+    clearHints();
+    document.getElementById("scoreNum").textContent = "–";
+    document.getElementById("scoreNum").classList.add("hidden-result");
+    document.querySelectorAll(".chip").forEach(chip => {
+      const s = chip.dataset.chip;
+      if (!s) return;
+      chip.textContent = s + " 0/" + TOTALS[s];
+      chip.classList.remove("done");
+    });
+    document.getElementById("c2-reveal-box").classList.remove("open");
+    window.scrollTo({ top:0, behavior:"smooth" });
+  }
+
+  document.getElementById("gradeBtn").addEventListener("click", grade);
+  document.getElementById("gradeBtn2").addEventListener("click", grade);
+  document.getElementById("resetBtn").addEventListener("click", resetAll);
+  document.getElementById("resetBtn2").addEventListener("click", resetAll);
+
+  function clearHintsIn(root){ root.querySelectorAll(".answer-hint").forEach(n => n.remove()); }
+
+  function gradeSection(sectionKey, root){
+    if (!root) return;
+    clearHintsIn(root);
+    const { total, correct } = gradeInputsIn(root, null);
+    const chip = document.querySelector('.chip[data-chip="'+sectionKey+'"]');
+    if (chip){
+      chip.textContent = sectionKey + " " + correct + "/" + total;
+      chip.classList.toggle("done", correct === total);
+    }
+  }
+
+  document.querySelectorAll(".section-check").forEach(btn => {
+    btn.addEventListener("click", () => {
+      gradeSection(btn.dataset.section, document.getElementById(btn.dataset.target));
+    });
+  });
+
+  function collectState(){
+    const state = {};
+    document.querySelectorAll('input[type="text"][id]').forEach(i => state[i.id] = i.value);
+    return state;
+  }
+  function applyState(state){
+    if (!state) return;
+    document.querySelectorAll('input[type="text"][id]').forEach(i => { if (state[i.id] !== undefined) i.value = state[i.id]; });
+  }
+  try {
+    if (window.claude && window.claude.hot){
+      window.claude.hot.snapshot(collectState);
+      const boot = (data) => applyState(data);
+      window.claude.hot.ready ? window.claude.hot.ready(boot) : boot(window.claude.hot.data || {});
+    }
+  } catch(e) {}
+})();
+</script>
+
+</body>
+</html>

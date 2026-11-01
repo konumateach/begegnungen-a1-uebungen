@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Kapitel 8 Perfekt &amp; Präpositionen</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f7f6; --surface:#ffffff; --surface-2:#eef4f3; --ink:#152524; --muted:#5c716f; --border:#d7e2e0;
+    --accent:#0d7a72; --accent-ink:#075a54; --accent-soft:#e0f2ef;
+    --correct:#1c7a43; --correct-bg:#e5f5ea; --correct-border:#a9d9b8;
+    --incorrect:#b3261e; --incorrect-bg:#fdecea; --incorrect-border:#f0b8b3;
+    --shadow: 0 1px 2px rgba(21,37,36,.04), 0 8px 24px -12px rgba(21,37,36,.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0f1716; --surface:#16201f; --surface-2:#1c2725; --ink:#e8f0ee; --muted:#9db3af; --border:#293735;
+      --accent:#3fc9bb; --accent-ink:#8fe3d8; --accent-soft:#1a3230;
+      --correct:#5fd487; --correct-bg:#173224; --correct-border:#2c5a3c;
+      --incorrect:#ff8a80; --incorrect-bg:#3a1c1a; --incorrect-border:#6b302b;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0f1716; --surface:#16201f; --surface-2:#1c2725; --ink:#e8f0ee; --muted:#9db3af; --border:#293735;
+    --accent:#3fc9bb; --accent-ink:#8fe3d8; --accent-soft:#1a3230;
+    --correct:#5fd487; --correct-bg:#173224; --correct-border:#2c5a3c;
+    --incorrect:#ff8a80; --incorrect-bg:#3a1c1a; --incorrect-border:#6b302b;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+  }
+
+  *{box-sizing:border-box;}
+  body{ background:var(--bg); color:var(--ink); font-family:"Source Sans 3", "Hiragino Sans", "Yu Gothic", sans-serif; line-height:1.55; }
+  .wrap{ max-width:780px; margin:0 auto; padding-inline:20px; padding-block:28px 120px; }
+  h1,h2,h3{ font-family:"Fraunces", serif; text-wrap:balance; margin:0; }
+  .masthead{ display:flex; flex-direction:column; gap:6px; margin-bottom:28px; }
+  .kicker{ font-size:12.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--accent-ink); font-weight:600; }
+  h1{ font-size:clamp(26px,5vw,34px); font-weight:700; color:var(--ink); }
+  .sub{ color:var(--muted); font-size:15px; max-width:62ch; }
+
+  .scorebar{ position:sticky; top:env(safe-area-inset-top,0px); z-index:20; display:flex; align-items:center; justify-content:space-between; gap:12px; background:var(--surface); border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); padding:12px 16px; margin-bottom:26px; flex-wrap:wrap; }
+  .scorebar .totals{ display:flex; align-items:baseline; gap:8px; }
+  .scorebar .totals .num{ font-family:"Fraunces", serif; font-size:26px; font-weight:700; font-variant-numeric:tabular-nums; color:var(--accent-ink); }
+  .scorebar .totals .num.hidden-result{ color:var(--muted); }
+  .scorebar .label{ font-size:13px; color:var(--muted); }
+  .btnrow{ display:flex; gap:8px; }
+  .section-check-row{ display:flex; justify-content:flex-end; margin-top:14px; }
+  button.small{ font-size:13px; padding:7px 14px; }
+  button{ font-family:inherit; font-size:14.5px; font-weight:600; border-radius:10px; padding:10px 18px; border:1px solid transparent; cursor:pointer; transition:transform .08s ease, background .15s ease, box-shadow .15s ease; }
+  button:focus-visible, input:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+  button.primary{ background:var(--accent); color:#fdfffe; box-shadow:0 4px 14px -6px var(--accent); }
+  button.primary:hover{ transform:translateY(-1px); }
+  button.ghost{ background:transparent; color:var(--muted); border-color:var(--border); }
+  button.ghost:hover{ background:var(--surface-2); }
+
+  .chips{ display:flex; gap:6px; flex-wrap:wrap; }
+  .chip{ font-size:12px; font-weight:600; padding:4px 9px; border-radius:999px; background:var(--surface-2); color:var(--muted); font-variant-numeric:tabular-nums; border:1px solid var(--border); }
+  .chip.done{ background:var(--accent-soft); color:var(--accent-ink); border-color:transparent; }
+
+  section.exercise{ background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:22px 22px 24px; margin-bottom:22px; box-shadow:var(--shadow); }
+  .exercise > header{ display:flex; align-items:baseline; gap:10px; margin-bottom:4px; flex-wrap:wrap; }
+  .exercise > header .tag{ font-family:"Fraunces", serif; font-weight:700; font-size:20px; color:var(--accent-ink); background:var(--accent-soft); border-radius:8px; padding:1px 10px; }
+  .exercise > header h2{ font-size:18px; font-weight:600; color:var(--ink); }
+  .instr{ font-style:italic; color:var(--muted); font-size:14px; margin:2px 0 16px; }
+
+  .example{ font-size:14.5px; color:var(--muted); margin-bottom:12px; padding-left:2px; }
+  .example .ex-mark{ display:inline-block; width:9px; height:9px; background:var(--accent); margin-right:8px; border-radius:2px; }
+  .example .ex-answer{ display:block; margin-top:2px; padding-left:17px; font-style:italic; color:var(--accent-ink); }
+
+  ol.items{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:14px; }
+  ol.items > li{ display:flex; align-items:flex-start; gap:10px; }
+  ol.items > li .idx{ font-variant-numeric:tabular-nums; color:var(--muted); font-size:14px; min-width:1.4em; padding-top:6px; }
+  .line{ flex:1; display:flex; flex-wrap:wrap; align-items:center; gap:6px; font-size:16px; }
+  .cue{ font-style:italic; color:var(--muted); font-size:13.5px; margin-right:2px; }
+  .qline{ display:block; color:var(--ink); margin-bottom:4px; }
+  .qline.prompt{ font-style:italic; color:var(--muted); }
+
+  input[type="text"]{ font:inherit; font-size:16px; color:var(--ink); background:var(--surface-2); border:1.5px solid var(--border); border-radius:8px; padding:4px 8px; width:12ch; text-align:center; }
+  input[type="text"].sentence-input{ width:100%; text-align:left; }
+  input[type="text"]:focus{ border-color:var(--accent); background:var(--surface); }
+  input[type="text"].correct{ background:var(--correct-bg); border-color:var(--correct-border); color:var(--correct); font-weight:600; }
+  input[type="text"].incorrect{ background:var(--incorrect-bg); border-color:var(--incorrect-border); color:var(--incorrect); font-weight:600; }
+  .answer-hint{ font-size:13px; color:var(--incorrect); white-space:nowrap; }
+  .answer-hint.block{ display:block; white-space:normal; margin-top:2px; }
+  .answer-hint b{ font-weight:700; }
+
+  .refbox{ background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:14px 16px; font-size:13.5px; color:var(--muted); margin-bottom:18px; line-height:1.8; }
+  .refbox b{ color:var(--ink); }
+  .refbox .ref-title{ font-weight:700; color:var(--ink); display:block; margin-bottom:4px; }
+
+  /* letter framing for C7 */
+  .letter-frame{ margin-bottom:14px; }
+  .letter-line{ font-style:italic; color:var(--accent-ink); margin-bottom:4px; }
+
+  /* C10 multiple-choice */
+  .radio-row{ display:flex; align-items:center; flex-wrap:wrap; gap:12px; font-size:15px; margin-top:4px; }
+  .radio-opt{ display:inline-flex; align-items:center; gap:5px; cursor:pointer; padding:4px 10px; border-radius:8px; border:1px solid var(--border); background:var(--surface-2); transition:background .15s ease, border-color .15s ease; }
+  .radio-opt input{ accent-color:var(--accent); margin:0; }
+  .radio-opt.correct{ background:var(--correct-bg); border-color:var(--correct-border); color:var(--correct); font-weight:600; }
+  .radio-opt.incorrect{ background:var(--incorrect-bg); border-color:var(--incorrect-border); color:var(--incorrect); font-weight:600; }
+  .radio-after{ margin-left:2px; }
+
+  @media (max-width:620px){ .scorebar{ flex-direction:column; align-items:stretch; } .btnrow{ justify-content:flex-end; } }
+
+  footer.note{ color:var(--muted); font-size:12.5px; text-align:center; margin-top:8px; }
+  .back-link{ display:inline-flex; align-items:center; gap:5px; font-size:13.5px; font-weight:600; color:var(--muted); text-decoration:none; margin-bottom:16px; }
+  .back-link:hover{ color:var(--accent-ink); }
+</style>
+
+
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="index.html">← Zurück zum Portal</a>
+  <div class="masthead">
+    <span class="kicker">Begegnungen A1+ · Kapitel 8 · Teil C (2/2)</span>
+    <h1>Perfekt &amp; Präpositionen</h1>
+    <p class="sub">C7–C10 の練習問題です(S.216–217)。現在完了形(Perfekt)での文作り、格(Kasus)に注意した疑問文、前置詞を扱います。</p>
+  </div>
+
+  <div class="scorebar" id="scorebar">
+    <div class="totals">
+      <span class="num hidden-result" id="scoreNum">–</span>
+      <span class="label">正解数 / 全42問</span>
+    </div>
+    <div class="chips" id="chips">
+      <span class="chip" data-chip="C7">C7 0/8</span>
+      <span class="chip" data-chip="C8">C8 0/12</span>
+      <span class="chip" data-chip="C9">C9 0/10</span>
+      <span class="chip" data-chip="C10">C10 0/12</span>
+    </div>
+    <div class="btnrow">
+      <button class="ghost" id="resetBtn" type="button">リセット</button>
+      <button class="primary" id="gradeBtn" type="button">採点する</button>
+    </div>
+  </div>
+
+  <div class="refbox">
+    <span class="ref-title">Vergangenheitsform der Verben</span>
+    規則動詞: spielen → spielte → habe gespielt &nbsp;|&nbsp; 不規則動詞: fliegen → flog → bin geflogen、verlieren → verlor → habe verloren<br>
+    使い分け: Perfekt はおもに話し言葉、Präteritum はおもに書き言葉で使われます。
+  </div>
+
+  <!-- C7 -->
+  <section class="exercise" id="sec-c7">
+    <header><span class="tag">C7</span><h2>Schreiben Sie den Reisebericht von Marie im Perfekt.</h2></header>
+    <div class="example">
+      <span class="ex-mark"></span>ich – in London – gestern – gut ankommen
+      <span class="ex-answer">ich bin gestern gut in London angekommen</span>
+    </div>
+    <div class="letter-frame">
+      <div class="letter-line">Hallo Otto,</div>
+      <div class="letter-line">ich bin gestern gut in London angekommen.</div>
+    </div>
+    <ol class="items" id="c7-list"></ol>
+    <div class="letter-frame" style="margin-top:14px;">
+      <div class="letter-line">Es ist ganz toll hier. Ich rufe dich bald an.</div>
+      <div class="letter-line">Liebe Grüße von Marie</div>
+    </div>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C7" data-target="sec-c7">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C8 -->
+  <section class="exercise" id="sec-c8">
+    <header><span class="tag">C8</span><h2>Was ist passiert? Berichten Sie im Perfekt.</h2></header>
+    <div class="example">
+      <span class="ex-mark"></span>Karl wohnte von 1988 bis 2005 in Köln.
+      <span class="ex-answer">Karl hat von 1988 bis 2005 in Köln gewohnt.</span>
+    </div>
+    <ol class="items" id="c8-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C8" data-target="sec-c8">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C9 -->
+  <section class="exercise" id="sec-c9">
+    <header><span class="tag">C9</span><h2>Bilden Sie Fragen im Perfekt wie im Beispiel.</h2></header>
+    <p class="instr">Achten Sie auf den Kasus.</p>
+    <div class="example">
+      <span class="ex-mark"></span>der Brief – übersetzen
+      <span class="ex-answer">Hast du den Brief schon übersetzt?</span>
+    </div>
+    <ol class="items" id="c9-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C9" data-target="sec-c9">このセクションを採点する</button></div>
+  </section>
+
+  <!-- C10 -->
+  <section class="exercise" id="sec-c10">
+    <header><span class="tag">C10</span><h2>Welche Präposition passt?</h2></header>
+    <p class="instr">Kreuzen Sie die richtige Lösung an.</p>
+    <div class="example">
+      <span class="ex-mark"></span>Der FC Bayern München gewann <i>mit</i> 2:0.
+    </div>
+    <div class="refbox" style="margin-bottom:16px;">
+      <b>mit / von / zu</b> + Dativ &nbsp;|&nbsp; <b>für</b> + Akkusativ
+    </div>
+    <ol class="items" id="c10-list"></ol>
+    <div class="section-check-row"><button class="ghost small section-check" type="button" data-section="C10" data-target="sec-c10">このセクションを採点する</button></div>
+  </section>
+
+  <div class="btnrow" style="justify-content:center; margin-top:8px;">
+    <button class="ghost" id="resetBtn2" type="button">リセット</button>
+    <button class="primary" id="gradeBtn2" type="button">採点する</button>
+  </div>
+  <footer class="note">Begegnungen A1+（Schubert Verlag）Kapitel 8, S.216–217 の練習問題を基に作成</footer>
+</div>
+
+<script>
+(function(){
+
+  function el(tag, props, children){
+    const e = document.createElement(tag);
+    if (props) for (const k in props){
+      if (k === "class") e.className = props[k];
+      else if (k === "html") e.innerHTML = props[k];
+      else if (k === "style") e.setAttribute("style", props[k]);
+      else e.setAttribute(k, props[k]);
+    }
+    (children||[]).forEach(c => e.appendChild(typeof c === "string" ? document.createTextNode(c) : c));
+    return e;
+  }
+
+  function blankInput(id, answers, width){
+    const inp = el("input", { type:"text", id:id, autocomplete:"off", spellcheck:"false" });
+    if (width) inp.style.width = width;
+    inp.dataset.answers = answers.join("|");
+    return inp;
+  }
+
+  // cueItem: a word-list / context cue shown in italics, with one full-width sentence input below
+  function cueItem(idx, cue, expectedList, id){
+    const li = el("li");
+    li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    const col = el("div", { style:"flex:1; display:flex; flex-direction:column; gap:4px;" });
+    col.appendChild(el("span", { class:"qline prompt" }, [cue]));
+    const inp = el("input", { type:"text", id:id, class:"sentence-input", autocomplete:"off", spellcheck:"false" });
+    inp.dataset.sentence = (Array.isArray(expectedList) ? expectedList : [expectedList]).join("||");
+    col.appendChild(inp);
+    li.appendChild(col);
+    return li;
+  }
+
+  // radioItem: multiple-choice (3 options) for C10
+  function radioItem(idx, before, options, afterText, id){
+    const li = el("li");
+    li.appendChild(el("span", { class:"idx" }, [idx + "."]));
+    const col = el("div", { style:"flex:1; display:flex; flex-direction:column; gap:2px;" });
+    col.appendChild(el("div", { class:"line" }, [before]));
+    const optsRow = el("div", { class:"radio-row" });
+    options.forEach((opt, oi) => {
+      const label = el("label", { class:"radio-opt" });
+      const radio = el("input", { type:"radio", name:id, value:String(oi) });
+      label.appendChild(radio);
+      label.appendChild(document.createTextNode(" " + opt));
+      optsRow.appendChild(label);
+    });
+    optsRow.appendChild(el("span", { class:"radio-after" }, [afterText]));
+    col.appendChild(optsRow);
+    li.appendChild(col);
+    return li;
+  }
+
+  // ====================== C7 ======================
+  const c7List = document.getElementById("c7-list");
+  const c7Items = [
+    ["zuerst – ich – mit der Metro – ins Stadtzentrum – fahren", ["Zuerst bin ich mit der Metro ins Stadtzentrum gefahren."]],
+    ["das – ungefähr 45 Minuten – dauern", ["Das hat ungefähr 45 Minuten gedauert."]],
+    ["dann – ich – das Hotel – suchen", ["Dann habe ich das Hotel gesucht."]],
+    ["nach 20 Minuten – ich – es – finden", ["Nach 20 Minuten habe ich es gefunden."]],
+    ["gestern Abend – ich – mit Christian – das Musical „Das Phantom der Oper“ – sehen", ["Gestern Abend habe ich mit Christian das Musical „Das Phantom der Oper“ gesehen."]],
+    ["danach – wir – in einem indischen Restaurant – essen", ["Danach haben wir in einem indischen Restaurant gegessen."]],
+    ["heute früh – wir – den „Tower“ – besichtigen – und – eine Bootsfahrt – machen", ["Heute früh haben wir den „Tower“ besichtigt und eine Bootsfahrt gemacht."]],
+    ["die Bootsfahrt – uns – sehr gut – gefallen", ["Die Bootsfahrt hat uns sehr gut gefallen."]],
+  ];
+  c7Items.forEach((item, i) => c7List.appendChild(cueItem(i + 1, item[0], item[1], "c7-" + (i + 1))));
+
+  // ====================== C8 ======================
+  const c8List = document.getElementById("c8-list");
+  const c8Items = [
+    ["Er arbeitete als Finanzberater bei einer Bank.", ["Er hat als Finanzberater bei einer Bank gearbeitet."]],
+    ["Er vereinbarte viele Termine.", ["Er hat viele Termine vereinbart."]],
+    ["In der Bank führte er Gespräche.", ["In der Bank hat er Gespräche geführt."]],
+    ["Er schrieb täglich 50 E-Mails.", ["Er hat täglich 50 E-Mails geschrieben."]],
+    ["Am Wochenende spielte er Golf.", ["Am Wochenende hat er Golf gespielt."]],
+    ["Am 5. Mai 2019 gewann Karl bei einem Turnier.", ["Am 5. Mai 2019 hat Karl bei einem Turnier gewonnen."]],
+    ["Im Juli kaufte er ein rotes Cabrio.", ["Im Juli hat er ein rotes Cabrio gekauft."]],
+    ["Im Sommer fuhr er mit dem Cabrio nach Spanien.", ["Im Sommer ist er mit dem Cabrio nach Spanien gefahren."]],
+    ["In Spanien trank er viel Wein.", ["In Spanien hat er viel Wein getrunken."]],
+    ["Karl besuchte ein Museum für moderne Kunst in Madrid.", ["Karl hat ein Museum für moderne Kunst in Madrid besucht."]],
+    ["Dort traf er Antonia.", ["Dort hat er Antonia getroffen."]],
+    ["Im Januar heiratete er seine spanische Freundin.", ["Im Januar hat er seine spanische Freundin geheiratet."]],
+  ];
+  c8Items.forEach((item, i) => c8List.appendChild(cueItem(i + 1, item[0], item[1], "c8-" + (i + 1))));
+
+  // ====================== C9 ======================
+  const c9List = document.getElementById("c9-list");
+  const c9Items = [
+    ["die E-Mail – beantworten", ["Hast du die E-Mail schon beantwortet?"]],
+    ["der Termin – absagen", ["Hast du den Termin schon abgesagt?"]],
+    ["die Rechnung – bezahlen", ["Hast du die Rechnung schon bezahlt?"]],
+    ["ein Termin – beim Arzt – vereinbaren", ["Hast du einen Termin beim Arzt schon vereinbart?"]],
+    ["der Tisch – reservieren", ["Hast du den Tisch schon reserviert?"]],
+    ["die Hausaufgaben – machen", ["Hast du die Hausaufgaben schon gemacht?"]],
+    ["die Tabletten – einnehmen", ["Hast du die Tabletten schon eingenommen?"]],
+    ["Oma – das Foto – zeigen", ["Hast du Oma das Foto schon gezeigt?"]],
+    ["Otto – die Geschichte – erzählen", ["Hast du Otto die Geschichte schon erzählt?"]],
+    ["deine Mutter – die Handtasche – schenken", ["Hast du deiner Mutter die Handtasche schon geschenkt?"]],
+  ];
+  c9Items.forEach((item, i) => c9List.appendChild(cueItem(i + 1, item[0], item[1], "c9-" + (i + 1))));
+
+  // ====================== C10 ======================
+  const c10List = document.getElementById("c10-list");
+  const C10_CORRECT = {};
+  const c10Items = [
+    ["Heute ist der 80. Geburtstag", ["von","mit","zu"], 0, "Oma."],
+    ["Alles Gute", ["zum","zur","mit"], 1, "Hochzeit!"],
+    ["Ich gratuliere dir", ["mit","zur","zum"], 2, "Geburtstag."],
+    ["Ich schenke Lisa einen Korb", ["für","zu","mit"], 2, "frischem Obst."],
+    ["Ich habe diese schönen Blumen", ["von","für","mit"], 0, "meinem Freund bekommen."],
+    ["Ich danke dir", ["von","zur","für"], 2, "die Einladung."],
+    ["Du bist krank. Du musst", ["zum","zur","für"], 0, "Arzt gehen."],
+    ["Sie dürfen nicht", ["für","mit","zum"], 1, "dem Auto fahren."],
+    ["Paul musste", ["mit","von","für"], 2, "seine Frau Essen kochen."],
+    ["Ich kann leider nicht", ["zum","zu","mit"], 1, "deiner Party kommen."],
+    ["Nehmen Sie die Tabletten nicht", ["für","zur","mit"], 2, "Milch ein!"],
+    ["Wir finden eine Lösung", ["von","für","mit"], 1, "das Problem."],
+  ];
+  c10Items.forEach((item, i) => {
+    const id = "c10-" + (i + 1);
+    C10_CORRECT[id] = item[2];
+    c10List.appendChild(radioItem(i + 1, item[0], item[1], item[3], id));
+  });
+
+  // ---------- grading ----------
+  const SECTION_PREFIX = [
+    ["C7", (id) => id.startsWith("c7-")],
+    ["C8", (id) => id.startsWith("c8-")],
+    ["C9", (id) => id.startsWith("c9-")],
+    ["C10", (id) => id.startsWith("c10-")],
+  ];
+  function sectionOf(id){
+    for (const [key, test] of SECTION_PREFIX){ if (test(id)) return key; }
+    return null;
+  }
+
+  function normalizeSentence(s){
+    return s.trim().toLowerCase()
+      .replace(/[„“”‟‘’«»"']/g, "")
+      .replace(/\s*[.!?]+\s*$/, "")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function clearHints(){ document.querySelectorAll(".answer-hint").forEach(n => n.remove()); }
+
+  function gradeInputsIn(root, sectionScore){
+    let total = 0, correct = 0;
+
+    root.querySelectorAll('input[type="text"][data-answers]').forEach(inp => {
+      total++;
+      const accepted = inp.dataset.answers.split("|").map(a => a.trim().toLowerCase());
+      const val = inp.value.trim().toLowerCase();
+      const ok = accepted.includes(val);
+      inp.classList.remove("correct","incorrect");
+      inp.classList.add(ok ? "correct" : "incorrect");
+      if (!ok){
+        const hint = el("span", { class:"answer-hint" }, ["→ ", el("b", {}, [inp.dataset.answers.split("|")[0]])]);
+        inp.insertAdjacentElement("afterend", hint);
+      } else { correct++; }
+      if (sectionScore){
+        const s = sectionOf(inp.id);
+        if (s && ok) sectionScore[s] = (sectionScore[s]||0) + 1;
+      }
+    });
+
+    root.querySelectorAll('input[type="text"][data-sentence]').forEach(inp => {
+      total++;
+      const acceptedList = inp.dataset.sentence.split("||").map(normalizeSentence);
+      const val = normalizeSentence(inp.value);
+      const ok = val.length > 0 && acceptedList.includes(val);
+      inp.classList.remove("correct","incorrect");
+      inp.classList.add(ok ? "correct" : "incorrect");
+      if (!ok){
+        const hint = el("span", { class:"answer-hint block" }, ["→ ", el("b", {}, [inp.dataset.sentence.split("||")[0]])]);
+        inp.insertAdjacentElement("afterend", hint);
+      } else { correct++; }
+      if (sectionScore){
+        const s = sectionOf(inp.id);
+        if (s && ok) sectionScore[s] = (sectionScore[s]||0) + 1;
+      }
+    });
+
+    return { total, correct };
+  }
+
+  function gradeRadiosIn(root, sectionScore){
+    let total = 0, correct = 0;
+    const groups = {};
+    root.querySelectorAll('input[type="radio"]').forEach(r => {
+      if (!(r.name in C10_CORRECT)) return;
+      groups[r.name] = groups[r.name] || [];
+      groups[r.name].push(r);
+    });
+    Object.keys(groups).forEach(name => {
+      total++;
+      const correctIdx = C10_CORRECT[name];
+      const radios = groups[name];
+      let checkedVal = null;
+      radios.forEach(r => { if (r.checked) checkedVal = r.value; });
+      const ok = checkedVal !== null && Number(checkedVal) === correctIdx;
+      radios.forEach(r => {
+        const label = r.closest(".radio-opt");
+        label.classList.remove("correct","incorrect");
+        if (Number(r.value) === correctIdx){
+          label.classList.add("correct");
+        } else if (r.checked){
+          label.classList.add("incorrect");
+        }
+      });
+      if (ok) correct++;
+      if (sectionScore){
+        const s = sectionOf(name);
+        if (s && ok) sectionScore[s] = (sectionScore[s]||0) + 1;
+      }
+    });
+    return { total, correct };
+  }
+
+  const TOTALS = { C7:8, C8:12, C9:10, C10:12 };
+
+  function grade(){
+    clearHints();
+    const sectionScore = { C7:0, C8:0, C9:0, C10:0 };
+    const r1 = gradeInputsIn(document, sectionScore);
+    const r2 = gradeRadiosIn(document, sectionScore);
+    const total = r1.total + r2.total;
+    const correct = r1.correct + r2.correct;
+
+    document.getElementById("scoreNum").textContent = correct + " / " + total;
+    document.getElementById("scoreNum").classList.remove("hidden-result");
+    document.querySelectorAll(".chip").forEach(chip => {
+      const s = chip.dataset.chip;
+      if (!s) return;
+      chip.textContent = s + " " + sectionScore[s] + "/" + TOTALS[s];
+      chip.classList.toggle("done", sectionScore[s] === TOTALS[s]);
+    });
+    document.getElementById("scorebar").scrollIntoView({ behavior:"smooth", block:"start" });
+  }
+
+  function resetAll(){
+    document.querySelectorAll('input[type="text"]').forEach(inp => {
+      inp.value = "";
+      inp.classList.remove("correct","incorrect");
+    });
+    document.querySelectorAll('input[type="radio"]').forEach(r => { r.checked = false; });
+    document.querySelectorAll('.radio-opt').forEach(l => l.classList.remove("correct","incorrect"));
+    clearHints();
+    document.getElementById("scoreNum").textContent = "–";
+    document.getElementById("scoreNum").classList.add("hidden-result");
+    document.querySelectorAll(".chip").forEach(chip => {
+      const s = chip.dataset.chip;
+      if (!s) return;
+      chip.textContent = s + " 0/" + TOTALS[s];
+      chip.classList.remove("done");
+    });
+    window.scrollTo({ top:0, behavior:"smooth" });
+  }
+
+  document.getElementById("gradeBtn").addEventListener("click", grade);
+  document.getElementById("gradeBtn2").addEventListener("click", grade);
+  document.getElementById("resetBtn").addEventListener("click", resetAll);
+  document.getElementById("resetBtn2").addEventListener("click", resetAll);
+
+  function clearHintsIn(root){ root.querySelectorAll(".answer-hint").forEach(n => n.remove()); }
+
+  function gradeSection(sectionKey, root){
+    if (!root) return;
+    clearHintsIn(root);
+    const r1 = gradeInputsIn(root, null);
+    const r2 = gradeRadiosIn(root, null);
+    const total = r1.total + r2.total;
+    const correct = r1.correct + r2.correct;
+    const chip = document.querySelector('.chip[data-chip="'+sectionKey+'"]');
+    if (chip){
+      chip.textContent = sectionKey + " " + correct + "/" + total;
+      chip.classList.toggle("done", correct === total);
+    }
+  }
+
+  document.querySelectorAll(".section-check").forEach(btn => {
+    btn.addEventListener("click", () => {
+      gradeSection(btn.dataset.section, document.getElementById(btn.dataset.target));
+    });
+  });
+
+  function collectState(){
+    const state = {};
+    document.querySelectorAll('input[type="text"][id]').forEach(i => state[i.id] = i.value);
+    document.querySelectorAll('input[type="radio"]:checked').forEach(r => state["radio:" + r.name] = r.value);
+    return state;
+  }
+  function applyState(state){
+    if (!state) return;
+    document.querySelectorAll('input[type="text"][id]').forEach(i => { if (state[i.id] !== undefined) i.value = state[i.id]; });
+    document.querySelectorAll('input[type="radio"]').forEach(r => {
+      const key = "radio:" + r.name;
+      if (state[key] !== undefined && state[key] === r.value) r.checked = true;
+    });
+  }
+  try {
+    if (window.claude && window.claude.hot){
+      window.claude.hot.snapshot(collectState);
+      const boot = (data) => applyState(data);
+      window.claude.hot.ready ? window.claude.hot.ready(boot) : boot(window.claude.hot.data || {});
+    }
+  } catch(e) {}
+})();
+</script>
+
+</body>
+</html>
